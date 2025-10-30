@@ -182,7 +182,7 @@ Transform:
   m_GameObject: {fileID: 3136842472751097304}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -309,12 +309,12 @@ MonoBehaviour:
   boundaryRect:
     serializedVersion: 2
     x: 0.05
-    y: 0.075
+    y: 0.1
     width: 0.9
-    height: 0.85
+    height: 0.8
   bulletPrefab: {fileID: 2961395079198746520, guid: 761bbbb067379e846a7bb81dd08eeb39, type: 3}
   cannonPoint: {fileID: 4750021553761670921}
-  shotDelay: 0.05
+  shotDelay: 0.15
   autoShooting: 0
   sr: {fileID: 7195363704932177947}
   damageEmitter: {fileID: 7046749715116518040}

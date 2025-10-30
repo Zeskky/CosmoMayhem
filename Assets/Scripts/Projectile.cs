@@ -19,4 +19,14 @@ public class Projectile : MonoBehaviour
     {
 
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Projectile>() && !collision.CompareTag(gameObject.tag))
+        {
+            // Destroy this projectile whenever it collides with another one,
+            // unless both GameObjects have the same tag.
+            Destroy(gameObject);
+        }
+    }
 }

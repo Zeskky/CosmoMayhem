@@ -132,6 +132,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  movementBehaviour: 2
+  targetPosition: {x: 0, y: 0}
+  speedModifier: 0.5
+  canShoot: 0
+  shotDelay: 2
+  shotSpeed: 5
+  shotPrefab: {fileID: 0}
+  cannonPoint: {fileID: 0}
 --- !u!50 &7148799123157102321
 Rigidbody2D:
   serializedVersion: 5

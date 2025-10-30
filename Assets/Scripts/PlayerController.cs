@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public int Health { get; set; }
     [SerializeField] private int maxHealth = 3;
+    public int MaxHealth { get { return maxHealth; } }
+
     [SerializeField] private float damageImmunityTime = 2f, immunityBlinkDuration = 0.5f;
     private float immuneTimer;
     [SerializeField] private Gradient immunityBlinkPattern;
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void FixedUpdate()
     {
         immuneTimer = Mathf.Max(immuneTimer - Time.fixedDeltaTime, 0);
-        sr.color = IsImmune()
+        sr.color = IsImmune
             ? immunityBlinkPattern.Evaluate(
                 (damageImmunityTime - immuneTimer) % immunityBlinkDuration / immunityBlinkDuration
             )
@@ -84,7 +86,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage = 1)
     {
-        if (IsImmune() || damage <= 0)
+        if (IsImmune || damage <= 0)
             return;
 
         immuneTimer = damageImmunityTime;
@@ -110,21 +112,31 @@ public class PlayerController : MonoBehaviour, IDamageable
     public void Die()
     {
         // TODO: show explosion effect
-        Destroy(gameObject);
         GameManager.Instance.DoGameOverSequence();
+        Destroy(gameObject);
     }
 
 
-    public bool IsImmune()
+    public bool IsImmune
     {
-        return immuneTimer > 0;
+        get { return immuneTimer > 0; }
+    }
+
+    public bool WasDamagedThisFrame
+    {
+        get { return Mathf.Abs(immuneTimer - damageImmunityTime) <= 1 / 60f; }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (!collision.CompareTag(gameObject.tag))
         {
             TakeDamage();
+            if (collision.GetComponent<Projectile>() && WasDamagedThisFrame)
+            {
+                // Destroy the colliding projectile, only if the player took damage
+                Destroy(collision.gameObject);
+            }
         }
     }
 }

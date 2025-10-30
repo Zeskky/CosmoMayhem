@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{094e9ba4-d4da-4ac7-9bb0-6d905fed77f0}">
-		<property name="note" />
 		<property name="name">
 			<value>Laser Shot</value>
 		</property>
@@ -9,7 +8,7 @@
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{05c03bd9-c1f4-4761-ad11-bec707763156}</destination>
+			<destination>{d1ec4735-19f5-4f0c-bd8a-c5dacc7c7e06}</destination>
 		</relationship>
 		<relationship name="tags">
 			<destination>{cc8efe28-5370-43b0-8567-1de94157c523}</destination>
@@ -76,6 +75,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{b08d9a0d-1a53-4d75-906f-085e41a87d9e}">
+		<property name="volume">
+			<value>-4</value>
+		</property>
 		<relationship name="modulators">
 			<destination>{19aa1676-6273-41b5-8e04-a2a6f75d70c9}</destination>
 		</relationship>
