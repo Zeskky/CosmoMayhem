@@ -1,10 +1,13 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreLabel, scoreLabelBackground, multiplierLabel;
+    [SerializeField] List<Color> multiplierColors;
+    [SerializeField] Transform multiplierBar;
     [SerializeField] private float charSpacing = 0.825f, scoreUpdateRate = 10f;
     private float displayedScore = 0;
 
@@ -63,7 +66,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            // Stable systems
+            // Systems OK
             healthBar.color = Color.black;
         }
 
@@ -71,6 +74,36 @@ public class UIManager : MonoBehaviour
         displayedScore = Mathf.Min(displayedScore + Time.fixedDeltaTime * scoreUpdateRate, GameManager.Instance.score);
         scoreLabel.text = $"{monospaceTag}{(int)displayedScore,8}";
         scoreLabelBackground.text = $"{monospaceTag}{((int)displayedScore).ToString().PadLeft(8, '0')}";
-        multiplierLabel.text = $"x{GameManager.Instance.Multiplier}";
+        UpdateMultiplier();
+    }
+
+    private void UpdateMultiplier()
+    {
+        int currentMultiplier = GameManager.Instance.Multiplier;
+        int nextMultiplier = currentMultiplier + 1;
+
+        Color currentColor = Color.gray, nextColor = currentColor;
+        if (currentMultiplier - 1 < multiplierColors.Count)
+            nextColor = currentColor = multiplierColors[currentMultiplier - 1];
+
+        if (nextMultiplier - 1 < multiplierColors.Count)
+            nextColor = multiplierColors[nextMultiplier - 1];
+
+        multiplierLabel.text = $"x{currentMultiplier}";
+        multiplierLabel.color = currentColor;
+
+        // Multiplier Segments
+        for (int i = 0; i < multiplierBar.childCount; i++)
+        {
+            Image barSegment;
+            if (barSegment = multiplierBar.GetChild(i).GetComponent<Image>())
+            {
+                barSegment.color = 
+                    GameManager.Instance.MultiplierProgress > i 
+                    ? nextColor
+                    : currentColor;
+            }
+            
+        }
     }
 }

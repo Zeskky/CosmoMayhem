@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="AudioFile" id="{6c619db8-aadb-48c8-a05a-b48a232ad88d}">
+	<object class="AudioFile" id="{78b1f0ce-b478-4fc1-a2e6-0129699b49d4}">
+		<property name="note" />
 		<property name="assetPath">
-			<value>Music/Pufino - Digital Mayham (freetouse.com).mp3</value>
+			<value>Music/healingdvision.ogg</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>
@@ -14,7 +15,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>177.00571428571428</value>
+			<value>69.333333333333329</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{f96c9af9-8379-4194-abea-419de59fa13e}</destination>

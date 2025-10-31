@@ -1,5 +1,4 @@
 using FMODUnity;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,10 +30,20 @@ public class PlayerController : Damageable
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private StudioEventEmitter damageEmitter;
 
+    [Header("Dash Mechanic Properties")]
+    [SerializeField] private int maxDashCharges = 2;
+    [SerializeField] private float dashChargeCooldown = 4f, dashDelay = 1f, dashDuration = 0.5f, dashForce = 4f;
+    [SerializeField] private SpriteRenderer dashChargeBar;
+    public int DashCharges { get; set; }
+    public bool IsDashReady { get { return dashChargeTimer <= 0; } }
+    private float dashChargeTimer, dashDelayTimer;
+    private Vector2 dashVelocityModifier;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Health = maxHealth;
+        DashCharges = maxDashCharges;
         // Ensure rigidbody type is set to 'Kinematic'
         (rb = GetComponent<Rigidbody2D>()).bodyType = RigidbodyType2D.Kinematic;
     }
@@ -45,7 +54,8 @@ public class PlayerController : Damageable
         shotTimer = Mathf.Max(shotTimer - Time.deltaTime, 0);
         altShotTimer = Mathf.Max(altShotTimer - Time.deltaTime, 0);
 
-        rb.linearVelocity = MovementDirection * movementSpeed;
+        rb.linearVelocity = (MovementDirection + dashVelocityModifier) * movementSpeed;
+        dashVelocityModifier = Vector2.Lerp(dashVelocityModifier, Vector2.zero, Time.deltaTime / dashDuration);
 
         // Clamp ship to camera boundaries
         Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
@@ -69,6 +79,11 @@ public class PlayerController : Damageable
                 (damageImmunityTime - immuneTimer) % immunityBlinkDuration / Mathf.Max(immunityBlinkDuration, 1E-4f)
             )
             : Color.white;
+
+        dashDelayTimer = Mathf.Max(dashDelayTimer - Time.fixedDeltaTime, 0);
+        dashChargeTimer = Mathf.Max(dashChargeTimer - Time.fixedDeltaTime, 0);
+        dashChargeBar.size = new(1 - dashChargeTimer / dashChargeCooldown, dashChargeBar.size.y);
+        dashChargeBar.color = IsDashReady ? Color.white : Color.gray;
     }
 
     public void OnMove(InputValue value)
@@ -96,6 +111,21 @@ public class PlayerController : Damageable
         if (value.isPressed && altShotTimer <= 0)
         {
             altShotTimer = altShotDelay;
+        }
+    }
+
+    public void OnDash(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            if (dashDelayTimer <= 0 && dashChargeTimer <= 0)
+            {
+                // Can dash
+                immuneTimer += dashDuration;
+                dashVelocityModifier = MovementDirection * dashForce;
+                dashDelayTimer = dashDelay;
+                dashChargeTimer = dashChargeCooldown;
+            }
         }
     }
 

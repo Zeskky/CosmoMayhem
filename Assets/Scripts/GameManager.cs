@@ -16,15 +16,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float scrollSpeed = 2f;
     public int score;
 
-    [SerializeField] private int maxMultiplier = 4;
+    [SerializeField] private int maxMultiplier = 4, comboPerMultiplier = 5;
     private int multiplier = 1;
     public int Multiplier
     {
         get {  return multiplier; }
-        set
-        {
-            multiplier = Mathf.Clamp(value, 1, maxMultiplier);
+    }
+
+    private int combo = 0;
+    public int Combo
+    {
+        get { return combo; }
+        set 
+        { 
+            combo = value;
+            multiplier = Mathf.Clamp((combo / comboPerMultiplier) + 1, 1, maxMultiplier);
         }
+    }
+
+    public int MultiplierProgress
+    {
+        get { return combo % comboPerMultiplier; }
     }
 
     [SerializeField] private GameObject enemyPrefab;

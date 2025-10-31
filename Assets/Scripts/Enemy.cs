@@ -107,6 +107,7 @@ public class Enemy : Damageable
     {
         // TODO: show explosion effect
         GameManager.Instance.score += scoreValue * GameManager.Instance.Multiplier;
+        GameManager.Instance.Combo++;
         base.Die();
     }
 
