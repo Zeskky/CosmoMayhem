@@ -8,9 +8,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float charSpacing = 0.825f, scoreUpdateRate = 10f;
     private float displayedScore = 0;
 
-    [SerializeField] private GameObject healthBarObject;
-    [SerializeField] private Image healthBarFill, healthBarBuffer;
+    [SerializeField] private Image healthBar, healthBarFill, healthBarBuffer;
     [SerializeField] private float healthBarBufferRate = .1f;
+    [SerializeField] [Range(0f, 1f)] private float criticalHealthThreshold = .2f;
+    [SerializeField] private float criticalHealthEffectSpeed = 1;
+    [SerializeField] private Gradient criticalHealthEffectGradient;
 
     private PlayerController player;
 
@@ -19,36 +21,50 @@ public class UIManager : MonoBehaviour
     {
         if (player = FindAnyObjectByType<PlayerController>())
         {
-            healthBarObject.SetActive(player.MaxHealth > 1);
+            healthBar.gameObject.SetActive(player.MaxHealth > 1);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
     private void FixedUpdate()
     {
-        if (player)
+        float targetFill = player ? (float)player.Health / player.MaxHealth : 0;
+        float currentFill = healthBarBuffer.fillAmount;
+
+        if (targetFill < currentFill)
         {
-            float targetFill = (float)player.Health / player.MaxHealth;
-            float currentFill = healthBarBuffer.fillAmount;
-    
-            if (targetFill < currentFill)
-            {
-                // Damage
-                healthBarBuffer.color = Color.red;
-                healthBarFill.fillAmount = targetFill;
-                healthBarBuffer.fillAmount = Mathf.Max(currentFill - Time.fixedDeltaTime * healthBarBufferRate, targetFill);
-            }
-            else
-            {
-                // Heal
-                healthBarBuffer.color = Color.green;
-                healthBarBuffer.fillAmount = targetFill;
-                healthBarFill.fillAmount = Mathf.Min(currentFill + Time.fixedDeltaTime * healthBarBufferRate, targetFill);
-            }
+            // Damage
+            healthBarBuffer.color = Color.red;
+            healthBarFill.fillAmount = targetFill;
+            healthBarBuffer.fillAmount = Mathf.Max(currentFill - Time.fixedDeltaTime * healthBarBufferRate, targetFill);
+        }
+        else
+        {
+            // Heal
+            healthBarBuffer.color = Color.green;
+            healthBarBuffer.fillAmount = targetFill;
+            healthBarFill.fillAmount = Mathf.Min(currentFill + Time.fixedDeltaTime * healthBarBufferRate, targetFill);
+        }
+
+        if (!player)
+        {
+            // Obliterated
+            healthBar.color = Color.red;
+        }
+        else if (targetFill <= criticalHealthThreshold)
+        {
+            // Critical damage
+            healthBar.color = criticalHealthEffectGradient.Evaluate((Time.time * criticalHealthEffectSpeed) % 1);
+        }
+        else
+        {
+            // Stable systems
+            healthBar.color = Color.black;
         }
 
         string monospaceTag = $"<mspace={charSpacing.ToString().Replace(',', '.')}em>";

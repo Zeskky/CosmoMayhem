@@ -4,6 +4,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public Vector2 startVelocity;
+    public int damage = 1;
     [SerializeField] private float lifetime = 6f;
     private Rigidbody2D rb;
 

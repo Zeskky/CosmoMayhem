@@ -272,15 +272,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fcaea17abbe80c4ba8d78eff6c64d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  deathEffect: {fileID: 8435334467506718440, guid: 8a318e1cdaeaa954487cd173289de587, type: 3}
   movementSpeed: 5
-  maxHealth: 3
-  damageImmunityTime: 2
+  maxHealth: 20
+  damageImmunityTime: 1
   immunityBlinkDuration: 0.4
   immunityBlinkPattern:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 0.47058824}
-    key1: {r: 1, g: 1, b: 1, a: 0.47058824}
-    key2: {r: 0, g: 0, b: 0, a: 1}
+    key0: {r: 1, g: 1, b: 1, a: 0.5882353}
+    key1: {r: 1, g: 1, b: 1, a: 0.5882353}
+    key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
@@ -295,8 +296,8 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 32440
-    atime2: 32768
+    atime1: 65535
+    atime2: 0
     atime3: 0
     atime4: 0
     atime5: 0
@@ -305,7 +306,7 @@ MonoBehaviour:
     m_Mode: 0
     m_ColorSpace: -1
     m_NumColorKeys: 2
-    m_NumAlphaKeys: 3
+    m_NumAlphaKeys: 2
   boundaryRect:
     serializedVersion: 2
     x: 0.05
@@ -315,6 +316,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2961395079198746520, guid: 761bbbb067379e846a7bb81dd08eeb39, type: 3}
   cannonPoint: {fileID: 4750021553761670921}
   shotDelay: 0.15
+  shotDamage: 1
   autoShooting: 0
   sr: {fileID: 7195363704932177947}
   damageEmitter: {fileID: 7046749715116518040}

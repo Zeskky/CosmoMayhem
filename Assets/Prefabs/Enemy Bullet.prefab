@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1773090250813598960, guid: 761bbbb067379e846a7bb81dd08eeb39, type: 3}
       propertyPath: EventReference.Path
-      value: event:/Ship SFX/Enemy/Enemy Shot
+      value: event:/SFX/Enemy/Laser Shot
       objectReference: {fileID: 0}
     - target: {fileID: 1773090250813598960, guid: 761bbbb067379e846a7bb81dd08eeb39, type: 3}
       propertyPath: EventReference.Guid.Data1

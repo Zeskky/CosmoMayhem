@@ -1,39 +1,50 @@
+using FMODUnity;
 using UnityEngine;
 
 public enum MovementBehaviour
 {
     GoForward,
     Halt,
-    Warp,
+    ChasePlayer,
 }
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : Damageable
 {
     [SerializeField] private int maxHealth = 1;
+    [SerializeField] private GameObject floatingHealthBarPrefab;
+
     [SerializeField] private int scoreValue = 10;
-    [SerializeField] private AnimationCurve movementPath;
     [SerializeField] private MovementBehaviour movementBehaviour;
+    [SerializeField] private bool doWarp = true;
     [SerializeField] private Vector2 targetPosition;
-    [SerializeField] private float speedModifier;
+    [SerializeField] private float minSpeedModifier, maxSpeedModifier, chaseSpeed = 2f;
+    [SerializeField] private int baseDamage = 2;
+    public int BaseDamage { get { return baseDamage; } }
 
     [Header("Shooting Behaviour")]
     [SerializeField] private bool canShoot = false;
-    [SerializeField] private float shotDelay = 2f, shotSpeed = 5f;
+    [SerializeField] private float minShotDelay = 2f, maxShotDelay = 3f, shotSpeed = 5f;
     [SerializeField] private GameObject shotPrefab;
     [SerializeField] private Transform cannonPoint;
-    private float shotTimer;
-
-    public int Health { get; set; }
+    private float shotTimer, nextShotDelay;
 
     private float movementTimer;
+    private Vector3 startPosition;
     private Rigidbody2D rb;
+    private StudioEventEmitter damageTakenEmitter;
+    private GameObject currentFloatingHealthBar;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Health = maxHealth;
         rb = GetComponent<Rigidbody2D>();
+        nextShotDelay = Random.Range(minShotDelay, maxShotDelay);
+        
+        startPosition = transform.position;
+        rb.linearVelocityX = -Random.Range(minSpeedModifier, maxSpeedModifier);
+        damageTakenEmitter = GetComponent<StudioEventEmitter>();
     }
 
     // Update is called once per frame
@@ -41,9 +52,10 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (canShoot)
         {
-            if ((shotTimer += Time.deltaTime) >= shotDelay)
+            if ((shotTimer += Time.deltaTime) >= nextShotDelay)
             {
-                shotTimer -= shotDelay;
+                shotTimer -= nextShotDelay;
+                nextShotDelay = Random.Range(minShotDelay, maxShotDelay);
                 GenerateShot();
             }
         }
@@ -52,7 +64,7 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             case MovementBehaviour.GoForward:
                 // Enemy will keep going forward
-                // Avoid using this value, unless it's an optional enemy
+                // Avoid using this value with 'doWarp' set to false, unless it's an optional enemy
                 break;
             case MovementBehaviour.Halt:
                 // Enemy will halt upon reaching target horizontal position (x)
@@ -62,53 +74,84 @@ public class Enemy : MonoBehaviour, IDamageable
                     transform.parent = Camera.main.transform;
                 }
                 break;
-            case MovementBehaviour.Warp:
-                // Enemy will warp to the initial spawn position
-                Vector3 warpPosition = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.5f));
-                if (transform.position.x < warpPosition.x)
-                {
-                    transform.position = new(GameManager.Instance.GetSpawnAreaPosition().x, transform.position.y);
-                }
+            case MovementBehaviour.ChasePlayer:
+                // Enemy will chase player's ship
+                PlayerController player;
+                if (player = FindAnyObjectByType<PlayerController>())
+                    rb.linearVelocityY = (player.transform.position.y - transform.position.y) * chaseSpeed;
                 break;
         }
 
-        rb.linearVelocity = new Vector2(-speedModifier, movementPath.Evaluate(movementTimer += Time.deltaTime));
+        if (doWarp)
+        {
+            // Enemy will warp to the initial spawn position
+            Vector3 warpPosition = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.5f)) + Vector3.left;
+            if (transform.position.x < warpPosition.x)
+            {
+                transform.position = new(GameManager.Instance.GetSpawnAreaPosition().x, transform.position.y);
+            }
+        }
     }
 
     private void GenerateShot()
     {
-        GameObject newShot = Instantiate(shotPrefab, cannonPoint.position, Quaternion.identity);
-        newShot.GetComponent<Projectile>().startVelocity = new(-shotSpeed, 0);
+        Projectile newShot = Instantiate(shotPrefab, cannonPoint.position, Quaternion.identity).GetComponent<Projectile>();
+        if (newShot)
+        {
+            newShot.damage = baseDamage;
+            newShot.startVelocity = new(-shotSpeed, 0);
+        }
     }
 
-    public void Die()
+    public override void Die()
     {
         // TODO: show explosion effect
         GameManager.Instance.score += scoreValue * GameManager.Instance.Multiplier;
-        Destroy(gameObject);
+        base.Die();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!collision.CompareTag(gameObject.tag) && collision.GetComponent<Projectile>())
+        Projectile projectile = collision.GetComponent<Projectile>();
+        if (!collision.CompareTag(gameObject.tag) && projectile)
         {
-            // Take damage only from non-enemy bullets
-            TakeDamage();
+            // Take damage from any non-enemy projectile
+            TakeDamage(projectile.damage);
             Destroy(collision.gameObject);
         }
     }
 
-    public void TakeDamage(int damage = 1)
+    public override void TakeDamage(int damage = 1)
     {
-        Health -= damage;
+        base.TakeDamage(damage);
         if (Health <= 0)
         {
             Die();
         }
+        else
+        {
+            // Still alive
+            damageTakenEmitter.Play();
+            ShowFloatingHealthBar();
+        }
     }
 
-    public void HealDamage(int damage = 1)
+    public override void HealDamage(int damage = 1)
     {
-
+        base.HealDamage(damage);
     }
+
+    private void ShowFloatingHealthBar(float lifetime = 1f)
+    {
+        if (currentFloatingHealthBar)
+        {
+            // Destroy any existing floating bars
+            Destroy(currentFloatingHealthBar);
+        }
+
+        currentFloatingHealthBar = Instantiate(floatingHealthBarPrefab, transform);
+        currentFloatingHealthBar.GetComponent<FloatingHealthBar>().HealthBarFill = (float)Health / maxHealth;
+        Destroy(currentFloatingHealthBar, lifetime);
+    }
+
 }

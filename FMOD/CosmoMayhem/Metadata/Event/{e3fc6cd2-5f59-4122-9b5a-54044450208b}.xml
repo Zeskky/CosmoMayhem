@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{e3fc6cd2-5f59-4122-9b5a-54044450208b}">
 		<property name="name">
-			<value>Player Damage</value>
+			<value>Damage Taken</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -72,6 +72,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{9b15fccb-a18f-4f9b-b534-92acc1f34299}">
+		<property name="volume">
+			<value>-3</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{09ccd11e-3705-41db-92a0-a29995166f28}</destination>
 		</relationship>

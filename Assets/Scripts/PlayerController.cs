@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : Damageable
 {
     [SerializeField] private float movementSpeed = 3f;
     public Vector2 MovementDirection { get; private set; }
 
-    public int Health { get; set; }
     [SerializeField] private int maxHealth = 3;
     public int MaxHealth { get { return maxHealth; } }
 
@@ -23,8 +22,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private Transform cannonPoint;
 
     [SerializeField] private float shotDelay = 1 / 20f;
-    [SerializeField] private bool autoShooting = false;
-    private float shotTimer;
+    [SerializeField] private int shotDamage = 1;
+    [SerializeField] private float altShotDelay = 2f;
+    [SerializeField] private GameObject altShotPrefab;
+    // [SerializeField] private bool autoShooting = false;
+    private float shotTimer, altShotTimer;
 
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private StudioEventEmitter damageEmitter;
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     void Update()
     {
         shotTimer = Mathf.Max(shotTimer - Time.deltaTime, 0);
+        altShotTimer = Mathf.Max(altShotTimer - Time.deltaTime, 0);
 
         rb.linearVelocity = MovementDirection * movementSpeed;
 
@@ -63,7 +66,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         immuneTimer = Mathf.Max(immuneTimer - Time.fixedDeltaTime, 0);
         sr.color = IsImmune
             ? immunityBlinkPattern.Evaluate(
-                (damageImmunityTime - immuneTimer) % immunityBlinkDuration / immunityBlinkDuration
+                (damageImmunityTime - immuneTimer) % immunityBlinkDuration / Mathf.Max(immunityBlinkDuration, 1E-4f)
             )
             : Color.white;
     }
@@ -77,21 +80,33 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         if (value.isPressed && shotTimer <= 0)
         {
-            // TODO: shoot projectiles
             Projectile newProjectile = Instantiate(bulletPrefab, cannonPoint.position, cannonPoint.rotation).GetComponent<Projectile>();
-            newProjectile.startVelocity = new Vector2(10, 0);
+            if (newProjectile)
+            {
+                newProjectile.startVelocity = new Vector2(10, 0);
+                newProjectile.damage = shotDamage;
+            }
+
             shotTimer = shotDelay;
         }
     }
 
-    public void TakeDamage(int damage = 1)
+    public void OnAltFire(InputValue value)
+    {
+        if (value.isPressed && altShotTimer <= 0)
+        {
+            altShotTimer = altShotDelay;
+        }
+    }
+
+    public override void TakeDamage(int damage = 1)
     {
         if (IsImmune || damage <= 0)
             return;
 
         immuneTimer = damageImmunityTime;
-        Health -= damage;
-        Debug.Log(Health);
+        base.TakeDamage(damage);
+        // Debug.Log(Health);
 
         if (Health > 0)
         {
@@ -104,16 +119,16 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
-    public void HealDamage(int damage = 1)
+    public override void HealDamage(int damage = 1)
     {
-
+        base.HealDamage(damage);
     }
 
-    public void Die()
+    public override void Die()
     {
         // TODO: show explosion effect
         GameManager.Instance.DoGameOverSequence();
-        Destroy(gameObject);
+        base.Die();
     }
 
 
@@ -131,8 +146,20 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         if (!collision.CompareTag(gameObject.tag))
         {
-            TakeDamage();
-            if (collision.GetComponent<Projectile>() && WasDamagedThisFrame)
+            Projectile projectile = collision.GetComponent<Projectile>();
+            Enemy enemy;
+            if (projectile)
+            {
+                // Projectile damage
+                TakeDamage(projectile.damage);
+            }
+            else if (enemy = collision.GetComponent<Enemy>())
+            {
+                // Contact damage
+                TakeDamage(enemy.BaseDamage);
+            }
+
+            if (projectile && WasDamagedThisFrame)
             {
                 // Destroy the colliding projectile, only if the player took damage
                 Destroy(collision.gameObject);

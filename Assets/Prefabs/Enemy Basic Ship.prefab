@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7036894345278240097}
   - component: {fileID: 5044129595175609237}
   - component: {fileID: 8098592875172503711}
-  - component: {fileID: 1524198988654437725}
+  - component: {fileID: -6189143982833099393}
   m_Layer: 0
   m_Name: Enemy Basic Ship
   m_TagString: Enemy
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3173132082257341910}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -49,37 +49,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f257e11e951e24b967db35b3b945a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  maxHealth: 1
+  deathEffect: {fileID: 7053974614867859185, guid: 7b58d95edc3d48a4ba2e24debf6b0445, type: 3}
+  maxHealth: 2
+  floatingHealthBarPrefab: {fileID: 2563284384509674880, guid: da4a870e3d260be4a8e9936659437e64, type: 3}
   scoreValue: 50
-  movementPath:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  movementBehaviour: 2
+  movementBehaviour: 0
+  doWarp: 1
   targetPosition: {x: 0.65, y: 0}
-  speedModifier: 0
+  minSpeedModifier: 0
+  maxSpeedModifier: 0
+  chaseSpeed: 2
+  baseDamage: 2
   canShoot: 1
-  shotDelay: 2
+  minShotDelay: 1.25
+  maxShotDelay: 2.5
   shotSpeed: 5
   shotPrefab: {fileID: 1737550969589595245, guid: cb628e4d70872fc439b0fc658f17a520, type: 3}
   cannonPoint: {fileID: 6477488607556396750}
@@ -156,7 +139,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.7, y: 0.8}
   m_EdgeRadius: 0
---- !u!114 &1524198988654437725
+--- !u!114 &-6189143982833099393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,13 +154,13 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -1510930748
-      Data2: 1162625118
-      Data3: 2111820474
-      Data4: -791476716
-    Path: event:/Ship SFX/Enemy/Enemy Explosion
+      Data1: -311296837
+      Data2: 1254958630
+      Data3: 686351759
+      Data4: -976667438
+    Path: event:/SFX/Enemy/Damage Taken
   Event: 
-  EventPlayTrigger: 2
+  EventPlayTrigger: 0
   EventStopTrigger: 0
   AllowFadeout: 1
   TriggerOnce: 0

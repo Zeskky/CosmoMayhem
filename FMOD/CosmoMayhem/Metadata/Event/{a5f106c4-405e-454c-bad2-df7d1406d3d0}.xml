@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{a5f106c4-405e-454c-bad2-df7d1406d3d0}">
 		<property name="name">
-			<value>Enemy Explosion</value>
+			<value>Explosion</value>
 		</property>
 		<property name="outputFormat">
 			<value>0</value>
@@ -104,7 +104,7 @@
 			<value>1</value>
 		</property>
 		<property name="amount">
-			<value>4.16666698</value>
+			<value>6.25</value>
 		</property>
 	</object>
 	<object class="MixerBusEffectChain" id="{8c00f396-0721-43c3-a1de-ae704e6c6b34}">
