@@ -99,7 +99,7 @@ public class Enemy : Damageable
         if (newShot)
         {
             newShot.damage = baseDamage;
-            newShot.startVelocity = new(-shotSpeed, 0);
+            newShot.startVelocity = -shotSpeed;
         }
     }
 
@@ -118,7 +118,7 @@ public class Enemy : Damageable
         {
             // Take damage from any non-enemy projectile
             TakeDamage(projectile.damage);
-            Destroy(collision.gameObject);
+            projectile.DestroyProjectile();
         }
     }
 

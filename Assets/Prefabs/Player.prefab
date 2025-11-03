@@ -409,8 +409,8 @@ MonoBehaviour:
   cannonPoint: {fileID: 4750021553761670921}
   shotDelay: 0.15
   shotDamage: 1
-  altShotDelay: 2
-  altShotPrefab: {fileID: 0}
+  altShotDelay: 1.5
+  altShotPrefab: {fileID: 4438577307826052165, guid: 1781c149f2b61014a9ddd26539541fab, type: 3}
   sr: {fileID: 7195363704932177947}
   damageEmitter: {fileID: 7046749715116518040}
   maxDashCharges: 1
@@ -419,6 +419,7 @@ MonoBehaviour:
   dashDuration: 0.5
   dashForce: 1
   dashChargeBar: {fileID: 4579013004544539250}
+  dashEmitter: {fileID: 5334040350609371175}
 --- !u!60 &7420576533980361835
 PolygonCollider2D:
   m_ObjectHideFlags: 0

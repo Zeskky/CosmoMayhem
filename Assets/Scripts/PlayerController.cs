@@ -34,6 +34,21 @@ public class PlayerController : Damageable
     [SerializeField] private int maxDashCharges = 2;
     [SerializeField] private float dashChargeCooldown = 4f, dashDelay = 1f, dashDuration = 0.5f, dashForce = 4f;
     [SerializeField] private SpriteRenderer dashChargeBar;
+    [SerializeField] private StudioEventEmitter dashEmitter;
+
+    [Header("Super Core Properties")]
+    private bool anyFireActionPerformed = false;
+    [SerializeField] private int minSupercoreCharge = 100;
+    private int currentSupercoreCharge = 0;
+    public int CurrentSupercoreCharge
+    {
+        get {  return currentSupercoreCharge; }
+        set
+        {
+            currentSupercoreCharge = Mathf.Clamp(value, 0, currentSupercoreCharge);
+        }
+    }
+
     public int DashCharges { get; set; }
     public bool IsDashReady { get { return dashChargeTimer <= 0; } }
     private float dashChargeTimer, dashDelayTimer;
@@ -51,8 +66,25 @@ public class PlayerController : Damageable
     // Update is called once per frame
     void Update()
     {
-        shotTimer = Mathf.Max(shotTimer - Time.deltaTime, 0);
-        altShotTimer = Mathf.Max(altShotTimer - Time.deltaTime, 0);
+        if (shotTimer > 0)
+        {
+            if ((shotTimer -= Time.deltaTime) <= 0)
+            {
+                shotTimer = 0;
+                // SuperCore input reset
+                anyFireActionPerformed = false;
+            }
+        }
+
+        if (altShotTimer > 0)
+        {
+            if ((altShotTimer -= Time.deltaTime) <= 0)
+            {
+                altShotTimer = 0;
+                // SuperCore input reset
+                anyFireActionPerformed = false;
+            }
+        }
 
         rb.linearVelocity = (MovementDirection + dashVelocityModifier) * movementSpeed;
         dashVelocityModifier = Vector2.Lerp(dashVelocityModifier, Vector2.zero, Time.deltaTime / dashDuration);
@@ -95,14 +127,27 @@ public class PlayerController : Damageable
     {
         if (value.isPressed && shotTimer <= 0)
         {
-            Projectile newProjectile = Instantiate(bulletPrefab, cannonPoint.position, cannonPoint.rotation).GetComponent<Projectile>();
-            if (newProjectile)
+            if (anyFireActionPerformed)
             {
-                newProjectile.startVelocity = new Vector2(10, 0);
-                newProjectile.damage = shotDamage;
+                anyFireActionPerformed = false;
+                ActivateSuperCore();
             }
+            else
+            {
+                // Primary Fire
+                anyFireActionPerformed = true;
+                if (bulletPrefab)
+                {
+                    Projectile newProjectile = Instantiate(bulletPrefab, cannonPoint.position, cannonPoint.rotation).GetComponent<Projectile>();
+                    if (newProjectile)
+                    {
+                        newProjectile.startVelocity = 10;
+                        newProjectile.damage = shotDamage;
+                    }
 
-            shotTimer = shotDelay;
+                    shotTimer = shotDelay;
+                }
+            }
         }
     }
 
@@ -110,7 +155,26 @@ public class PlayerController : Damageable
     {
         if (value.isPressed && altShotTimer <= 0)
         {
-            altShotTimer = altShotDelay;
+            if (anyFireActionPerformed)
+            {
+                anyFireActionPerformed = false;
+                ActivateSuperCore();
+            }
+            else
+            {
+                // Bomb throw
+                anyFireActionPerformed = true;
+                if (altShotPrefab)
+                {
+                    Projectile newAltProjectile = Instantiate(altShotPrefab, cannonPoint.position, cannonPoint.rotation).GetComponent<Projectile>();
+                    if (newAltProjectile)
+                    {
+                        newAltProjectile.startVelocity = 10;
+                    }
+
+                    altShotTimer = altShotDelay;
+                }
+            }
         }
     }
 
@@ -125,6 +189,7 @@ public class PlayerController : Damageable
                 dashVelocityModifier = MovementDirection * dashForce;
                 dashDelayTimer = dashDelay;
                 dashChargeTimer = dashChargeCooldown;
+                dashEmitter.Play();
             }
         }
     }
@@ -135,6 +200,8 @@ public class PlayerController : Damageable
             return;
 
         immuneTimer = damageImmunityTime;
+        // Reset combo to 0
+        GameManager.Instance.Combo = 0;
         base.TakeDamage(damage);
         // Debug.Log(Health);
 
@@ -170,6 +237,18 @@ public class PlayerController : Damageable
     public bool WasDamagedThisFrame
     {
         get { return Mathf.Abs(immuneTimer - damageImmunityTime) <= 1 / 60f; }
+    }
+
+    private void ActivateSuperCore()
+    {
+        if (CurrentSupercoreCharge == minSupercoreCharge)
+        {
+            print("SuperCore has been activated!");
+        }
+        else
+        {
+            print("SuperCore is not ready yet!");
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

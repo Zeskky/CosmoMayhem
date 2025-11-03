@@ -134,9 +134,9 @@ public class GameManager : MonoBehaviour
         {
             // Store the wave instance's children
             waveEnemies.Add(t.gameObject);
+            t.parent = transform;
         }
 
-        waveInstance.transform.DetachChildren();
         Destroy(waveInstance);
     }
 
