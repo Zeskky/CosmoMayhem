@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fcaea17abbe80c4ba8d78eff6c64d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  maxHealth: 50
+  maxHealth: 40
   deathEffect: {fileID: 8435334467506718440, guid: 8a318e1cdaeaa954487cd173289de587, type: 3}
   damageImmunityTime: 1
   movementSpeed: 5

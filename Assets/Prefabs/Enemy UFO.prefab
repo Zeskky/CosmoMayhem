@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,9 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f257e11e951e24b967db35b3b945a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  maxHealth: 10
   deathEffect: {fileID: 7053974614867859185, guid: 7b58d95edc3d48a4ba2e24debf6b0445, type: 3}
   damageImmunityTime: 0.1
-  maxHealth: 10
   floatingHealthBarPrefab: {fileID: 2563284384509674880, guid: da4a870e3d260be4a8e9936659437e64, type: 3}
   scoreValue: 50
   movementBehaviour: 2

@@ -1056,7 +1056,7 @@ Transform:
   m_GameObject: {fileID: 618323299}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.5, y: 0, z: 0}
+  m_LocalPosition: {x: 9.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1907,6 +1907,10 @@ MonoBehaviour:
     wavePrefab: {fileID: 1876805798562724599, guid: 0d24750e34ea6c745aa3ade139a1e651, type: 3}
   - maxDelay: 12
     wavePrefab: {fileID: 8994949566842486008, guid: 6e422ebf264ee0c4383349fe2ef94048, type: 3}
+  - maxDelay: 8
+    wavePrefab: {fileID: 1250183600141298629, guid: 93f0d35a97400934aa836c1ffc224a81, type: 3}
+  - maxDelay: 15
+    wavePrefab: {fileID: 7562686894069246765, guid: e659395222c1d1046bcd33f320dc912d, type: 3}
   currentWaveTimer: 0
 --- !u!114 &1650383181
 MonoBehaviour:
