@@ -8,11 +8,7 @@ public class PlayerController : Damageable
     [SerializeField] private float movementSpeed = 3f;
     public Vector2 MovementDirection { get; private set; }
 
-    [SerializeField] private int maxHealth = 3;
-    public int MaxHealth { get { return maxHealth; } }
-
-    [SerializeField] private float damageImmunityTime = 2f, immunityBlinkDuration = 0.5f;
-    private float immuneTimer;
+    [SerializeField] private float immunityBlinkDuration = 0.5f;
     [SerializeField] private Gradient immunityBlinkPattern;
 
     private Rigidbody2D rb;
@@ -24,11 +20,12 @@ public class PlayerController : Damageable
     [SerializeField] private int shotDamage = 1;
     [SerializeField] private float altShotDelay = 2f;
     [SerializeField] private GameObject altShotPrefab;
-    // [SerializeField] private bool autoShooting = false;
+    [SerializeField] private bool autoShooting = false;
     private float shotTimer, altShotTimer;
+    private bool fireState, altFireState;
 
     [SerializeField] private SpriteRenderer sr;
-    [SerializeField] private StudioEventEmitter damageEmitter;
+    [SerializeField] private StudioEventEmitter damageEmitter, repairEmitter;
 
     [Header("Dash Mechanic Properties")]
     [SerializeField] private int maxDashCharges = 2;
@@ -57,7 +54,7 @@ public class PlayerController : Damageable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Health = maxHealth;
+        SetupHealth();
         DashCharges = maxDashCharges;
         // Ensure rigidbody type is set to 'Kinematic'
         (rb = GetComponent<Rigidbody2D>()).bodyType = RigidbodyType2D.Kinematic;
@@ -101,11 +98,44 @@ public class PlayerController : Damageable
             || (viewportPos.y >= boundaryRect.y + boundaryRect.height && rb.linearVelocityY > 0))
             ? 0
             : rb.linearVelocityY;
+
+
+        // Primary Fire
+        if (fireState && shotTimer <= 0)
+        {
+            // Keep doing primary fire, if allowed
+            if (!autoShooting)
+            {
+                fireState = false;
+            }
+
+            if (anyFireActionPerformed)
+            {
+                anyFireActionPerformed = false;
+                ActivateSuperCore();
+            }
+            else
+            {
+                anyFireActionPerformed = true;
+                if (bulletPrefab)
+                {
+                    Projectile newProjectile = Instantiate(bulletPrefab, cannonPoint.position, cannonPoint.rotation).GetComponent<Projectile>();
+                    if (newProjectile)
+                    {
+                        newProjectile.startVelocity = 10;
+                        newProjectile.damage = shotDamage;
+                    }
+
+                    shotTimer = shotDelay;
+                }
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        immuneTimer = Mathf.Max(immuneTimer - Time.fixedDeltaTime, 0);
+        ImmuneUpdate();
+
         sr.color = IsImmune
             ? immunityBlinkPattern.Evaluate(
                 (damageImmunityTime - immuneTimer) % immunityBlinkDuration / Mathf.Max(immunityBlinkDuration, 1E-4f)
@@ -125,35 +155,14 @@ public class PlayerController : Damageable
 
     public void OnFire(InputValue value)
     {
-        if (value.isPressed && shotTimer <= 0)
-        {
-            if (anyFireActionPerformed)
-            {
-                anyFireActionPerformed = false;
-                ActivateSuperCore();
-            }
-            else
-            {
-                // Primary Fire
-                anyFireActionPerformed = true;
-                if (bulletPrefab)
-                {
-                    Projectile newProjectile = Instantiate(bulletPrefab, cannonPoint.position, cannonPoint.rotation).GetComponent<Projectile>();
-                    if (newProjectile)
-                    {
-                        newProjectile.startVelocity = 10;
-                        newProjectile.damage = shotDamage;
-                    }
-
-                    shotTimer = shotDelay;
-                }
-            }
-        }
+        fireState = value.isPressed;
     }
 
     public void OnAltFire(InputValue value)
     {
-        if (value.isPressed && altShotTimer <= 0)
+        altFireState = value.isPressed;
+        // Bomb throw
+        if (altFireState && altShotTimer <= 0)
         {
             if (anyFireActionPerformed)
             {
@@ -162,7 +171,6 @@ public class PlayerController : Damageable
             }
             else
             {
-                // Bomb throw
                 anyFireActionPerformed = true;
                 if (altShotPrefab)
                 {
@@ -194,31 +202,33 @@ public class PlayerController : Damageable
         }
     }
 
-    public override void TakeDamage(int damage = 1)
+    public override bool TakeDamage(int damage = 1)
     {
-        if (IsImmune || damage <= 0)
-            return;
-
-        immuneTimer = damageImmunityTime;
-        // Reset combo to 0
-        GameManager.Instance.Combo = 0;
-        base.TakeDamage(damage);
-        // Debug.Log(Health);
-
-        if (Health > 0)
+        if (base.TakeDamage(damage))
         {
-            // Still alive
-            damageEmitter.Play();
+            // Reset combo to 0
+            GameManager.Instance.Combo = 0;
+
+            if (Health > 0)
+            {
+                // Still alive
+                damageEmitter.Play();
+            }
+            else
+            {
+                Die();
+            }
+
+            return true;
         }
-        else
-        {
-            Die();
-        }
+
+        return false;
     }
 
     public override void HealDamage(int damage = 1)
     {
         base.HealDamage(damage);
+        repairEmitter.Play();
     }
 
     public override void Die()
@@ -226,17 +236,6 @@ public class PlayerController : Damageable
         // TODO: show explosion effect
         GameManager.Instance.DoGameOverSequence();
         base.Die();
-    }
-
-
-    public bool IsImmune
-    {
-        get { return immuneTimer > 0; }
-    }
-
-    public bool WasDamagedThisFrame
-    {
-        get { return Mathf.Abs(immuneTimer - damageImmunityTime) <= 1 / 60f; }
     }
 
     private void ActivateSuperCore()
@@ -247,7 +246,7 @@ public class PlayerController : Damageable
         }
         else
         {
-            print("SuperCore is not ready yet!");
+            print("SuperCore is not ready yet.");
         }
     }
 

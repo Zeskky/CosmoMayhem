@@ -135,8 +135,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   startVelocity: 0
   damage: 3
-  lifetime: 1.5
+  lifetime: 3
   explosionPrefab: {fileID: 915353063673352615, guid: 5f35ef3db36f03045ad4e58182ded747, type: 3}
+  gracePeriod: 0
 --- !u!58 &5145579274220882240
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -50,16 +50,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   deathEffect: {fileID: 7053974614867859185, guid: 7b58d95edc3d48a4ba2e24debf6b0445, type: 3}
-  maxHealth: 3
+  damageImmunityTime: 0.1
+  maxHealth: 6
   floatingHealthBarPrefab: {fileID: 2563284384509674880, guid: da4a870e3d260be4a8e9936659437e64, type: 3}
-  scoreValue: 50
-  movementBehaviour: 0
+  scoreValue: 100
+  movementBehaviour: 3
   doWarp: 1
   targetPosition: {x: 0.65, y: 0}
   minSpeedModifier: 1.5
-  maxSpeedModifier: 2.5
+  maxSpeedModifier: 1.5
   chaseSpeed: 2
-  baseDamage: 2
+  baseDamage: 6
   canShoot: 1
   minShotDelay: 1.25
   maxShotDelay: 2.5
@@ -76,7 +77,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 3173132082257341910}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
@@ -92,7 +93,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!61 &8098592875172503711
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -137,7 +138,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7, y: 0.8}
+  m_Size: {x: 0.7, y: 0.7}
   m_EdgeRadius: 0
 --- !u!114 &-6189143982833099393
 MonoBehaviour:

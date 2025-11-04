@@ -8,13 +8,14 @@ public class Projectile : MonoBehaviour
     public int damage = 1;
     [SerializeField] private float lifetime = 6f;
     [SerializeField] private GameObject explosionPrefab;
-    private Rigidbody2D rb;
+    // [SerializeField] private float gracePeriod = 0f;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        (rb = GetComponent<Rigidbody2D>()).linearVelocity = transform.right * startVelocity;
-        StartCoroutine(DestroyProjectileCo(lifetime));
+        GetComponent<Rigidbody2D>().linearVelocity = transform.right * startVelocity;
+        StartCoroutine(DestroyProjectileCo(lifetime, false));
     }
 
     // Update is called once per frame
@@ -28,12 +29,12 @@ public class Projectile : MonoBehaviour
         StartCoroutine(DestroyProjectileCo());
     }
 
-    private IEnumerator DestroyProjectileCo(float delay = 0f)
+    private IEnumerator DestroyProjectileCo(float delay = 0f, bool explode = true)
     {
         yield return delay > 0 ? new WaitForSeconds(delay) : null;
-        if (explosionPrefab)
+        if (explosionPrefab && explode)
         {
-            GameObject _ = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            GameObject newExplosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         }
         Destroy(gameObject);
     }

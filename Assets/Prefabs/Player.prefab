@@ -364,10 +364,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fcaea17abbe80c4ba8d78eff6c64d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  maxHealth: 50
   deathEffect: {fileID: 8435334467506718440, guid: 8a318e1cdaeaa954487cd173289de587, type: 3}
-  movementSpeed: 5
-  maxHealth: 20
   damageImmunityTime: 1
+  movementSpeed: 5
   immunityBlinkDuration: 0.4
   immunityBlinkPattern:
     serializedVersion: 2
@@ -407,12 +407,14 @@ MonoBehaviour:
     height: 0.8
   bulletPrefab: {fileID: 2961395079198746520, guid: 761bbbb067379e846a7bb81dd08eeb39, type: 3}
   cannonPoint: {fileID: 4750021553761670921}
-  shotDelay: 0.15
+  shotDelay: 0.2
   shotDamage: 1
-  altShotDelay: 1.5
+  altShotDelay: 3
   altShotPrefab: {fileID: 4438577307826052165, guid: 1781c149f2b61014a9ddd26539541fab, type: 3}
+  autoShooting: 1
   sr: {fileID: 7195363704932177947}
   damageEmitter: {fileID: 7046749715116518040}
+  repairEmitter: {fileID: 1254175827811634283}
   maxDashCharges: 1
   dashChargeCooldown: 3
   dashDelay: 1
@@ -420,6 +422,7 @@ MonoBehaviour:
   dashForce: 1
   dashChargeBar: {fileID: 4579013004544539250}
   dashEmitter: {fileID: 5334040350609371175}
+  minSupercoreCharge: 100
 --- !u!60 &7420576533980361835
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -477,6 +480,69 @@ PolygonCollider2D:
       - {x: 0.125, y: 0.125}
       - {x: 0, y: 0.35}
   m_UseDelaunayMesh: 0
+--- !u!1 &3968298594996798710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3305185673329717347}
+  - component: {fileID: 1254175827811634283}
+  m_Layer: 0
+  m_Name: Repair
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3305185673329717347
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3968298594996798710}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3503468540356889238}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1254175827811634283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3968298594996798710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1980253018
+      Data2: 1286210595
+      Data3: -8991321
+      Data4: 1363763057
+    Path: event:/SFX/Player/Repair
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &4289801350038055748
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +604,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4611325388442087150}
+  - {fileID: 3305185673329717347}
   - {fileID: 2303107552310635061}
   m_Father: {fileID: 5809226636591007350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

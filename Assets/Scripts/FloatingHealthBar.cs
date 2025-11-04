@@ -8,4 +8,9 @@ public class FloatingHealthBar : MonoBehaviour
         get { return barFillRenderer.size.x; }
         set { barFillRenderer.size = new Vector2(value, barFillRenderer.size.y); }
     }
+
+    private void Update()
+    {
+        transform.rotation = Quaternion.identity;
+    }
 }

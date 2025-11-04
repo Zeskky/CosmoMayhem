@@ -6,12 +6,12 @@ public enum MovementBehaviour
     GoForward,
     Halt,
     ChasePlayer,
+    Wavy
 }
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : Damageable
 {
-    [SerializeField] private int maxHealth = 1;
     [SerializeField] private GameObject floatingHealthBarPrefab;
 
     [SerializeField] private int scoreValue = 10;
@@ -29,7 +29,7 @@ public class Enemy : Damageable
     [SerializeField] private Transform cannonPoint;
     private float shotTimer, nextShotDelay;
 
-    private float movementTimer;
+    private float movementTimer, movementSpeed;
     private Vector3 startPosition;
     private Rigidbody2D rb;
     private StudioEventEmitter damageTakenEmitter;
@@ -38,12 +38,12 @@ public class Enemy : Damageable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Health = maxHealth;
+        SetupHealth();
         rb = GetComponent<Rigidbody2D>();
         nextShotDelay = Random.Range(minShotDelay, maxShotDelay);
         
         startPosition = transform.position;
-        rb.linearVelocityX = -Random.Range(minSpeedModifier, maxSpeedModifier);
+        movementSpeed = Random.Range(minSpeedModifier, maxSpeedModifier);
         damageTakenEmitter = GetComponent<StudioEventEmitter>();
     }
 
@@ -59,6 +59,11 @@ public class Enemy : Damageable
                 GenerateShot();
             }
         }
+
+        movementTimer += Time.deltaTime;
+        rb.linearVelocity = transform.right * -movementSpeed;
+        rb.linearVelocityY *= -chaseSpeed;
+        // print(rb.linearVelocity);
 
         switch (movementBehaviour)
         {
@@ -78,7 +83,20 @@ public class Enemy : Damageable
                 // Enemy will chase player's ship
                 PlayerController player;
                 if (player = FindAnyObjectByType<PlayerController>())
-                    rb.linearVelocityY = (player.transform.position.y - transform.position.y) * chaseSpeed;
+                    if (transform.position.x > player.transform.position.x)
+                    {
+                        transform.eulerAngles = new(0, 0,
+                            Vector2.SignedAngle(transform.position, player.transform.position)
+                        );
+                    }
+                break;
+            case MovementBehaviour.Wavy:
+                // Enemy will make a sine-like movement
+                float s = 2;
+                float t = s * movementTimer % s;
+                rb.linearVelocityY = movementTimer % 2 >= 1
+                    ?  t - (s / 2) // Odd
+                    : -t + (s / 2); // Even
                 break;
         }
 
@@ -91,6 +109,11 @@ public class Enemy : Damageable
                 transform.position = new(GameManager.Instance.GetSpawnAreaPosition().x, transform.position.y);
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        ImmuneUpdate();
     }
 
     private void GenerateShot()
@@ -117,24 +140,32 @@ public class Enemy : Damageable
         if (!collision.CompareTag(gameObject.tag) && projectile)
         {
             // Take damage from any non-enemy projectile
-            TakeDamage(projectile.damage);
-            projectile.DestroyProjectile();
+            if (TakeDamage(projectile.damage))
+            {
+                projectile.DestroyProjectile();
+            }
         }
     }
 
-    public override void TakeDamage(int damage = 1)
+    public override bool TakeDamage(int damage = 1)
     {
-        base.TakeDamage(damage);
-        if (Health <= 0)
+        if (base.TakeDamage(damage))
         {
-            Die();
+            if (Health <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                // Still alive
+                damageTakenEmitter.Play();
+                ShowFloatingHealthBar();
+            }
+
+            return true;
         }
-        else
-        {
-            // Still alive
-            damageTakenEmitter.Play();
-            ShowFloatingHealthBar();
-        }
+
+        return false;
     }
 
     public override void HealDamage(int damage = 1)

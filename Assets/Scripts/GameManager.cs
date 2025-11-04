@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
         get { return combo % comboPerMultiplier; }
     }
 
-    [SerializeField] private GameObject enemyPrefab;
+    //[SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject gameOverMessage;
     [SerializeField] private Transform spawnArea;
     [SerializeField] private Vector2 randomOffset;
     [SerializeField] private float /*spawnDelay = 1f,*/ timeFreezeTransitionTime = .75f;
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameOverMessage.SetActive(false);
         // StartCoroutine(WaveSpawnCo());
     }
 
@@ -92,13 +94,13 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
             Time.timeScale -= Time.fixedDeltaTime / timeFreezeTransitionTime;
-            print(Time.timeScale);
+            // print(Time.timeScale);
         }
 
         Time.timeScale = 0;
         bgmEmitter.Stop();
-        yield return new WaitForSecondsRealtime(1f);
-        Debug.Log("OBLITERATED");
+        gameOverMessage.SetActive(true);
+        // Debug.Log("OBLITERATED");
     }
 
     public bool IsCurrentWaveCleared()
@@ -108,7 +110,13 @@ public class GameManager : MonoBehaviour
     
     public void RemoveMissingWaveEnemies()
     {
-        waveEnemies.RemoveAll(enemy => enemy == null);
+        int c = waveEnemies.RemoveAll(enemy => enemy == null);
+        /*
+        if (c > 0)
+        {
+            print(c);
+        }
+        */
     }
 
     public void SpawnNextWave()
@@ -117,7 +125,7 @@ public class GameManager : MonoBehaviour
             return;
 
         Wave nextWave = waves[currentWave];
-        if (currentWaveTimer >= nextWave.maxDelay || IsCurrentWaveCleared())
+        if (currentWaveTimer >= nextWave.maxDelay || (IsCurrentWaveCleared() && currentWave > 0))
         {
             SpawnWave(nextWave);
             currentWave++;
@@ -130,9 +138,10 @@ public class GameManager : MonoBehaviour
     {
         currentWaveTimer -= wave.maxDelay;
         GameObject waveInstance = Instantiate(wave.wavePrefab, spawnArea.position, Quaternion.identity);
-        foreach (Transform t in waveInstance.transform)
+        while (waveInstance.transform.childCount > 0)
         {
             // Store the wave instance's children
+            Transform t = waveInstance.transform.GetChild(0);
             waveEnemies.Add(t.gameObject);
             t.parent = transform;
         }

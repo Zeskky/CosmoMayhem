@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public enum BurstShape
 {
@@ -26,7 +27,7 @@ public class ProjectileBurst : MonoBehaviour
         {
             GameObject newProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             float angle = i * 360f / projectileCount;
-            print($"{i}: {angle}");
+            // print($"{i}: {angle}");
             newProjectile.transform.Rotate(0, 0, angle);
             newProjectile.transform.position += newProjectile.transform.right * projectileOffset;
             if (newProjectile.GetComponent<Projectile>())

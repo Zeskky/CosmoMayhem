@@ -121,9 +121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36d8c5968237624e8906bda93a7fe67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  startVelocity: {x: 0, y: 0}
+  startVelocity: 0
   damage: 1
   lifetime: 3
+  explosionPrefab: {fileID: 0}
+  gracePeriod: 0
 --- !u!114 &1773090250813598960
 MonoBehaviour:
   m_ObjectHideFlags: 0

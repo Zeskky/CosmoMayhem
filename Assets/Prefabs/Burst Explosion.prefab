@@ -50,6 +50,7 @@ MonoBehaviour:
   projectileCount: 10
   projectileVelocity: 6
   burstMaxAngle: 360
+  projectileOffset: 0.5
 --- !u!114 &9100569614908630108
 MonoBehaviour:
   m_ObjectHideFlags: 0
