@@ -8,6 +8,7 @@ public class Wave
 {
     public float maxDelay;
     public GameObject wavePrefab;
+    public bool hasBoss;
 }
 
 public class GameManager : MonoBehaviour
@@ -136,6 +137,11 @@ public class GameManager : MonoBehaviour
 
     private void SpawnWave(Wave wave)
     {
+        if (wave.hasBoss)
+        {
+
+        }
+
         currentWaveTimer -= wave.maxDelay;
         GameObject waveInstance = Instantiate(wave.wavePrefab, spawnArea.position, Quaternion.identity);
         while (waveInstance.transform.childCount > 0)

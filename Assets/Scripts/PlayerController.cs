@@ -264,7 +264,7 @@ public class PlayerController : Damageable
             else if (enemy = collision.GetComponent<Enemy>())
             {
                 // Contact damage
-                TakeDamage(enemy.BaseDamage);
+                TakeDamage(enemy.BaseDamage * 2);
             }
 
             if (projectile && WasDamagedThisFrame)
