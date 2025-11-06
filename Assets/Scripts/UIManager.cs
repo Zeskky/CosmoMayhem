@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using FMODUnity;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,7 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] private float criticalHealthThreshold = .2f;
     [SerializeField] private float criticalHealthEffectSpeed = 1;
     [SerializeField] private Gradient criticalHealthEffectGradient;
+    [SerializeField] private GameObject bossAlertOverlay;
 
+    private bool didBossAlert = false;
     private PlayerController player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -75,6 +78,26 @@ public class UIManager : MonoBehaviour
         scoreLabel.text = $"{monospaceTag}{(int)displayedScore,8}";
         scoreLabelBackground.text = $"{monospaceTag}{((int)displayedScore).ToString().PadLeft(8, '0')}";
         UpdateMultiplier();
+
+        if (GameManager.Instance.CurrentStageState == StageState.Boss)
+        {
+            didBossAlert = true;
+            Animator bossAlertAnimator = bossAlertOverlay.GetComponent<Animator>();
+            if (bossAlertAnimator)
+            {
+                bossAlertAnimator.SetTrigger("On");
+            }
+            
+            StudioEventEmitter alertEmitter = bossAlertOverlay.GetComponent<StudioEventEmitter>();
+            if (alertEmitter)
+            {
+                if (alertEmitter.EventPlayTrigger == EmitterGameEvent.None)
+                {
+                    alertEmitter.Play();
+                }
+            }
+        }
+
     }
 
     private void UpdateMultiplier()

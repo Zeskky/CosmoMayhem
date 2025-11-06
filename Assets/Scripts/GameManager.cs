@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Collections;
 using FMODUnity;
 
+public enum StageState
+{
+    Regular,
+    Boss,
+    Bonus,
+}
+
 [System.Serializable]
 public class Wave
 {
@@ -49,21 +56,26 @@ public class GameManager : MonoBehaviour
 
     [Header("Wave Settings")]
     [SerializeField] private List<Wave> waves;
-    [SerializeField] private float currentWaveTimer;
+    [SerializeField] private float currentWaveTimer, bossSpawnDelay;
 
     public List<Wave> Waves { get {  return waves; } }
     private int currentWave = 0;
     private List<GameObject> waveEnemies = new();
+    
+    public Boss CurrentBoss { get; private set; }
+
+    public StageState CurrentStageState { get; private set; }
 
     private void Awake()
     {
         Instance = this;
+        gameOverMessage.SetActive(false);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameOverMessage.SetActive(false);
+        CurrentStageState = StageState.Regular;
         // StartCoroutine(WaveSpawnCo());
     }
 
@@ -81,6 +93,8 @@ public class GameManager : MonoBehaviour
         if (bgmEmitter.IsPlaying())
         {
             RuntimeManager.StudioSystem.setParameterByName("Music Pitch", Time.timeScale);
+
+            bgmEmitter.SetParameter("Stage State", (int)CurrentStageState);
         }
     }
 
@@ -111,13 +125,8 @@ public class GameManager : MonoBehaviour
     
     public void RemoveMissingWaveEnemies()
     {
-        int c = waveEnemies.RemoveAll(enemy => enemy == null);
-        /*
-        if (c > 0)
-        {
-            print(c);
-        }
-        */
+        // Deletes all missing or non-enemy references
+        int c = waveEnemies.RemoveAll(enemy => enemy == null || !enemy.CompareTag("Enemy"));
     }
 
     public void SpawnNextWave()
@@ -126,9 +135,16 @@ public class GameManager : MonoBehaviour
             return;
 
         Wave nextWave = waves[currentWave];
-        if (currentWaveTimer >= nextWave.maxDelay || (IsCurrentWaveCleared() && currentWave > 0))
+        if ((currentWaveTimer >= nextWave.maxDelay && !nextWave.hasBoss) || (IsCurrentWaveCleared() && currentWave > 0))
         {
-            SpawnWave(nextWave);
+            if (nextWave.hasBoss)
+            {
+                StartCoroutine(DoBossSequenceCo(nextWave));
+            }
+            else
+            {
+                SpawnWave(nextWave);
+            }
             currentWave++;
         }
 
@@ -137,11 +153,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnWave(Wave wave)
     {
-        if (wave.hasBoss)
-        {
-
-        }
-
+        // Standard wave
         currentWaveTimer -= wave.maxDelay;
         GameObject waveInstance = Instantiate(wave.wavePrefab, spawnArea.position, Quaternion.identity);
         while (waveInstance.transform.childCount > 0)
@@ -152,7 +164,19 @@ public class GameManager : MonoBehaviour
             t.parent = transform;
         }
 
+        if (!CurrentBoss && wave.hasBoss)
+        {
+            CurrentBoss = FindFirstObjectByType<Boss>();
+        }
+
         Destroy(waveInstance);
+    }
+
+    private IEnumerator DoBossSequenceCo(Wave wave)
+    {
+        CurrentStageState = StageState.Boss;
+        yield return new WaitForSecondsRealtime(bossSpawnDelay);
+        SpawnWave(wave);
     }
 
     public IEnumerator WaveSpawnCo()

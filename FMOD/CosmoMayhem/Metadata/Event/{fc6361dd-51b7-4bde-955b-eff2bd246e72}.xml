@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{fc6361dd-51b7-4bde-955b-eff2bd246e72}">
 		<property name="name">
-			<value>Boss 1</value>
+			<value>Healing-D-Vision</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{e1b9616c-6b49-496a-8331-1eeac197d9f3}</destination>
+			<destination>{09ca973e-5b8e-44bf-9e0d-b383bf96826c}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{5aeb01fc-75d4-4839-837e-ff01d6504033}</destination>
@@ -53,7 +53,7 @@
 			<destination>{d1fdd8a6-f512-48fe-96dd-eb0ab17b1e65}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{27b70bb7-f3bb-49ed-9df4-33375842cdd9}</destination>
+			<destination>{c127b342-6224-42af-8971-60bc75f58557}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{5f066afc-d2a9-4810-8019-7ec5a9d7dac6}" />

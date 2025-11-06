@@ -92,7 +92,7 @@ public class Enemy : Damageable
                 break;
             case MovementBehaviour.Wavy:
                 // Enemy will make a sine-like movement
-                float s = 2;
+                float s = 2 * transform.localScale.magnitude;
                 float t = s * movementTimer % s;
                 rb.linearVelocityY = movementTimer % 2 >= 1
                     ?  t - (s / 2) // Odd
@@ -118,11 +118,13 @@ public class Enemy : Damageable
 
     private void GenerateShot()
     {
-        Projectile newShot = Instantiate(shotPrefab, cannonPoint.position, Quaternion.identity).GetComponent<Projectile>();
-        if (newShot)
+        GameObject newShotInstance = Instantiate(shotPrefab, cannonPoint.position, cannonPoint.rotation);
+
+        Projectile projectile = newShotInstance.GetComponent<Projectile>();
+        if (projectile)
         {
-            newShot.damage = baseDamage;
-            newShot.startVelocity = -shotSpeed;
+            projectile.damage = baseDamage;
+            projectile.startVelocity = shotSpeed;
         }
     }
 
@@ -175,15 +177,18 @@ public class Enemy : Damageable
 
     private void ShowFloatingHealthBar(float lifetime = 1f)
     {
-        if (currentFloatingHealthBar)
+        if (floatingHealthBarPrefab)
         {
-            // Destroy any existing floating bars
-            Destroy(currentFloatingHealthBar);
-        }
+            if (currentFloatingHealthBar)
+            {
+                // Destroy any existing floating bars
+                Destroy(currentFloatingHealthBar);
+            }
 
-        currentFloatingHealthBar = Instantiate(floatingHealthBarPrefab, transform);
-        currentFloatingHealthBar.GetComponent<FloatingHealthBar>().HealthBarFill = (float)Health / maxHealth;
-        Destroy(currentFloatingHealthBar, lifetime);
+            currentFloatingHealthBar = Instantiate(floatingHealthBarPrefab, transform);
+            currentFloatingHealthBar.GetComponent<FloatingHealthBar>().HealthBarFill = (float)Health / maxHealth;
+            Destroy(currentFloatingHealthBar, lifetime);
+        }
     }
 
 }
