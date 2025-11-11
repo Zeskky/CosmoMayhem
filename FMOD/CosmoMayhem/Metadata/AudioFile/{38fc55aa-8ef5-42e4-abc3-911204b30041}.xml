@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{38fc55aa-8ef5-42e4-abc3-911204b30041}">
 		<property name="assetPath">
-			<value>impactMetal_004.ogg</value>
+			<value>SFX/Game/impactMetal_004.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

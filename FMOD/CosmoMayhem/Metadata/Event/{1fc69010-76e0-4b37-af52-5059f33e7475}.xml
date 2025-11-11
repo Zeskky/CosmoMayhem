@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{1fc69010-76e0-4b37-af52-5059f33e7475}">
 		<property name="name">
-			<value>Game Loop</value>
+			<value>Stage Loop</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -57,7 +57,7 @@
 			<destination>{3f789b48-81fb-4a86-9fe5-c5f6a90312d2}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{27b70bb7-f3bb-49ed-9df4-33375842cdd9}</destination>
+			<destination>{2a021bf9-909a-42ab-8e18-5f9506bc6f31}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{4e4ea16c-ac84-423f-aca5-1b4e04e3562b}">

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{e8239612-8cc9-4536-bafc-0bfd41adca2f}">
 		<property name="assetPath">
-			<value>undertale_hit.wav</value>
+			<value>SFX/Game/undertale_hit.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

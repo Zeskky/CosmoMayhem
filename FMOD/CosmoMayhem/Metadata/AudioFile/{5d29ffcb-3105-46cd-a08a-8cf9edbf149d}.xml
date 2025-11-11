@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{5d29ffcb-3105-46cd-a08a-8cf9edbf149d}">
 		<property name="assetPath">
-			<value>metalpipe.wav</value>
+			<value>SFX/Game/metalpipe.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

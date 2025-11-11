@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{96fdcc76-9651-4081-acb3-2367579a4e5f}">
 		<property name="assetPath">
-			<value>laserSmall_001.ogg</value>
+			<value>SFX/Game/laserSmall_001.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

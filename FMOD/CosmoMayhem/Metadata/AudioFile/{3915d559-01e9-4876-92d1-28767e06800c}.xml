@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{3915d559-01e9-4876-92d1-28767e06800c}">
 		<property name="assetPath">
-			<value>computerNoise_001.ogg</value>
+			<value>SFX/Game/computerNoise_001.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

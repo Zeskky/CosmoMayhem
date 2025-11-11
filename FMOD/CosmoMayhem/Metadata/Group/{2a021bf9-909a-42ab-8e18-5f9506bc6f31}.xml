@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="MixerGroup" id="{2a021bf9-909a-42ab-8e18-5f9506bc6f31}">
+		<property name="name">
+			<value>Stage Music</value>
+		</property>
+		<relationship name="automators">
+			<destination>{65c22bc9-4f93-4bcc-a092-8b6d3c528bf6}</destination>
+		</relationship>
+		<relationship name="effectChain">
+			<destination>{b145e3ee-6908-4064-8649-f4c5d4858513}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{d3bd6aec-91f0-49cd-919a-42000e489a78}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{27b70bb7-f3bb-49ed-9df4-33375842cdd9}</destination>
+		</relationship>
+	</object>
+	<object class="Automator" id="{65c22bc9-4f93-4bcc-a092-8b6d3c528bf6}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>pitch</value>
+		</property>
+		<relationship name="automationCurves">
+			<destination>{d7878806-cce7-48b7-bce4-a07ae75aac14}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{b145e3ee-6908-4064-8649-f4c5d4858513}">
+		<relationship name="effects">
+			<destination>{2455ed7a-aadf-430e-937c-aba942e27433}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{d3bd6aec-91f0-49cd-919a-42000e489a78}" />
+	<object class="AutomationCurve" id="{d7878806-cce7-48b7-bce4-a07ae75aac14}">
+		<relationship name="parameter">
+			<destination>{b1b59617-75e1-42b5-b2d8-5f585d91ae2b}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusFader" id="{2455ed7a-aadf-430e-937c-aba942e27433}" />
+</objects>

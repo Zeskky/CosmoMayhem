@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{da22ffb2-280e-4430-b1da-b16cb48355f5}">
 		<property name="assetPath">
-			<value>thrusterFire_001.ogg</value>
+			<value>SFX/Game/thrusterFire_001.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{f235f2a3-ea3a-44e2-b917-b309d4c7c20c}">
 		<property name="assetPath">
-			<value>slime_001.ogg</value>
+			<value>SFX/Game/slime_001.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

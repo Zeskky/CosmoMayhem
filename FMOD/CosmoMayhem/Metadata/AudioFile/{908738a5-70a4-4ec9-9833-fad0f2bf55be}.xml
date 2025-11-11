@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{908738a5-70a4-4ec9-9833-fad0f2bf55be}">
 		<property name="assetPath">
-			<value>lowFrequency_explosion_000.ogg</value>
+			<value>SFX/Game/lowFrequency_explosion_000.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
