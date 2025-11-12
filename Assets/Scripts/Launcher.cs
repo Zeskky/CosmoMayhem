@@ -23,7 +23,9 @@ public class Launcher : MonoBehaviour
     [SerializeField] private GameObject titleMessagePanel;
     [SerializeField] private List<MenuScreen> menuScreens;
     [SerializeField] private StudioEventEmitter confirmEmitter;
+    [SerializeField] private Animator uiAnimator;
     private MenuScreen currentScreen;
+
     public bool InTransition { get; private set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,8 +59,8 @@ public class Launcher : MonoBehaviour
             // Make sure it's a different screen
             if (currentScreen != targetScreen)
             {
+                uiAnimator.SetTrigger(targetScreen.Id);
                 currentScreen.ScreenObjects.ForEach(screen => screen.SetActive(false));
-                (currentScreen = targetScreen).ScreenObjects.ForEach(screen => screen.SetActive(false));
                 Vector3 targetPosition = (currentScreen = targetScreen).ScreenCenterPoint.position;
                 StartCoroutine(MoveCameraToPointCo(targetPosition));
             }
@@ -81,7 +83,8 @@ public class Launcher : MonoBehaviour
         // Snap camera position to target
         Camera.main.transform.position = targetPos;
         InTransition = false;
-
-        
+        yield return new WaitForSeconds(1f);
+        uiAnimator.SetTrigger("RunTransition");
+        currentScreen.ScreenObjects.ForEach(screen => screen.SetActive(true));
     }
 }

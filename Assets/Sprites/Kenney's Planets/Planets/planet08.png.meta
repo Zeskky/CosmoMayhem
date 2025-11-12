@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7960f9335f11bf748b8ae14afef69d18
+guid: 006bfa206fb59104184ce688972062f8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1942645314456094108
-    second: Game Logo_0
+      213: -8963534596690228247
+    second: planet08_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,12 +48,12 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Game Logo_0
+      name: planet08_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1280
-        height: 320
+        x: 102
+        y: 103
+        width: 1077
+        height: 1075
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 46a744b01665a05e0800000000000000
-      internalID: -1942645314456094108
+      spriteID: 9ebca5076c02b9380800000000000000
+      internalID: -8963534596690228247
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Game Logo_0: -1942645314456094108
+      planet08_0: -8963534596690228247
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,28 +1,22 @@
 fileFormatVersion: 2
-guid: 5102aa1f0caa91f41b702550fcc94be5
+guid: 9a96f48caeb2e804789ef146dabc6a99
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -978777096041981088
-    second: warning marquee 1_0
+      213: -2236498022727538358
+    second: noise12_0
   - first:
-      213: -3030660453566670047
-    second: warning marquee 1_1
+      213: -164982404667881775
+    second: noise12_1
   - first:
-      213: 2640826831423150851
-    second: warning marquee 1_2
+      213: -524816370678906790
+    second: noise12_2
   - first:
-      213: 9100384382341383289
-    second: warning marquee 1_3
+      213: -3407495372522140504
+    second: noise12_3
   - first:
-      213: 755837479000311140
-    second: warning marquee 1_4
-  - first:
-      213: 5135463091598954717
-    second: warning marquee 1_5
-  - first:
-      213: -6968160555476831631
-    second: warning marquee 1_6
+      213: 3832703195558953200
+    second: noise12_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -58,9 +52,9 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -71,7 +65,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -90,7 +84,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -118,155 +112,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: warning marquee 1_0
+      name: noise12_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 6
-        width: 91
-        height: 52
+        x: 30
+        y: 450
+        width: 994
+        height: 516
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 06b112cba6faa62f0800000000000000
-      internalID: -978777096041981088
+      spriteID: a492676d5ec56f0e0800000000000000
+      internalID: -2236498022727538358
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: warning marquee 1_1
+      name: noise12_1
       rect:
         serializedVersion: 2
-        x: 106
-        y: 7
-        width: 83
-        height: 51
+        x: 243
+        y: 914
+        width: 583
+        height: 110
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 12b9556ef5ee0f5d0800000000000000
-      internalID: -3030660453566670047
+      spriteID: 1d6c497806dd5bdf0800000000000000
+      internalID: -164982404667881775
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: warning marquee 1_2
+      name: noise12_2
       rect:
         serializedVersion: 2
-        x: 191
-        y: 7
-        width: 71
-        height: 51
+        x: 3
+        y: 570
+        width: 16
+        height: 53
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 30b1c40f20a16a420800000000000000
-      internalID: 2640826831423150851
+      spriteID: a50cf5d9a4a77b8f0800000000000000
+      internalID: -524816370678906790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: warning marquee 1_3
+      name: noise12_3
       rect:
         serializedVersion: 2
-        x: 265
-        y: 6
-        width: 60
-        height: 52
+        x: 0
+        y: 420
+        width: 57
+        height: 133
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 97488fc316f0b4e70800000000000000
-      internalID: 9100384382341383289
+      spriteID: 8acc70b230526b0d0800000000000000
+      internalID: -3407495372522140504
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: warning marquee 1_4
+      name: noise12_4
       rect:
         serializedVersion: 2
-        x: 331
-        y: 7
-        width: 18
-        height: 51
+        x: 14
+        y: 0
+        width: 1007
+        height: 529
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4658dbbbe264d7a00800000000000000
-      internalID: 755837479000311140
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: warning marquee 1_5
-      rect:
-        serializedVersion: 2
-        x: 355
-        y: 6
-        width: 60
-        height: 52
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dd092e31974d44740800000000000000
-      internalID: 5135463091598954717
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: warning marquee 1_6
-      rect:
-        serializedVersion: 2
-        x: 420
-        y: 7
-        width: 66
-        height: 51
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1723ae8c4ee1c4f90800000000000000
-      internalID: -6968160555476831631
+      spriteID: 0f0cbc4ff3f703530800000000000000
+      internalID: 3832703195558953200
       vertices: []
       indices: 
       edges: []
@@ -276,7 +226,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -285,13 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      warning marquee 1_0: -978777096041981088
-      warning marquee 1_1: -3030660453566670047
-      warning marquee 1_2: 2640826831423150851
-      warning marquee 1_3: 9100384382341383289
-      warning marquee 1_4: 755837479000311140
-      warning marquee 1_5: 5135463091598954717
-      warning marquee 1_6: -6968160555476831631
+      noise12_0: -2236498022727538358
+      noise12_1: -164982404667881775
+      noise12_2: -524816370678906790
+      noise12_3: -3407495372522140504
+      noise12_4: 3832703195558953200
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

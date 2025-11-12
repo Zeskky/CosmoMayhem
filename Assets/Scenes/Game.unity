@@ -1662,7 +1662,7 @@ GameObject:
   - component: {fileID: 866980362}
   - component: {fileID: 866980361}
   m_Layer: 5
-  m_Name: Game Over Message
+  m_Name: Incoming Enemy Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
