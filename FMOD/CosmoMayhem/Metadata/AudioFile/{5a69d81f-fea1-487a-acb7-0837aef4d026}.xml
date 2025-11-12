@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{5a69d81f-fea1-487a-acb7-0837aef4d026}">
 		<property name="assetPath">
-			<value>Music/Boss Stages/Phoning to Mercury.ogg</value>
+			<value>BGM/Boss Stages/Phoning to Mercury.ogg</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

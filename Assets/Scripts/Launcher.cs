@@ -1,41 +1,66 @@
+using FMODUnity;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+
+[System.Serializable]
+public class MenuScreen
+{
+    [SerializeField] private string id;
+    [SerializeField] private Transform screenCenterPoint;
+    [SerializeField] private List<GameObject> screenObjects;
+
+    public Transform ScreenCenterPoint { get { return screenCenterPoint; } }
+    public string Id { get { return id; } }
+    public List<GameObject> ScreenObjects { get { return screenObjects; } }
+}
 
 public class Launcher : MonoBehaviour
 {
     [SerializeField] private GameObject titleMessagePanel;
-    private string currentScreen;
+    [SerializeField] private List<MenuScreen> menuScreens;
+    [SerializeField] private StudioEventEmitter confirmEmitter;
+    private MenuScreen currentScreen;
     public bool InTransition { get; private set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         InTransition = false;
-        currentScreen = "ScreenTitle";
+        currentScreen = menuScreens.FirstOrDefault();
+        if (currentScreen == null)
+        {
+            Debug.LogError("No valid Menu Screens were found! Consider adding one in the Inspector.");
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        }
     }
 
     public void OnConfirm(InputValue value)
     {
         if (value.isPressed)
         {
-            GoToScreen("ScreenModeSelect");
+            if (confirmEmitter) confirmEmitter.Play();
+            GoToScreen("ModeSelect");
         }
     }
 
-    public void GoToScreen(string targetScreen)
+    public void GoToScreen(string screenId)
     {
-        GameObject targetPointGO = GameObject.FindGameObjectWithTag(targetScreen);
-        if (targetPointGO)
+        MenuScreen targetScreen = menuScreens.FirstOrDefault(s => s.Id == screenId);
+        if (targetScreen != null)
         {
-            currentScreen = targetScreen;
-            Vector3 targetPosition = targetPointGO.transform.position;
-            StartCoroutine(MoveCameraToPointCo(targetPosition));
-
-            // UI update
-            if (targetScreen != "ScreenTitle")
+            // Make sure it's a different screen
+            if (currentScreen != targetScreen)
             {
-                titleMessagePanel.SetActive(false);
+                currentScreen.ScreenObjects.ForEach(screen => screen.SetActive(false));
+                (currentScreen = targetScreen).ScreenObjects.ForEach(screen => screen.SetActive(false));
+                Vector3 targetPosition = (currentScreen = targetScreen).ScreenCenterPoint.position;
+                StartCoroutine(MoveCameraToPointCo(targetPosition));
             }
         }
     }
@@ -56,5 +81,7 @@ public class Launcher : MonoBehaviour
         // Snap camera position to target
         Camera.main.transform.position = targetPos;
         InTransition = false;
+
+        
     }
 }

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{7c325c05-e4b9-4473-a8e9-2ff45762da7d}">
 		<property name="assetPath">
-			<value>Music/Standard Stages/Poseidon.ogg</value>
+			<value>BGM/Standard Stages/Poseidon.ogg</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

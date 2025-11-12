@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{6764d7ce-49e3-4e2c-be02-de5972d2731f}">
 		<property name="assetPath">
-			<value>Music/Boss Stages/Healing-D-Vision.ogg</value>
+			<value>BGM/Boss Stages/Healing-D-Vision.ogg</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

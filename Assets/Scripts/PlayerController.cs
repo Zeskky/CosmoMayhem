@@ -263,8 +263,11 @@ public class PlayerController : Damageable
             }
             else if (enemy = collision.GetComponent<Enemy>())
             {
-                // Contact damage
+                // Contact damage, usually enemy's x 2
                 TakeDamage(enemy.BaseDamage * 2);
+                // Make sure the enemy also takes retaliation damage
+                // Floored half the player ship's shot power (May be 0)
+                enemy.TakeDamage(shotDamage / 2);
             }
 
             if (projectile && WasDamagedThisFrame)

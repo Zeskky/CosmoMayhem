@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{0b1ce8d7-e5c2-4555-8fb8-72da7a4a4233}">
-		<property name="note">
-			<value>
-</value>
-		</property>
+		<property name="note" />
 		<property name="assetPath">
-			<value>Music/Boss Stages/End of Line.ogg</value>
+			<value>BGM/Boss Stages/End of Line.ogg</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

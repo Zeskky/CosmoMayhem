@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{6c619db8-aadb-48c8-a05a-b48a232ad88d}">
 		<property name="assetPath">
-			<value>Music/Pufino - Digital Mayham (freetouse.com).mp3</value>
+			<value>BGM/Pufino - Digital Mayham (freetouse.com).mp3</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>
