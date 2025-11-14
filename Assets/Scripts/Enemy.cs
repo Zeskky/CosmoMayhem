@@ -4,9 +4,9 @@ using UnityEngine;
 public enum MovementBehaviour
 {
     GoForward,
-    Halt,
-    ChasePlayer,
-    Wavy
+    FacePlayer,
+    Wavy,
+    FollowPlayerY,
 }
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -16,7 +16,7 @@ public class Enemy : Damageable
 
     [SerializeField] private int scoreValue = 10;
     [SerializeField] private MovementBehaviour movementBehaviour;
-    [SerializeField] private bool doWarp = true;
+    [SerializeField] private bool doWarp = true, doHalt = false;
     [SerializeField] private Vector2 targetPosition;
     [SerializeField] private float minSpeedModifier, maxSpeedModifier, chaseSpeed = 2f;
     [SerializeField] private int baseDamage = 2;
@@ -62,7 +62,7 @@ public class Enemy : Damageable
 
         movementTimer += Time.deltaTime;
         rb.linearVelocity = transform.right * -movementSpeed;
-        rb.linearVelocityY *= -chaseSpeed;
+        PlayerController player = FindAnyObjectByType<PlayerController>();
         // print(rb.linearVelocity);
 
         switch (movementBehaviour)
@@ -71,18 +71,9 @@ public class Enemy : Damageable
                 // Enemy will keep going forward
                 // Avoid using this value with 'doWarp' set to false, unless it's an optional enemy
                 break;
-            case MovementBehaviour.Halt:
-                // Enemy will halt upon reaching target horizontal position (x)
-                Vector3 actualTargetPosition = Camera.main.ViewportToWorldPoint(targetPosition);
-                if (transform.position.x < actualTargetPosition.x)
-                {
-                    transform.parent = Camera.main.transform;
-                }
-                break;
-            case MovementBehaviour.ChasePlayer:
-                // Enemy will chase player's ship
-                PlayerController player;
-                if (player = FindAnyObjectByType<PlayerController>())
+            case MovementBehaviour.FacePlayer:
+                // Enemy will face towards the player ship
+                if (player)
                     if (transform.position.x > player.transform.position.x)
                     {
                         transform.eulerAngles = new(0, 0,
@@ -98,7 +89,14 @@ public class Enemy : Damageable
                     ?  t - (s / 2) // Odd
                     : -t + (s / 2); // Even
                 break;
+            case MovementBehaviour.FollowPlayerY:
+                // Enemy will follow the player ship vertically (y)
+                float yDistance = Mathf.Abs(transform.position.y - player.transform.position.y);
+                rb.linearVelocityY = yDistance;
+                break;
         }
+
+        rb.linearVelocityY *= -chaseSpeed;
 
         if (doWarp)
         {
@@ -107,6 +105,16 @@ public class Enemy : Damageable
             if (transform.position.x < warpPosition.x)
             {
                 transform.position = new(GameManager.Instance.GetSpawnAreaPosition().x, transform.position.y);
+            }
+        }
+        else if (doHalt)
+        {
+            // Enemy will halt upon reaching target horizontal position (x)
+            Vector3 actualTargetPosition = Camera.main.ViewportToWorldPoint(targetPosition);
+            if (transform.position.x < actualTargetPosition.x)
+            {
+                transform.parent = Camera.main.transform;
+                movementSpeed = 0;
             }
         }
     }

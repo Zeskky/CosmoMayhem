@@ -17,10 +17,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] private float criticalHealthThreshold = .2f;
     [SerializeField] private float criticalHealthEffectSpeed = 1;
     [SerializeField] private Gradient criticalHealthEffectGradient;
-    [SerializeField] private GameObject bossAlertOverlay;
+    [Header("Boss UI Elements")]
+    [SerializeField] private GameObject bossAlertOverlay, bossHealthBar;
+    [SerializeField] private Image bossHealthBarFill, bossHealthBarBuffer;
+    [SerializeField] private TMP_Text bossDisplayNameLabel;
 
     private bool didBossAlert = false;
     private PlayerController player;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,38 +35,41 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ProgressBarBufferUpdate(float targetFill, Image barFill, Image barBuffer)
     {
-
-    }
-
-    private void FixedUpdate()
-    {
-        float targetFill = player ? (float)player.Health / player.MaxHealth : 0;
-        float currentFill = healthBarBuffer.fillAmount;
+        float currentFill = barBuffer.fillAmount;
 
         if (targetFill < currentFill)
         {
             // Damage
-            healthBarBuffer.color = Color.red;
-            healthBarFill.fillAmount = targetFill;
-            healthBarBuffer.fillAmount = Mathf.Max(currentFill - Time.fixedDeltaTime * healthBarBufferRate, targetFill);
+            barBuffer.color = Color.red;
+            barFill.fillAmount = targetFill;
+            barBuffer.fillAmount = Mathf.Max(currentFill - Time.fixedDeltaTime * healthBarBufferRate, targetFill);
         }
         else
         {
             // Heal
-            healthBarBuffer.color = Color.green;
-            healthBarBuffer.fillAmount = targetFill;
-            healthBarFill.fillAmount = Mathf.Min(currentFill + Time.fixedDeltaTime * healthBarBufferRate, targetFill);
+            currentFill = barFill.fillAmount;
+            barBuffer.color = Color.green;
+            barBuffer.fillAmount = targetFill;
+            barFill.fillAmount = Mathf.Min(currentFill + Time.fixedDeltaTime * healthBarBufferRate, targetFill);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        ProgressBarBufferUpdate(
+            targetFill: player ? player.NormalizedHealth : 0,
+            barFill: healthBarFill,
+            barBuffer: healthBarBuffer
+        );
 
         if (!player)
         {
             // Obliterated
             healthBar.color = Color.red;
         }
-        else if (targetFill <= criticalHealthThreshold)
+        else if ((float)player.NormalizedHealth <= criticalHealthThreshold)
         {
             // Critical damage
             healthBar.color = criticalHealthEffectGradient.Evaluate((Time.time * criticalHealthEffectSpeed) % 1);
@@ -79,15 +86,29 @@ public class UIManager : MonoBehaviour
         scoreLabelBackground.text = $"{monospaceTag}{((int)displayedScore).ToString().PadLeft(8, '0')}";
         UpdateMultiplier();
 
-        if (GameManager.Instance.CurrentStageState == StageState.Boss)
+        Boss currentBoss;
+        bossHealthBar.SetActive(currentBoss = GameManager.Instance.CurrentBoss);
+
+        if (currentBoss)
         {
-            didBossAlert = true;
+            // Boss UI update
+            ProgressBarBufferUpdate(
+                targetFill: currentBoss.NormalizedHealth,
+                barFill: bossHealthBarFill,
+                barBuffer: bossHealthBarBuffer
+            );
+            bossDisplayNameLabel.text = currentBoss.DisplayName;
+        }
+
+        if (GameManager.Instance.CurrentStageState == StageState.Boss && !didBossAlert)
+        {
+            bossAlertOverlay.SetActive(didBossAlert = true);
             Animator bossAlertAnimator = bossAlertOverlay.GetComponent<Animator>();
             if (bossAlertAnimator)
             {
                 bossAlertAnimator.SetTrigger("On");
             }
-            
+
             StudioEventEmitter alertEmitter = bossAlertOverlay.GetComponent<StudioEventEmitter>();
             if (alertEmitter)
             {
@@ -97,7 +118,6 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-
     }
 
     private void UpdateMultiplier()

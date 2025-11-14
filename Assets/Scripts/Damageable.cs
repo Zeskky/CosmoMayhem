@@ -14,6 +14,12 @@ public class Damageable : MonoBehaviour
             health = Mathf.Clamp(value, 0, maxHealth);
         }
     }
+
+    public float NormalizedHealth
+    {
+        get { return (float)health / maxHealth; }
+    }
+
     [SerializeField] private GameObject deathEffect;
     protected float immuneTimer;
     [SerializeField] protected float damageImmunityTime = 2f;

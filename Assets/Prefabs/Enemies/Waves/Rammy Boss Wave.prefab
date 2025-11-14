@@ -112,20 +112,23 @@ MonoBehaviour:
   deathEffect: {fileID: 7053974614867859185, guid: 7b58d95edc3d48a4ba2e24debf6b0445, type: 3}
   damageImmunityTime: 0.1
   floatingHealthBarPrefab: {fileID: 0}
-  scoreValue: 1000
+  scoreValue: 1500
   movementBehaviour: 1
   doWarp: 1
+  doHalt: 0
   targetPosition: {x: 0.75, y: 0.5}
   minSpeedModifier: 1
   maxSpeedModifier: 1
-  chaseSpeed: 0
+  chaseSpeed: 1
   baseDamage: 9
   canShoot: 0
-  minShotDelay: 2
-  maxShotDelay: 3
+  minShotDelay: 1.5
+  maxShotDelay: 2
   shotSpeed: 5
-  shotPrefab: {fileID: 0}
+  shotPrefab: {fileID: 4687282145784826265, guid: 8b13f416a64c7f0409401dca352ffcc6, type: 3}
   cannonPoint: {fileID: 717937206499150420}
+  displayName: Rammy
+  events: []
 --- !u!61 &7138564356644460148
 BoxCollider2D:
   m_ObjectHideFlags: 0

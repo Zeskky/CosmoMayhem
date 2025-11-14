@@ -123,6 +123,11 @@ public class GameManager : MonoBehaviour
         return waveEnemies.Count == 0;
     }
     
+    public bool IsLastWave()
+    {
+        return currentWave >= waves.Count;
+    }
+
     public void RemoveMissingWaveEnemies()
     {
         // Deletes all missing or non-enemy references
@@ -131,10 +136,14 @@ public class GameManager : MonoBehaviour
 
     public void SpawnNextWave()
     {
-        if (currentWave < 0 || currentWave > waves.Count - 1)
+        if (currentWave < 0 || IsLastWave())
+        {
+            currentWaveTimer = 0;
             return;
+        }
 
         Wave nextWave = waves[currentWave];
+        print(nextWave.maxDelay - currentWaveTimer);
         if ((currentWaveTimer >= nextWave.maxDelay && !nextWave.hasBoss) || (IsCurrentWaveCleared() && currentWave > 0))
         {
             if (nextWave.hasBoss)
@@ -153,6 +162,8 @@ public class GameManager : MonoBehaviour
 
     private void SpawnWave(Wave wave)
     {
+        if (!wave.wavePrefab)
+            return;
         // Standard wave
         currentWaveTimer -= wave.maxDelay;
         GameObject waveInstance = Instantiate(wave.wavePrefab, spawnArea.position, Quaternion.identity);
