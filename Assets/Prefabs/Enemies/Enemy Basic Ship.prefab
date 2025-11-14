@@ -54,8 +54,9 @@ MonoBehaviour:
   damageImmunityTime: 0.1
   floatingHealthBarPrefab: {fileID: 2563284384509674880, guid: da4a870e3d260be4a8e9936659437e64, type: 3}
   scoreValue: 100
-  movementBehaviour: 3
+  movementBehaviour: 2
   doWarp: 1
+  doHalt: 0
   targetPosition: {x: 0.65, y: 0}
   minSpeedModifier: 1.5
   maxSpeedModifier: 1.5
