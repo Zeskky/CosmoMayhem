@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: f74905ee8366d39478eff2305ddce2aa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5452169354384312551
+    second: UnityxCapgemini_3C-Black_0
+  - first:
+      213: -2200338305488971183
+    second: UnityxCapgemini_3C-Black_1
+  - first:
+      213: -3338712449908410622
+    second: UnityxCapgemini_3C-Black_2
+  - first:
+      213: -4651666167806174249
+    second: UnityxCapgemini_3C-Black_3
+  - first:
+      213: -5907594442061096131
+    second: UnityxCapgemini_3C-Black_4
+  - first:
+      213: 8815720864032973405
+    second: UnityxCapgemini_3C-Black_5
+  - first:
+      213: 1951208242449740528
+    second: UnityxCapgemini_3C-Black_6
+  - first:
+      213: 8478649514777287978
+    second: UnityxCapgemini_3C-Black_7
+  - first:
+      213: 473354330625063134
+    second: UnityxCapgemini_3C-Black_8
+  - first:
+      213: -8079891470099200261
+    second: UnityxCapgemini_3C-Black_9
+  - first:
+      213: 7031444064173809411
+    second: UnityxCapgemini_3C-Black_10
+  - first:
+      213: -3811457454632164890
+    second: UnityxCapgemini_3C-Black_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_0
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 86
+        width: 193
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 917f6a8ebd00654b0800000000000000
+      internalID: -5452169354384312551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_1
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 145
+        width: 89
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15a15a318f3d671e0800000000000000
+      internalID: -2200338305488971183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_2
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 231
+        width: 27
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 207f80057b28aa1d0800000000000000
+      internalID: -3338712449908410622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_3
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 146
+        width: 49
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dbd5361446f17fb0800000000000000
+      internalID: -4651666167806174249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_4
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 116
+        width: 157
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3b50eb9722040ea0800000000000000
+      internalID: -5907594442061096131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_5
+      rect:
+        serializedVersion: 2
+        x: 1038
+        y: 87
+        width: 642
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d526fab0b6bb75a70800000000000000
+      internalID: 8815720864032973405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_6
+      rect:
+        serializedVersion: 2
+        x: 1687
+        y: 147
+        width: 138
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f2f70efe85141b10800000000000000
+      internalID: 1951208242449740528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_7
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 147
+        width: 74
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2d9657dfc63aa570800000000000000
+      internalID: 8478649514777287978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_8
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 147
+        width: 27
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed8bcc97141b19600800000000000000
+      internalID: 473354330625063134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_9
+      rect:
+        serializedVersion: 2
+        x: 602
+        y: 123
+        width: 80
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf6470d54857edf80800000000000000
+      internalID: -8079891470099200261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_10
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 202
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30fdb174f15b49160800000000000000
+      internalID: 7031444064173809411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UnityxCapgemini_3C-Black_11
+      rect:
+        serializedVersion: 2
+        x: 1735
+        y: 135
+        width: 93
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e1a22493abfa1bc0800000000000000
+      internalID: -3811457454632164890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      UnityxCapgemini_3C-Black_0: -5452169354384312551
+      UnityxCapgemini_3C-Black_1: -2200338305488971183
+      UnityxCapgemini_3C-Black_10: 7031444064173809411
+      UnityxCapgemini_3C-Black_11: -3811457454632164890
+      UnityxCapgemini_3C-Black_2: -3338712449908410622
+      UnityxCapgemini_3C-Black_3: -4651666167806174249
+      UnityxCapgemini_3C-Black_4: -5907594442061096131
+      UnityxCapgemini_3C-Black_5: 8815720864032973405
+      UnityxCapgemini_3C-Black_6: 1951208242449740528
+      UnityxCapgemini_3C-Black_7: 8478649514777287978
+      UnityxCapgemini_3C-Black_8: 473354330625063134
+      UnityxCapgemini_3C-Black_9: -8079891470099200261
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

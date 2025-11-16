@@ -38,7 +38,7 @@ public class Pickup : MonoBehaviour
         switch (pickupType)
         {
             case PickupType.ScoreBonus:
-                GameManager.Instance.score += pickupValue;
+                GameManager.Instance.CurrentStageStats.ScoreBreakdown[ScoreType.Pickup] += pickupValue;
                 break;
             case PickupType.RepairKit:
                 player.HealDamage(pickupValue / 100f);

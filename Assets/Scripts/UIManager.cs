@@ -81,7 +81,7 @@ public class UIManager : MonoBehaviour
         }
 
         string monospaceTag = $"<mspace={charSpacing.ToString().Replace(',', '.')}em>";
-        displayedScore = Mathf.Min(displayedScore + Time.fixedDeltaTime * scoreUpdateRate, GameManager.Instance.score);
+        displayedScore = Mathf.Min(displayedScore + Time.fixedDeltaTime * scoreUpdateRate, GameManager.Instance.CurrentStageStats.TotalScore);
         scoreLabel.text = $"{monospaceTag}{(int)displayedScore,8}";
         scoreLabelBackground.text = $"{monospaceTag}{((int)displayedScore).ToString().PadLeft(8, '0')}";
         UpdateMultiplier();
@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
             bossDisplayNameLabel.text = currentBoss.DisplayName;
         }
 
-        if (GameManager.Instance.CurrentStageState == StageState.Boss && !didBossAlert)
+        if (GameManager.Instance.CurrentStagePhase == StagePhase.Boss && !didBossAlert)
         {
             bossAlertOverlay.SetActive(didBossAlert = true);
             Animator bossAlertAnimator = bossAlertOverlay.GetComponent<Animator>();

@@ -123,9 +123,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   startVelocity: 0
   damage: 1
+  priority: 1
+  scaledPriority: 0
   lifetime: 3
   explosionPrefab: {fileID: 0}
-  gracePeriod: 0
 --- !u!114 &1773090250813598960
 MonoBehaviour:
   m_ObjectHideFlags: 0

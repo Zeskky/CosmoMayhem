@@ -2,8 +2,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using FMODUnity;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
-public enum StageState
+public enum StagePhase
 {
     Regular,
     Boss,
@@ -18,11 +20,36 @@ public class Wave
     public bool hasBoss;
 }
 
+public enum ScoreType
+{
+    None,
+    Enemy,
+    Pickup,
+    Ship
+}
+
+[System.Serializable]
+public class StageStats
+{
+    public bool Cleared { get; set; }
+    public Dictionary<ScoreType, int> ScoreBreakdown { get; set; }
+
+    public int TotalScore
+    {
+        get { return ScoreBreakdown.Sum(null); }
+    }
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     [SerializeField] private float scrollSpeed = 2f;
-    public int score;
+
+    [Header("Stage Statistics")]
+    [SerializeField] private StageStats currentStageStats;
+    public StageStats CurrentStageStats { get; }
+
+    // public int score;
 
     [SerializeField] private int maxMultiplier = 4, comboPerMultiplier = 5;
     private int multiplier = 1;
@@ -35,16 +62,43 @@ public class GameManager : MonoBehaviour
     public int Combo
     {
         get { return combo; }
-        set 
-        { 
-            combo = value;
-            multiplier = Mathf.Clamp((combo / comboPerMultiplier) + 1, 1, maxMultiplier);
-        }
+        set { combo = value; }
     }
 
+    private int multiplierProgress = 0;
     public int MultiplierProgress
     {
-        get { return combo % comboPerMultiplier; }
+        get { return multiplierProgress; }
+        set 
+        {
+            if (value >= 0)
+            {
+                if (multiplier < maxMultiplier)
+                {
+                    // Multiplier should only increase if not maxed out
+                    multiplierProgress = value;
+                    if (multiplierProgress >= comboPerMultiplier)
+                    {
+                        // Increase multiplier
+                        multiplier++;
+                        multiplierProgress = comboPerMultiplier - multiplierProgress + 1;
+                    }
+                }
+            }
+            else
+            {
+                if (multiplierProgress > 0)
+                {
+                    // Reset multiplier progress
+                    multiplierProgress = 0;
+                }
+                else
+                {
+                    // Decrease multiplier
+                    multiplier--;
+                }
+            }
+        }
     }
 
     //[SerializeField] private GameObject enemyPrefab;
@@ -64,7 +118,12 @@ public class GameManager : MonoBehaviour
     
     public Boss CurrentBoss { get; private set; }
 
-    public StageState CurrentStageState { get; private set; }
+    public StagePhase CurrentStagePhase { get; private set; }
+
+    [Header("Transition Settings")]
+    [SerializeField] private GameObject missionCompletePrefab;
+    [SerializeField] private GameObject missionFailedPrefab;
+    [SerializeField] private float transitionStayTime = 5f;
 
     private void Awake()
     {
@@ -75,8 +134,16 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        CurrentStageState = StageState.Regular;
+        CurrentStagePhase = StagePhase.Regular;
+        SetupStageStats();
         // StartCoroutine(WaveSpawnCo());
+    }
+    
+    private void SetupStageStats()
+    {
+        currentStageStats.ScoreBreakdown[ScoreType.Enemy] = 
+        currentStageStats.ScoreBreakdown[ScoreType.Pickup] = 
+        currentStageStats.ScoreBreakdown[ScoreType.Ship] = 0;
     }
 
     // Update is called once per frame
@@ -94,7 +161,7 @@ public class GameManager : MonoBehaviour
         {
             RuntimeManager.StudioSystem.setParameterByName("Music Pitch", Time.timeScale);
 
-            bgmEmitter.SetParameter("Stage State", (int)CurrentStageState);
+            bgmEmitter.SetParameter("Stage State", (int)CurrentStagePhase);
         }
     }
 
@@ -136,14 +203,16 @@ public class GameManager : MonoBehaviour
 
     public void SpawnNextWave()
     {
-        if (currentWave < 0 || IsLastWave())
-        {
-            currentWaveTimer = 0;
+        if (currentWave < 0)
             return;
+
+        if (IsLastWave() && waveEnemies.Count == 0)
+        {
+            StartCoroutine(EndMission(true));
         }
 
         Wave nextWave = waves[currentWave];
-        print(nextWave.maxDelay - currentWaveTimer);
+        // print(nextWave.maxDelay - currentWaveTimer);
         if ((currentWaveTimer >= nextWave.maxDelay && !nextWave.hasBoss) || (IsCurrentWaveCleared() && currentWave > 0))
         {
             if (nextWave.hasBoss)
@@ -158,6 +227,32 @@ public class GameManager : MonoBehaviour
         }
 
         RemoveMissingWaveEnemies();
+    }
+
+    public IEnumerator EndMission(bool success)
+    {
+        bgmEmitter.Stop();
+        Animator transitionAnim = null;
+
+        currentStageStats.Cleared = success;
+        Launcher.Instance.GameStageStats.Add(currentStageStats);
+
+        if (missionCompletePrefab)
+        {
+            if (success)
+            {
+                GameObject transitionInstance = Instantiate(missionCompletePrefab);
+                transitionAnim = transitionInstance.GetComponent<Animator>();
+                DontDestroyOnLoad(transitionInstance);
+            }
+        }
+
+        yield return new WaitForSecondsRealtime(transitionStayTime);
+        if (transitionAnim)
+        {
+            transitionAnim.SetTrigger("End");
+            yield return SceneManager.LoadSceneAsync("Evaluation");
+        }
     }
 
     private void SpawnWave(Wave wave)
@@ -175,6 +270,8 @@ public class GameManager : MonoBehaviour
             t.parent = transform;
         }
 
+        waveEnemies.ForEach(e => e.transform.parent = null);
+
         if (!CurrentBoss && wave.hasBoss)
         {
             CurrentBoss = FindFirstObjectByType<Boss>();
@@ -185,7 +282,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DoBossSequenceCo(Wave wave)
     {
-        CurrentStageState = StageState.Boss;
+        CurrentStagePhase = StagePhase.Boss;
         yield return new WaitForSecondsRealtime(bossSpawnDelay);
         SpawnWave(wave);
     }

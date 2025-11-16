@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6058677593997236051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9134505097061663953}
+  - component: {fileID: 4919910698728765218}
+  - component: {fileID: 7527896500293634473}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9134505097061663953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058677593997236051}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2288270598786639468}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4919910698728765218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058677593997236051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9b6ecbb6f9c2e41a33966ab27146d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  scrollSpeed: 2
+  score: 0
+  maxMultiplier: 4
+  comboPerMultiplier: 5
+  gameOverMessage: {fileID: 0}
+  spawnArea: {fileID: 2288270598786639468}
+  randomOffset: {x: 0, y: 4}
+  timeFreezeTransitionTime: 0.75
+  bgmEmitter: {fileID: 7527896500293634473}
+  waves:
+  - maxDelay: 1
+    wavePrefab: {fileID: 1876805798562724599, guid: d199dd653e4709f4eb7926758952176b, type: 3}
+    hasBoss: 0
+  - maxDelay: 12
+    wavePrefab: {fileID: 1876805798562724599, guid: db183a68caaa0cb4fae87de9e3e00c16, type: 3}
+    hasBoss: 0
+  - maxDelay: 12
+    wavePrefab: {fileID: 1876805798562724599, guid: 0d24750e34ea6c745aa3ade139a1e651, type: 3}
+    hasBoss: 0
+  - maxDelay: 0
+    wavePrefab: {fileID: 4879657468511175911, guid: a4bb0b106f73f424f991aa0ac65bde09, type: 3}
+    hasBoss: 1
+  currentWaveTimer: 0
+  bossSpawnDelay: 2
+  missionCompletePrefab: {fileID: 1809349698785315851, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
+  missionFailedPrefab: {fileID: 0}
+--- !u!114 &7527896500293634473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058677593997236051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 533106704
+      Data2: 1261926112
+      Data3: 1498436271
+      Data4: 1970552563
+    Path: event:/BGM/Stage Loop
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params:
+  - Name: Stage State
+    Value: 0
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!1 &8725199923537898813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2288270598786639468}
+  m_Layer: 0
+  m_Name: Spawn Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2288270598786639468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8725199923537898813}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9134505097061663953}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

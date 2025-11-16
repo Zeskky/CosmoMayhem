@@ -1,45 +1,45 @@
 using FMODUnity;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-
-[System.Serializable]
-public class MenuScreen
-{
-    [SerializeField] private string id;
-    [SerializeField] private Transform screenCenterPoint;
-    [SerializeField] private List<GameObject> screenObjects;
-
-    public Transform ScreenCenterPoint { get { return screenCenterPoint; } }
-    public string Id { get { return id; } }
-    public List<GameObject> ScreenObjects { get { return screenObjects; } }
-}
+using UnityEngine.SceneManagement;
 
 public class Launcher : MonoBehaviour
 {
-    [SerializeField] private GameObject titleMessagePanel;
-    [SerializeField] private List<MenuScreen> menuScreens;
+    public static Launcher Instance;
+
+    [SerializeField] private GameObject attractStartPanel;
     [SerializeField] private StudioEventEmitter confirmEmitter;
     [SerializeField] private Animator uiAnimator;
-    private MenuScreen currentScreen;
+
+    [SerializeField] private List<string> attractScenesSequence;
+
+    /// <summary>
+    /// The stats from all the stages played on this game so far.
+    /// </summary>
+    public List<StageStats> GameStageStats { get; }
 
     public bool InTransition { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance)
+        {
+            // Already existing instance: destroy this one
+            Destroy(gameObject);
+        }
+        else
+        {
+            // Store this instance's reference, making it persistent between scenes
+            DontDestroyOnLoad((Instance = this).gameObject);
+            NextAttractScene();
+        }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         InTransition = false;
-        currentScreen = menuScreens.FirstOrDefault();
-        if (currentScreen == null)
-        {
-            Debug.LogError("No valid Menu Screens were found! Consider adding one in the Inspector.");
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
-        }
     }
 
     public void OnConfirm(InputValue value)
@@ -47,26 +47,40 @@ public class Launcher : MonoBehaviour
         if (value.isPressed)
         {
             if (confirmEmitter) confirmEmitter.Play();
-            GoToScreen("ModeSelect");
         }
     }
 
-    public void GoToScreen(string screenId)
+    private void LateUpdate()
     {
-        MenuScreen targetScreen = menuScreens.FirstOrDefault(s => s.Id == screenId);
-        if (targetScreen != null)
+        GameObject animatorGO;
+        Animator outAnim;
+        if (animatorGO = GameObject.FindGameObjectWithTag("Out-able"))
         {
-            // Make sure it's a different screen
-            if (currentScreen != targetScreen)
+            if (outAnim = animatorGO.GetComponent<Animator>())
             {
-                uiAnimator.SetTrigger(targetScreen.Id);
-                currentScreen.ScreenObjects.ForEach(screen => screen.SetActive(false));
-                Vector3 targetPosition = (currentScreen = targetScreen).ScreenCenterPoint.position;
-                StartCoroutine(MoveCameraToPointCo(targetPosition));
+                AnimatorStateInfo asi = outAnim.GetCurrentAnimatorStateInfo(0);
+                print(asi.normalizedTime);
+                if (asi.IsTag("Out") && asi.normalizedTime >= 1)
+                {
+                    NextAttractScene();
+                }
             }
         }
     }
 
+    public void NextAttractScene()
+    {
+        int nextSceneIndex = attractScenesSequence.IndexOf(SceneManager.GetActiveScene().name) + 1;
+        if (nextSceneIndex >= attractScenesSequence.Count)
+        {
+            nextSceneIndex = 0;
+        }
+
+        string nextScene = attractScenesSequence[nextSceneIndex];
+        SceneManager.LoadScene(nextScene);
+    }
+
+    /*
     private IEnumerator MoveCameraToPointCo(Vector3 targetPos, float duration = 1f)
     {
         Vector3 originPos = Camera.main.transform.position;
@@ -85,6 +99,7 @@ public class Launcher : MonoBehaviour
         InTransition = false;
         yield return new WaitForSeconds(1f);
         uiAnimator.SetTrigger("RunTransition");
-        currentScreen.ScreenObjects.ForEach(screen => screen.SetActive(true));
+        // currentScreen.ScreenObjects.ForEach(screen => screen.SetActive(true));
     }
+    */
 }

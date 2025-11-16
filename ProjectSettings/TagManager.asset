@@ -6,8 +6,7 @@ TagManager:
   tags:
   - Boundary
   - Enemy
-  - ScreenTitle
-  - ScreenModeSelect
+  - Out-able
   layers:
   - Default
   - TransparentFX

@@ -60,7 +60,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5133408380883858501}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 1
@@ -68,7 +68,7 @@ Transform:
   - {fileID: 1254805269362106702}
   - {fileID: 717937206499150420}
   m_Father: {fileID: 6191144321231809868}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!50 &196753970976744703
 Rigidbody2D:
   serializedVersion: 5
@@ -108,20 +108,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6203d27692a907844b0db77510f5c9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss
-  maxHealth: 100
+  maxHealth: 200
   deathEffect: {fileID: 7053974614867859185, guid: 7b58d95edc3d48a4ba2e24debf6b0445, type: 3}
   damageImmunityTime: 0.1
   floatingHealthBarPrefab: {fileID: 0}
   scoreValue: 1500
-  movementBehaviour: 1
+  movementBehaviour: 3
   doWarp: 1
-  doHalt: 0
+  doHalt: 1
+  inactiveUntilHalted: 0
   targetPosition: {x: 0.75, y: 0.5}
-  minSpeedModifier: 1
-  maxSpeedModifier: 1
+  minSpeedModifier: 2
+  maxSpeedModifier: 2
   chaseSpeed: 1
   baseDamage: 9
-  canShoot: 0
+  canShoot: 1
   minShotDelay: 1.5
   maxShotDelay: 2
   shotSpeed: 5
@@ -231,13 +232,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8023693123643126923}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8798770295064250485}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &2807793213453757236
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -320,10 +321,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8983333090350148755}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -0.4, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8798770295064250485}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

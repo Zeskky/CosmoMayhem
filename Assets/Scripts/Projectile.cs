@@ -6,6 +6,9 @@ public class Projectile : MonoBehaviour
 {
     public float startVelocity;
     public int damage = 1;
+    [Range(1, 10)]
+    public int priority = 0;
+    [SerializeField] private bool scaledPriority = true;
     [SerializeField] private float lifetime = 6f;
     [SerializeField] private GameObject explosionPrefab;
     // [SerializeField] private float gracePeriod = 0f;
@@ -14,6 +17,8 @@ public class Projectile : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (scaledPriority)
+            priority = (int)(priority * transform.localScale.magnitude);
         GetComponent<Rigidbody2D>().linearVelocity = transform.right * startVelocity;
         StartCoroutine(DestroyProjectileCo(lifetime, false));
     }
@@ -41,11 +46,15 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Projectile>() && !collision.CompareTag(gameObject.tag))
+        Projectile other = collision.GetComponent<Projectile>();
+        if (other && !collision.CompareTag(gameObject.tag))
         {
-            // Destroy this projectile whenever it collides with another one,
-            // unless both GameObjects have the same tag.
-            StartCoroutine(DestroyProjectileCo());
+            print($"{gameObject.name}: {priority}");
+            if (priority <= other.priority)
+            {
+                // Destroy this projectile unless it has higher priority
+                StartCoroutine(DestroyProjectileCo());
+            }
         }
     }
 }

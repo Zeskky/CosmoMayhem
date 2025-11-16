@@ -208,6 +208,7 @@ public class PlayerController : Damageable
         {
             // Reset combo to 0
             GameManager.Instance.Combo = 0;
+            GameManager.Instance.MultiplierProgress--;
 
             if (Health > 0)
             {
