@@ -32,11 +32,12 @@ public enum ScoreType
 public class StageStats
 {
     public bool Cleared { get; set; }
-    public Dictionary<ScoreType, int> ScoreBreakdown { get; set; }
+    public Dictionary<ScoreType, int> scoreBreakdown = new();
+    public Dictionary<ScoreType, int> ScoreBreakdown { get { return scoreBreakdown; } }
 
     public int TotalScore
     {
-        get { return ScoreBreakdown.Sum(null); }
+        get { return ScoreBreakdown.Values.Sum(); }
     }
 }
 
@@ -44,10 +45,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     [SerializeField] private float scrollSpeed = 2f;
+    [Tooltip("Score awarded for every 1% of over-repairing done on the player's ship.")]
+    [SerializeField] private int overRepairScore = 10;
+
+    public int OverRepairScore { get { return overRepairScore; } }
 
     [Header("Stage Statistics")]
-    [SerializeField] private StageStats currentStageStats;
-    public StageStats CurrentStageStats { get; }
+    [SerializeField] private StageStats currentStageStats = new();
+    public StageStats CurrentStageStats { get { return currentStageStats; } }
 
     // public int score;
 
@@ -71,7 +76,7 @@ public class GameManager : MonoBehaviour
         get { return multiplierProgress; }
         set 
         {
-            if (value >= 0)
+            if (value >= multiplierProgress)
             {
                 if (multiplier < maxMultiplier)
                 {
@@ -80,7 +85,7 @@ public class GameManager : MonoBehaviour
                     if (multiplierProgress >= comboPerMultiplier)
                     {
                         // Increase multiplier
-                        multiplier++;
+                        multiplier = Mathf.Clamp(multiplier + 1, 1, maxMultiplier);
                         multiplierProgress = comboPerMultiplier - multiplierProgress + 1;
                     }
                 }
@@ -110,7 +115,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Wave Settings")]
     [SerializeField] private List<Wave> waves;
-    [SerializeField] private float currentWaveTimer, bossSpawnDelay;
+    [SerializeField] private float bossSpawnDelay;
+    private float currentWaveTimer;
 
     public List<Wave> Waves { get {  return waves; } }
     private int currentWave = 0;
@@ -203,13 +209,16 @@ public class GameManager : MonoBehaviour
 
     public void SpawnNextWave()
     {
-        if (currentWave < 0)
-            return;
-
-        if (IsLastWave() && waveEnemies.Count == 0)
+        if (currentWave < 0 || IsLastWave())
         {
-            StartCoroutine(EndMission(true));
+            if (IsLastWave() && waveEnemies.Count == 0)
+            {
+                StartCoroutine(EndMission(true));
+            }
+
+            return;
         }
+
 
         Wave nextWave = waves[currentWave];
         // print(nextWave.maxDelay - currentWaveTimer);
@@ -217,13 +226,16 @@ public class GameManager : MonoBehaviour
         {
             if (nextWave.hasBoss)
             {
-                StartCoroutine(DoBossSequenceCo(nextWave));
+                if (CurrentStagePhase != StagePhase.Boss)
+                {
+                    StartCoroutine(DoBossSequenceCo(nextWave));
+                }
             }
             else
             {
                 SpawnWave(nextWave);
+                currentWave++;
             }
-            currentWave++;
         }
 
         RemoveMissingWaveEnemies();

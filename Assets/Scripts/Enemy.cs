@@ -12,24 +12,35 @@ public enum MovementBehaviour
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : Damageable
 {
-    [SerializeField] private GameObject floatingHealthBarPrefab;
-
+    [Header("Basic Enemy Properties")]
     [SerializeField] private int scoreValue = 10;
     [SerializeField] private MovementBehaviour movementBehaviour;
     [SerializeField] private bool doWarp = true, doHalt = false, inactiveUntilHalted = false;
     [SerializeField] private Vector2 targetPosition;
     [SerializeField] private float minSpeedModifier, maxSpeedModifier/*, maxVelocity = 5f*/;
     [SerializeField] private int baseDamage = 2;
-
     public int BaseDamage { get { return baseDamage; } }
+    [SerializeField] private SpriteRenderer enemyRenderer;
 
-    [Header("Shooting Behaviour")]
+
+    [Header("Shooting Behaviour Properties")]
     [SerializeField] private bool canShoot = false;
     [SerializeField] private float minShotDelay = 2f, maxShotDelay = 3f, shotSpeed = 5f;
-    [SerializeField] private GameObject shotPrefab;
     [SerializeField] private Transform cannonPoint;
-    private float shotTimer, nextShotDelay;
 
+    [Header("Ram Behaviour Properties")]
+    [SerializeField] private bool doesRam = false;
+    [SerializeField] private float ramDelay = 4f, ramChargeTime = 1f, ramChargeSpeedModifier = 4f;
+    private float ramDelayTimer, ramChargeTimer;
+    public bool IsChargingToRam { get { return ramDelayTimer >= ramDelay; } }
+    private bool isRamming = false;
+
+    [Header("Prefab References")]
+    [SerializeField] private GameObject floatingHealthBarPrefab;
+    [SerializeField] private GameObject shotPrefab;
+
+    // Private flags
+    private float shotTimer, nextShotDelay;
     private float movementTimer, movementSpeed;
     private Vector3 startPosition;
     private Rigidbody2D rb;
@@ -63,85 +74,95 @@ public class Enemy : Damageable
         if (moveDir == Vector2.zero)
             moveDir = Vector2.left;
 
+        if (doesRam && !isRamming) ramDelayTimer = Mathf.Min(ramDelayTimer + Time.deltaTime, ramDelay);
+
         // print(rb.linearVelocity);
-
-        switch (movementBehaviour)
+        if (IsChargingToRam)
         {
-            case MovementBehaviour.GoForward:
-                // Enemy will keep going forward
-                // Avoid using this value with 'doWarp' set to false, unless it's an optional enemy
-                break;
-            case MovementBehaviour.FacePlayer:
-                // Enemy will face towards the player ship
-                if (player)
-                    if (transform.position.x > player.transform.position.x)
-                    {
-                        moveDir = (player.transform.position - transform.position).normalized;
-                        transform.right = moveDir;
-                    }
-                break;
-            case MovementBehaviour.Wavy:
-                // Enemy will make a sine-like movement
-                float s = 4 * transform.localScale.magnitude;
-                float t = s * movementTimer % s;
-                moveDir.y = movementTimer % 2 >= 1
-                    ?  t - (s / 2) // Odd
-                    : -t + (s / 2); // Even
-                break;
-            case MovementBehaviour.FollowPlayerY:
-                // Enemy will follow the player ship vertically (y)
-                if (player)
-                {
-                    float yDistance = (transform.position - transform.position).normalized.y;
-                    moveDir.y = -yDistance;
-                }
-                break;
-        }
-
-        if (doWarp)
-        {
-            // Enemy will warp to the initial spawn position
-            Vector3 warpPosition = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.5f)) + Vector3.left;
-            if (transform.position.x < warpPosition.x)
+            // "Ram towards the player ship" behaviour
+            if ((ramChargeTimer += Time.deltaTime) >= ramChargeTime)
             {
-                transform.position = new(GameManager.Instance.GetSpawnAreaPosition().x, transform.position.y);
+                ramChargeTimer -= ramChargeTime;
+                isRamming = true;
             }
         }
-
-        if (doHalt)
+        else
         {
-            // Enemy will halt upon reaching target horizontal position (x)
-            Vector3 actualTargetPosition = Camera.main.ViewportToWorldPoint(targetPosition);
-            
-            if (transform.position.x < actualTargetPosition.x)
+            // Standard behaviours
+            switch (movementBehaviour)
             {
-                transform.parent = Camera.main.transform;
-                movementSpeed = 0;
+                case MovementBehaviour.GoForward:
+                    // Enemy will keep going forward
+                    // Avoid using this value with 'doWarp' set to false, unless it's an optional enemy
+                    break;
+                case MovementBehaviour.FacePlayer:
+                    // Enemy will face towards the player ship
+                    if (player)
+                        if (transform.position.x > player.transform.position.x)
+                        {
+                            moveDir = (player.transform.position - transform.position).normalized;
+                            transform.right = moveDir;
+                        }
+                    break;
+                case MovementBehaviour.Wavy:
+                    // Enemy will make a sine-like movement
+                    float s = 4 * transform.localScale.magnitude;
+                    float t = s * movementTimer % s;
+                    moveDir.y = movementTimer % 2 >= 1
+                        ? t - (s / 2) // Odd
+                        : -t + (s / 2); // Even
+                    break;
+                case MovementBehaviour.FollowPlayerY:
+                    // Enemy will follow the player ship vertically (y)
+                    if (player)
+                        moveDir.y = (player.transform.position - transform.position).normalized.y;
+                    break;
+            }
 
-                if (canShoot)
+            if (doWarp)
+            {
+                // Enemy will warp to the initial spawn position
+                Vector3 warpPosition = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.5f)) + Vector3.left;
+                if (transform.position.x < warpPosition.x)
                 {
-                    if ((shotTimer += Time.deltaTime) >= nextShotDelay)
-                    {
-                        shotTimer -= nextShotDelay;
-                        nextShotDelay = Random.Range(minShotDelay, maxShotDelay);
-                        GenerateShot();
-                    }
+                    transform.position = new(GameManager.Instance.GetSpawnAreaPosition().x, transform.position.y);
                 }
             }
-            else
+
+            if (canShoot)
             {
-                if (inactiveUntilHalted)
+                if ((shotTimer += Time.deltaTime) >= nextShotDelay)
                 {
-                    // Enemy will be inactive until has reached the halt point
-                    shotTimer = 0;
-                    immuneTimer = damageImmunityTime * 2f;
+                    shotTimer -= nextShotDelay;
+                    nextShotDelay = Random.Range(minShotDelay, maxShotDelay);
+                    GenerateShot();
+                }
+            }
+
+            if (doHalt)
+            {
+                // Enemy will halt upon reaching target horizontal position (x)
+                Vector3 actualTargetPosition = Camera.main.ViewportToWorldPoint(targetPosition);
+
+                if (transform.position.x < actualTargetPosition.x)
+                {
+                    transform.parent = Camera.main.transform;
+                    moveDir.x = 0;
+                }
+                else
+                {
+                    if (inactiveUntilHalted)
+                    {
+                        // Enemy will be inactive until has reached the halt point
+                        ramDelayTimer = shotTimer = 0;
+                        immuneTimer = damageImmunityTime * 2f;
+                    }
                 }
             }
         }
 
         // Standard linear movement
         rb.linearVelocity = moveDir * movementSpeed;
-
     }
 
     private void FixedUpdate()
@@ -151,7 +172,8 @@ public class Enemy : Damageable
 
     private void GenerateShot()
     {
-        GameObject newShotInstance = Instantiate(shotPrefab, cannonPoint.position, cannonPoint.rotation);
+        GameObject newShotInstance = Instantiate(shotPrefab, cannonPoint.position, Quaternion.identity);
+        newShotInstance.transform.right = cannonPoint.right;
 
         if (newShotInstance.GetComponent<Projectile>())
         {
@@ -180,10 +202,12 @@ public class Enemy : Damageable
         Projectile projectile = collision.GetComponent<Projectile>();
         if (!collision.CompareTag(gameObject.tag) && projectile)
         {
+            /*
             rb.AddForce(
                 projectile.GetComponent<Rigidbody2D>().linearVelocity * (projectile.damage * .02f),
                 ForceMode2D.Impulse
             );
+            */
             // Take damage from any non-enemy projectile
             if (TakeDamage(projectile.damage))
             {

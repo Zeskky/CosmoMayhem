@@ -41,7 +41,20 @@ public class Pickup : MonoBehaviour
                 GameManager.Instance.CurrentStageStats.ScoreBreakdown[ScoreType.Pickup] += pickupValue;
                 break;
             case PickupType.RepairKit:
-                player.HealDamage(pickupValue / 100f);
+                // Calculate essential values
+                float normalizedDamage = 1 - player.NormalizedHealth;
+                float normalizedHealing = pickupValue / 100f;
+
+                // Procede to repair
+                player.HealDamage(normalizedHealing);
+                
+                // Grant an over-repair score bonus (if applicable)
+                float normalizedOverRepair = Mathf.Clamp01(normalizedHealing - normalizedDamage);
+                if (normalizedOverRepair > 0)
+                {
+                    int overRepairBonus = (int)(GameManager.Instance.OverRepairScore * normalizedOverRepair * 100);
+                    GameManager.Instance.CurrentStageStats.ScoreBreakdown[ScoreType.Pickup] += overRepairBonus;
+                }
                 break;
             case PickupType.SupercoreBooster:
                 player.CurrentSupercoreCharge += pickupValue;

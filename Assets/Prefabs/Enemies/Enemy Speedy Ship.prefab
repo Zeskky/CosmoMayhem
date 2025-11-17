@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f257e11e951e24b967db35b3b945a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  maxHealth: 3
+  maxHealth: 2
   deathEffect: {fileID: 7053974614867859185, guid: 7b58d95edc3d48a4ba2e24debf6b0445, type: 3}
   damageImmunityTime: 0.1
   floatingHealthBarPrefab: {fileID: 2563284384509674880, guid: da4a870e3d260be4a8e9936659437e64, type: 3}
@@ -61,7 +61,6 @@ MonoBehaviour:
   targetPosition: {x: 0.65, y: 0}
   minSpeedModifier: 4
   maxSpeedModifier: 5
-  maxVelocity: 5
   baseDamage: 5
   canShoot: 1
   minShotDelay: 1

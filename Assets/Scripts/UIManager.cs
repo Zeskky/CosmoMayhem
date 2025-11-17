@@ -7,7 +7,7 @@ using FMODUnity;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreLabel, scoreLabelBackground, multiplierLabel;
-    [SerializeField] List<Color> multiplierColors;
+    [SerializeField] private List<Color> multiplierColors;
     [SerializeField] Transform multiplierBar;
     [SerializeField] private float charSpacing = 0.825f, scoreUpdateRate = 10f;
     private float displayedScore = 0;

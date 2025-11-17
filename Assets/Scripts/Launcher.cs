@@ -34,6 +34,8 @@ public class Launcher : MonoBehaviour
             DontDestroyOnLoad((Instance = this).gameObject);
             NextAttractScene();
         }
+
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

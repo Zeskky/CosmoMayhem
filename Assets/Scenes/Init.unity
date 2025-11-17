@@ -1161,7 +1161,7 @@ MonoBehaviour:
   uiAnimator: {fileID: 121735714}
   attractScenesSequence:
   - CompanyLogo
-  - Menu
+  - Title
 --- !u!114 &1881517049
 MonoBehaviour:
   m_ObjectHideFlags: 0
