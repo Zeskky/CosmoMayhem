@@ -26,6 +26,7 @@ public class Enemy : Damageable
     [SerializeField] private bool canShoot = false;
     [SerializeField] private float minShotDelay = 2f, maxShotDelay = 3f, shotSpeed = 5f;
     [SerializeField] private Transform cannonPoint;
+    public float ShotRate { get; protected set; }
 
     [Header("Ram Behaviour Properties")]
     [SerializeField] private bool doesRam = false;
@@ -59,7 +60,8 @@ public class Enemy : Damageable
     {
         SetupHealth();
         rb = GetComponent<Rigidbody2D>();
-        nextShotDelay = Random.Range(minShotDelay, maxShotDelay);
+        ShotRate = 1;
+        nextShotDelay = Random.Range(minShotDelay, maxShotDelay) / ShotRate;
 
         startPosition = transform.position;
         movementSpeed = Random.Range(minSpeedModifier, maxSpeedModifier);
@@ -171,7 +173,7 @@ public class Enemy : Damageable
                 if ((shotTimer += Time.deltaTime) >= nextShotDelay)
                 {
                     shotTimer -= nextShotDelay;
-                    nextShotDelay = Random.Range(minShotDelay, maxShotDelay);
+                    nextShotDelay = Random.Range(minShotDelay, maxShotDelay) / ShotRate;
                     GenerateShot();
                 }
             }

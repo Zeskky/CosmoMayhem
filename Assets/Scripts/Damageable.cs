@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Damageable : MonoBehaviour
@@ -20,7 +21,7 @@ public class Damageable : MonoBehaviour
         get { return (float)health / maxHealth; }
     }
 
-    [SerializeField] private GameObject deathEffect;
+    [SerializeField] private GameObject deathEffect, preDeathEffect;
     protected float immuneTimer;
     [SerializeField] protected float damageImmunityTime = 2f;
 

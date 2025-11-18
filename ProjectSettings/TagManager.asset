@@ -7,6 +7,7 @@ TagManager:
   - Boundary
   - Enemy
   - Out-able
+  - Menu
   layers:
   - Default
   - TransparentFX

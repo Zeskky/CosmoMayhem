@@ -33,6 +33,13 @@ public class Boss : Enemy
         // GameManager.Instance.ShakeScreen(2.5f);
     }
 
+    public override void Die()
+    {
+        GameManager.Instance.StopMusic();
+        base.Die();
+        Time.timeScale = .1f;
+    }
+
     public override bool TakeDamage(int damage = 1)
     {
         Events.ForEach(
@@ -45,5 +52,10 @@ public class Boss : Enemy
             }
         );
         return base.TakeDamage(damage);
+    }
+
+    public void SetShotRate(float rate = 1)
+    {
+        ShotRate = rate;
     }
 }

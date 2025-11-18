@@ -1,15 +1,23 @@
-using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
 using FMODUnity;
-using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 
 public enum StagePhase
 {
     Regular,
     Boss,
     Bonus,
+}
+
+public enum StageResult
+{
+    Unfinished,
+    Cleared,
+    Failed,
 }
 
 [System.Serializable]
@@ -31,7 +39,8 @@ public enum ScoreType
 [System.Serializable]
 public class StageStats
 {
-    public bool Cleared { get; set; }
+    // public bool Cleared { get; set; }
+    public StageResult Result { get; set; }
     public Dictionary<ScoreType, int> scoreBreakdown = new();
     public Dictionary<ScoreType, int> ScoreBreakdown { get { return scoreBreakdown; } }
 
@@ -111,7 +120,7 @@ public class GameManager : MonoBehaviour
 
     //[SerializeField] private GameObject enemyPrefab;
     [SerializeField] private GameObject gameOverMessage;
-    [SerializeField] private Transform spawnArea;
+    [SerializeField] private Transform spawnArea, mainCameraGroup;
     [SerializeField] private Vector2 randomOffset;
     [SerializeField] private float /*spawnDelay = 1f,*/ timeFreezeTransitionTime = .75f;
     [SerializeField] private StudioEventEmitter bgmEmitter;
@@ -166,6 +175,12 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // print(currentStageStats.Result);
+        if (currentStageStats.Result != StageResult.Failed)
+        {
+            Time.timeScale = Mathf.Clamp01(Time.timeScale + Time.fixedDeltaTime / (timeFreezeTransitionTime * 1.5f));
+        }
+
         if (bgmEmitter.IsPlaying())
         {
             RuntimeManager.StudioSystem.setParameterByName("Music Pitch", Time.timeScale);
@@ -181,6 +196,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameOverSequenceCo()
     {
+        currentStageStats.Result = StageResult.Failed;
         while (Time.timeScale > 0.05f)
         {
             yield return new WaitForFixedUpdate();
@@ -189,7 +205,7 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = 0;
-        bgmEmitter.Stop();
+        StopMusic();
         gameOverMessage.SetActive(true);
         // Debug.Log("OBLITERATED");
     }
@@ -214,7 +230,7 @@ public class GameManager : MonoBehaviour
     {
         if (currentWave < 0 || IsLastWave())
         {
-            if (IsLastWave() && waveEnemies.Count == 0)
+            if (IsLastWave() && (waveEnemies.Count == 0 || !CurrentBoss))
             {
                 StartCoroutine(EndMission(true));
             }
@@ -246,10 +262,12 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator EndMission(bool success)
     {
-        bgmEmitter.Stop();
+        StopMusic();
         Animator transitionAnim = null;
 
-        currentStageStats.Cleared = success;
+        yield return new WaitForSeconds(2f);
+
+        currentStageStats.Result = StageResult.Cleared;
         Launcher.Instance.GameStageStats.Add(currentStageStats);
 
         if (missionCompletePrefab)
@@ -325,7 +343,7 @@ public class GameManager : MonoBehaviour
             Random.Range(-1f, 1f) * currentShakeValue.y
         );
 
-        Camera.main.transform.position = new Vector3(
+        (mainCameraGroup.parent = Camera.main.transform).position = new Vector3(
             transform.position.x + shakeOffset.x, 
             transform.position.y + shakeOffset.y, 
             -10
@@ -357,5 +375,10 @@ public class GameManager : MonoBehaviour
 
             currentShakeValue = Vector2.zero;
         }
+    }
+
+    public void StopMusic()
+    {
+        bgmEmitter.Stop();
     }
 }

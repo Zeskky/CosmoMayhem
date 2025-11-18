@@ -1,18 +1,62 @@
 using FMODUnity;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Launcher : MonoBehaviour
 {
     public static Launcher Instance;
 
-    [SerializeField] private GameObject attractStartPanel;
+    // [SerializeField] private GameObject attractStartPanel;
     [SerializeField] private StudioEventEmitter confirmEmitter;
-    [SerializeField] private Animator uiAnimator;
+    // [SerializeField] private Animator systemAnimator;
+    [SerializeField] private Image fadeTransitionOverlay;
 
     [SerializeField] private List<string> attractScenesSequence;
+
+    [Header("Menu Timer Properties")]
+    [SerializeField] private bool enableMenuTimer = true;
+    [SerializeField] private int menuTime = 30;
+    [SerializeField] private GameObject menuTimerGO;
+    [SerializeField] private TMP_Text menuTimerCounterLabel;
+    [SerializeField] private Image menuTimerBackground;
+    [SerializeField] private Color timerNormalColor, timerDangerColor;
+    [SerializeField] private int timerTickThreshold = 5;
+    [SerializeField] private StudioEventEmitter timerTickEmitter;
+    private int menuTimer;
+    private float clockTimer;
+    private readonly int timePerTick = 1;
+    private bool timerEnabled = false;
+
+    public int MenuTimer
+    {
+        get
+        {
+            return menuTimer;
+        }
+        set
+        {
+            menuTimer = value;
+            menuTimerCounterLabel.text = menuTimer.ToString().PadLeft(2, '0');
+            if (menuTimer <= 0)
+            {
+                StartCoroutine(ScreenOutCo(nextScene: "Gameplay"));
+            }
+            else if (menuTimer <= timerTickThreshold)
+            {
+                menuTimerCounterLabel.color = timerDangerColor;
+                timerTickEmitter.Play();
+            }
+            else
+            {
+                menuTimerCounterLabel.color = timerNormalColor;
+            }
+        }
+    }
 
     /// <summary>
     /// The stats from all the stages played on this game so far.
@@ -34,20 +78,38 @@ public class Launcher : MonoBehaviour
             DontDestroyOnLoad((Instance = this).gameObject);
             NextAttractScene();
         }
-
-
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        menuTimerGO.SetActive(false);
         InTransition = false;
+        fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
     }
 
     public void OnConfirm(InputValue value)
     {
         if (value.isPressed)
         {
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "CompanyLogo":
+                    StartCoroutine(ScreenOutCo(nextScene: "Menu"));
+                    break;
+                case "Title":
+                    GameObject menu = GameObject.FindGameObjectWithTag("Menu");
+                    if (menu ? menu.GetComponent<Animator>() : false)
+                        menu.GetComponent<Animator>().SetTrigger("Confirm");
+                    StartCoroutine(ScreenOutCo(nextScene: "Menu"));
+                    break;
+                case "Menu":
+                    MenuTimer = 0;
+                    break;
+                default:
+                    return;
+            }
+
             if (confirmEmitter) confirmEmitter.Play();
         }
     }
@@ -66,6 +128,66 @@ public class Launcher : MonoBehaviour
                 {
                     NextAttractScene();
                 }
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (enableMenuTimer)
+        {
+            // Menu timer logic
+            menuTimerGO.SetActive(timerEnabled);
+            if (timerEnabled)
+            {
+                if ((clockTimer += Time.deltaTime) >= timePerTick)
+                {
+                    clockTimer -= timePerTick;
+                    MenuTimer--;
+                }
+            }
+        }
+    }
+
+    public void SetupMenuTimer(int menuTime)
+    {
+        if (enableMenuTimer)
+        {
+            clockTimer = 0;
+            MenuTimer = menuTime;
+            timerEnabled = true;
+        }
+    }
+
+    public IEnumerator ScreenOutCo(float duration = 1f, string nextScene = "")
+    {
+        timerEnabled = false;
+        float t = 0;
+        while (t < 1)
+        {
+            fadeTransitionOverlay.color = new Color(0f, 0f, 0f, t);
+            yield return new WaitForEndOfFrame();
+            t += Time.unscaledDeltaTime / duration;
+        }
+
+        fadeTransitionOverlay.color = Color.black;
+        if (string.IsNullOrEmpty(nextScene))
+        {
+            // Next attract scene
+            NextAttractScene();
+        }
+        else
+        {
+            // Disable UI input in-game
+            GetComponent<PlayerInput>().enabled = !nextScene.Contains("Gameplay");
+
+            // Specified scene
+            yield return SceneManager.LoadSceneAsync(nextScene);
+            fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
+            
+            if (!nextScene.Contains("Gameplay"))
+            {
+                SetupMenuTimer(menuTime);
             }
         }
     }
