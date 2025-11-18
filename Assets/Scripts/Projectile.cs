@@ -49,7 +49,7 @@ public class Projectile : MonoBehaviour
         Projectile other = collision.GetComponent<Projectile>();
         if (other && !collision.CompareTag(gameObject.tag))
         {
-            print($"{gameObject.name}: {priority}");
+            // print($"{gameObject.name}: {priority}");
             if (priority <= other.priority)
             {
                 // Destroy this projectile unless it has higher priority

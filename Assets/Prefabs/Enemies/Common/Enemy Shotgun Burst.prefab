@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileBurst
   shape: 0
   projectilePrefab: {fileID: 1737550969589595245, guid: cb628e4d70872fc439b0fc658f17a520, type: 3}
-  projectileCount: 8
+  projectileCount: 6
   projectileVelocity: 7
   burstMaxAngle: 75
   projectileOffset: 0.25

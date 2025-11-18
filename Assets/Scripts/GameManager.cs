@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float scrollSpeed = 2f;
     [Tooltip("Score awarded for every 1% of over-repairing done on the player's ship.")]
     [SerializeField] private int overRepairScore = 10;
+    [SerializeField] private Vector2 currentShakeValue;
 
     public int OverRepairScore { get { return overRepairScore; } }
 
@@ -85,7 +86,7 @@ public class GameManager : MonoBehaviour
                     if (multiplierProgress >= comboPerMultiplier)
                     {
                         // Increase multiplier
-                        multiplier = Mathf.Clamp(multiplier + 1, 1, maxMultiplier);
+                        multiplier += multiplierProgress / comboPerMultiplier;
                         multiplierProgress = comboPerMultiplier - multiplierProgress + 1;
                     }
                 }
@@ -103,6 +104,8 @@ public class GameManager : MonoBehaviour
                     multiplier--;
                 }
             }
+
+            multiplier = Mathf.Clamp(multiplier, 1, maxMultiplier);
         }
     }
 
@@ -317,11 +320,42 @@ public class GameManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        Vector2 shakeOffset = new(
+            Random.Range(-1f, 1f) * currentShakeValue.x, 
+            Random.Range(-1f, 1f) * currentShakeValue.y
+        );
+
+        Camera.main.transform.position = new Vector3(
+            transform.position.x + shakeOffset.x, 
+            transform.position.y + shakeOffset.y, 
+            -10
+        );
     }
 
     public Vector2 GetSpawnAreaPosition()
     {
         return spawnArea.position;
+    }
+
+    public void ShakeScreen(float magnitude)
+    {
+        StartCoroutine(ShakeScreen(new Vector2(magnitude, magnitude)));
+    }
+
+    public IEnumerator ShakeScreen(Vector2 shakeMagnitude, float duration = 1f, bool decay = true)
+    {
+        if (shakeMagnitude.magnitude > 0f && duration > 0f)
+        {
+            float timer = 0;
+            while (timer < duration)
+            {
+                currentShakeValue = decay ? shakeMagnitude * (1 - timer / duration) : shakeMagnitude;
+
+                yield return new WaitForEndOfFrame();
+                timer += Time.deltaTime;
+            }
+
+            currentShakeValue = Vector2.zero;
+        }
     }
 }

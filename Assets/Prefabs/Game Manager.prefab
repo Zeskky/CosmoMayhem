@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   scrollSpeed: 2
-  score: 0
+  overRepairScore: 10
   maxMultiplier: 4
   comboPerMultiplier: 5
   gameOverMessage: {fileID: 0}
@@ -68,10 +68,10 @@ MonoBehaviour:
   - maxDelay: 0
     wavePrefab: {fileID: 4879657468511175911, guid: a4bb0b106f73f424f991aa0ac65bde09, type: 3}
     hasBoss: 1
-  currentWaveTimer: 0
   bossSpawnDelay: 2
   missionCompletePrefab: {fileID: 1809349698785315851, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
   missionFailedPrefab: {fileID: 0}
+  transitionStayTime: 5
 --- !u!114 &7527896500293634473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ Transform:
   m_GameObject: {fileID: 8725199923537898813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.5, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

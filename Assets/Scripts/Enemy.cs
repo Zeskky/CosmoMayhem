@@ -22,7 +22,6 @@ public class Enemy : Damageable
     public int BaseDamage { get { return baseDamage; } }
     [SerializeField] private SpriteRenderer enemyRenderer;
 
-
     [Header("Shooting Behaviour Properties")]
     [SerializeField] private bool canShoot = false;
     [SerializeField] private float minShotDelay = 2f, maxShotDelay = 3f, shotSpeed = 5f;
@@ -30,21 +29,24 @@ public class Enemy : Damageable
 
     [Header("Ram Behaviour Properties")]
     [SerializeField] private bool doesRam = false;
-    [SerializeField] private float ramDelay = 4f, ramChargeTime = 1f, ramChargeSpeedModifier = 4f;
+    [SerializeField] private float ramDelay = 4f, ramChargeTime = 1f, ramSpeedModifier = 4f;
+    [SerializeField] private GameObject ramTrail;
+    [SerializeField] private StudioEventEmitter ramChargeEmitter;
+    [SerializeField] private Gradient ramChargeTimerGradient;
     private float ramDelayTimer, ramChargeTimer;
-    public bool IsChargingToRam { get { return ramDelayTimer >= ramDelay; } }
-    private bool isRamming = false;
+
+    private bool isChargingToRam = false, isRamming = false;
 
     [Header("Prefab References")]
     [SerializeField] private GameObject floatingHealthBarPrefab;
     [SerializeField] private GameObject shotPrefab;
+    [SerializeField] private GameObject damageEmitterPrefab;
 
     // Private flags
     private float shotTimer, nextShotDelay;
     private float movementTimer, movementSpeed;
-    private Vector3 startPosition;
+    private Vector3 startPosition, ramStartPos;
     private Rigidbody2D rb;
-    private StudioEventEmitter damageTakenEmitter;
     private GameObject currentFloatingHealthBar;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -61,7 +63,6 @@ public class Enemy : Damageable
 
         startPosition = transform.position;
         movementSpeed = Random.Range(minSpeedModifier, maxSpeedModifier);
-        damageTakenEmitter = GetComponent<StudioEventEmitter>();
     }
 
     // Update is called once per frame
@@ -74,13 +75,47 @@ public class Enemy : Damageable
         if (moveDir == Vector2.zero)
             moveDir = Vector2.left;
 
-        if (doesRam && !isRamming) ramDelayTimer = Mathf.Min(ramDelayTimer + Time.deltaTime, ramDelay);
+        if (doesRam)
+        {
+            if (ramTrail)
+                ramTrail.SetActive(isRamming);
+            if (!isRamming && !isChargingToRam)
+            {
+                if ((ramDelayTimer += Time.deltaTime) >= ramDelay)
+                {
+                    isChargingToRam = true;
+                    ramDelayTimer = 0;
+
+                    ramChargeEmitter.Play();
+                }
+            }
+        }
 
         // print(rb.linearVelocity);
-        if (IsChargingToRam)
+
+        if (isRamming)
         {
-            // "Ram towards the player ship" behaviour
-            if ((ramChargeTimer += Time.deltaTime) >= ramChargeTime)
+            // Ram towards the screen's left border
+            moveDir.x = -ramSpeedModifier;
+            Vector2 currentVpPos = Camera.main.WorldToViewportPoint(transform.position);
+            if (currentVpPos.x < -1) isChargingToRam = isRamming = false;
+        }
+        else if (isChargingToRam)
+        {
+            // Preparing to ram towards the left border of the screen
+            moveDir = Vector2.zero;
+            ramChargeTimer += Time.deltaTime;
+            
+            float normalizedCharge = ramChargeTimer / ramChargeTime;
+            Vector2 vpPos = Camera.main.ViewportToWorldPoint(targetPosition);
+            enemyRenderer.color = ramChargeTimerGradient.Evaluate(normalizedCharge);
+
+            transform.position = new Vector3(
+                vpPos.x + normalizedCharge * (transform.localScale.magnitude / 4),
+                transform.position.y
+            );
+
+            if (ramChargeTimer >= ramChargeTime)
             {
                 ramChargeTimer -= ramChargeTime;
                 isRamming = true;
@@ -89,6 +124,8 @@ public class Enemy : Damageable
         else
         {
             // Standard behaviours
+            enemyRenderer.color = Color.white;
+
             switch (movementBehaviour)
             {
                 case MovementBehaviour.GoForward:
@@ -125,7 +162,7 @@ public class Enemy : Damageable
                 Vector3 warpPosition = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.5f)) + Vector3.left;
                 if (transform.position.x < warpPosition.x)
                 {
-                    transform.position = new(GameManager.Instance.GetSpawnAreaPosition().x, transform.position.y);
+                    transform.position = new(GameManager.Instance.GetSpawnAreaPosition().x + transform.localScale.x / 2f, transform.position.y);
                 }
             }
 
@@ -227,7 +264,12 @@ public class Enemy : Damageable
             else
             {
                 // Still alive
-                damageTakenEmitter.Play();
+                if (damageEmitterPrefab)
+                {
+                    GameObject damageEmitterInstance = Instantiate(damageEmitterPrefab, transform);
+                    Destroy(damageEmitterInstance, .5f);
+                }
+
                 ShowFloatingHealthBar();
             }
 
@@ -258,4 +300,8 @@ public class Enemy : Damageable
         }
     }
 
+    public void SetRamBehaviourEnabled(bool enabled)
+    {
+        doesRam = enabled;
+    }
 }

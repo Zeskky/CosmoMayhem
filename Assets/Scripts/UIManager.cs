@@ -17,9 +17,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] private float criticalHealthThreshold = .2f;
     [SerializeField] private float criticalHealthEffectSpeed = 1;
     [SerializeField] private Gradient criticalHealthEffectGradient;
+
     [Header("Boss UI Elements")]
     [SerializeField] private GameObject bossAlertOverlay, bossHealthBar;
     [SerializeField] private Image bossHealthBarFill, bossHealthBarBuffer;
+    [SerializeField] private Color bossNormalColor, bossAngryColor;
     [SerializeField] private TMP_Text bossDisplayNameLabel;
 
     private bool didBossAlert = false;
@@ -92,6 +94,7 @@ public class UIManager : MonoBehaviour
         if (currentBoss)
         {
             // Boss UI update
+            bossHealthBarFill.color = currentBoss.IsAngry ? bossAngryColor : bossNormalColor;
             ProgressBarBufferUpdate(
                 targetFill: currentBoss.NormalizedHealth,
                 barFill: bossHealthBarFill,

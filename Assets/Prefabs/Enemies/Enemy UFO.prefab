@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 9092168451672488396}
   - component: {fileID: 7148799123157102321}
   - component: {fileID: 2495665077937341035}
-  - component: {fileID: -5502008778572413308}
   m_Layer: 0
   m_Name: Enemy UFO
   m_TagString: Enemy
@@ -109,7 +108,6 @@ MonoBehaviour:
   maxHealth: 5
   deathEffect: {fileID: 7053974614867859185, guid: 7b58d95edc3d48a4ba2e24debf6b0445, type: 3}
   damageImmunityTime: 0.1
-  floatingHealthBarPrefab: {fileID: 2563284384509674880, guid: da4a870e3d260be4a8e9936659437e64, type: 3}
   scoreValue: 50
   movementBehaviour: 1
   doWarp: 1
@@ -119,12 +117,21 @@ MonoBehaviour:
   minSpeedModifier: 1.5
   maxSpeedModifier: 1.5
   baseDamage: 6
+  enemyRenderer: {fileID: 8533002116461517673}
   canShoot: 0
   minShotDelay: 2
   maxShotDelay: 3
   shotSpeed: 5
-  shotPrefab: {fileID: 0}
   cannonPoint: {fileID: 0}
+  doesRam: 0
+  ramDelay: 4
+  ramChargeTime: 1
+  ramSpeedModifier: 4
+  ramTrail: {fileID: 0}
+  ramChargeEmitter: {fileID: 0}
+  floatingHealthBarPrefab: {fileID: 2563284384509674880, guid: da4a870e3d260be4a8e9936659437e64, type: 3}
+  shotPrefab: {fileID: 0}
+  damageEmitterPrefab: {fileID: 6049495369858210894, guid: 6d7a4a711b2cd154e8b70f3d44f5bf99, type: 3}
 --- !u!50 &7148799123157102321
 Rigidbody2D:
   serializedVersion: 5
@@ -188,34 +195,3 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.45
---- !u!114 &-5502008778572413308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587400404040963008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: -311296837
-      Data2: 1254958630
-      Data3: 686351759
-      Data4: -976667438
-    Path: event:/SFX/Enemy/Damage Taken
-  Event: 
-  EventPlayTrigger: 0
-  EventStopTrigger: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20

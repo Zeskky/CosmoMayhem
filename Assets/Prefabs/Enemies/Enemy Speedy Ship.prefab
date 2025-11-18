@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7226211732203127147}
   - component: {fileID: 1657178718349197006}
   - component: {fileID: 408000171826428217}
-  - component: {fileID: 8343882416116469856}
   m_Layer: 0
   m_Name: Enemy Speedy Ship
   m_TagString: Enemy
@@ -52,7 +51,6 @@ MonoBehaviour:
   maxHealth: 2
   deathEffect: {fileID: 7053974614867859185, guid: 7b58d95edc3d48a4ba2e24debf6b0445, type: 3}
   damageImmunityTime: 0.1
-  floatingHealthBarPrefab: {fileID: 2563284384509674880, guid: da4a870e3d260be4a8e9936659437e64, type: 3}
   scoreValue: 150
   movementBehaviour: 1
   doWarp: 1
@@ -62,12 +60,51 @@ MonoBehaviour:
   minSpeedModifier: 4
   maxSpeedModifier: 5
   baseDamage: 5
+  enemyRenderer: {fileID: 6126950804869920852}
   canShoot: 1
   minShotDelay: 1
   maxShotDelay: 2
   shotSpeed: 6
-  shotPrefab: {fileID: 1737550969589595245, guid: cb628e4d70872fc439b0fc658f17a520, type: 3}
   cannonPoint: {fileID: 6707632778936651159}
+  doesRam: 0
+  ramDelay: 4
+  ramChargeTime: 1
+  ramSpeedModifier: 4
+  ramTrail: {fileID: 0}
+  ramChargeEmitter: {fileID: 0}
+  ramChargeTimerGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  floatingHealthBarPrefab: {fileID: 2563284384509674880, guid: da4a870e3d260be4a8e9936659437e64, type: 3}
+  shotPrefab: {fileID: 1737550969589595245, guid: cb628e4d70872fc439b0fc658f17a520, type: 3}
+  damageEmitterPrefab: {fileID: 6049495369858210894, guid: 6d7a4a711b2cd154e8b70f3d44f5bf99, type: 3}
 --- !u!50 &1657178718349197006
 Rigidbody2D:
   serializedVersion: 5
@@ -129,7 +166,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.05, y: 0}
+  m_Offset: {x: -0.05, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -141,37 +178,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.4, y: 0.7}
   m_EdgeRadius: 0
---- !u!114 &8343882416116469856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853682790469153553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: -311296837
-      Data2: 1254958630
-      Data3: 686351759
-      Data4: -976667438
-    Path: event:/SFX/Enemy/Damage Taken
-  Event: 
-  EventPlayTrigger: 0
-  EventStopTrigger: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1 &5561900905602934026
 GameObject:
   m_ObjectHideFlags: 0

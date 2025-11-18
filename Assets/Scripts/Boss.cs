@@ -12,6 +12,8 @@ public class BossEvent
 
     public float TargetHealth { get { return targetHealth; } }
     public UnityEvent Action { get { return eventAction; } }
+
+    public bool Triggered { get; set; }
 }
 
 public class Boss : Enemy
@@ -22,4 +24,26 @@ public class Boss : Enemy
 
     public string DisplayName { get { return displayName; } }
     public List<BossEvent> Events { get { return events; } }
+
+    public bool IsAngry { get; private set; }
+
+    public void GetAngry()
+    {
+        IsAngry = true;
+        // GameManager.Instance.ShakeScreen(2.5f);
+    }
+
+    public override bool TakeDamage(int damage = 1)
+    {
+        Events.ForEach(
+            ev => {
+                if (!ev.Triggered && NormalizedHealth <= ev.TargetHealth)
+                {
+                    ev.Triggered = true;
+                    ev.Action.Invoke();
+                }
+            }
+        );
+        return base.TakeDamage(damage);
+    }
 }
