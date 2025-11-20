@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="Snapshot" id="{36c87fa4-75b0-4c32-a7ab-746a2e372019}">
+		<property name="name">
+			<value>Music Fade Out</value>
+		</property>
+		<property name="behavior">
+			<value>1</value>
+		</property>
+		<relationship name="mixer">
+			<destination>{e5479790-7f5b-4382-9666-00f1a916e43f}</destination>
+		</relationship>
+		<relationship name="automatableProperties">
+			<destination>{2770bd71-88d9-4676-839d-fa5a0eef115b}</destination>
+		</relationship>
+		<relationship name="markerTracks">
+			<destination>{84ffadb3-a9c6-4ae4-950a-14b53dc2dc83}</destination>
+		</relationship>
+		<relationship name="timeline">
+			<destination>{adeee020-2939-47c4-946b-ca2d4823b6aa}</destination>
+		</relationship>
+		<relationship name="snapshotMasterTrack">
+			<destination>{e69cf57b-6e0d-4413-a653-ad5ddb8dcf50}</destination>
+		</relationship>
+		<relationship name="snapshotProperties">
+			<destination>{edc6b6e9-5f3c-41ae-be6e-13c1292929ee}</destination>
+		</relationship>
+		<relationship name="snapshotTracks">
+			<destination>{3d395138-c6c2-4f06-a83a-9cf3fdb203d5}</destination>
+		</relationship>
+	</object>
+	<object class="EventAutomatableProperties" id="{2770bd71-88d9-4676-839d-fa5a0eef115b}">
+		<relationship name="automators">
+			<destination>{258142b7-b2b3-4993-adf8-da643fcda286}</destination>
+		</relationship>
+	</object>
+	<object class="MarkerTrack" id="{84ffadb3-a9c6-4ae4-950a-14b53dc2dc83}" />
+	<object class="Timeline" id="{adeee020-2939-47c4-946b-ca2d4823b6aa}" />
+	<object class="SnapshotMasterTrack" id="{e69cf57b-6e0d-4413-a653-ad5ddb8dcf50}" />
+	<object class="SnapshotProperty" id="{edc6b6e9-5f3c-41ae-be6e-13c1292929ee}">
+		<property name="propertyName">
+			<value>volume</value>
+		</property>
+		<property name="value">
+			<value>-80</value>
+		</property>
+		<relationship name="automatableObject">
+			<destination>{27b70bb7-f3bb-49ed-9df4-33375842cdd9}</destination>
+		</relationship>
+	</object>
+	<object class="SnapshotTrack" id="{3d395138-c6c2-4f06-a83a-9cf3fdb203d5}">
+		<relationship name="mixerStrip">
+			<destination>{27b70bb7-f3bb-49ed-9df4-33375842cdd9}</destination>
+		</relationship>
+	</object>
+	<object class="Automator" id="{258142b7-b2b3-4993-adf8-da643fcda286}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>snapshotIntensity</value>
+		</property>
+		<relationship name="automationCurves">
+			<destination>{19784bb7-295d-4063-ab0d-042fe03c6710}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationCurve" id="{19784bb7-295d-4063-ab0d-042fe03c6710}">
+		<relationship name="parameter">
+			<destination>{adeee020-2939-47c4-946b-ca2d4823b6aa}</destination>
+		</relationship>
+		<relationship name="automationPoints">
+			<destination>{aced8352-b291-46a6-ace5-6962c4147257}</destination>
+			<destination>{4a86ae21-fc2c-4bfc-9b28-e748f13a4120}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationPoint" id="{aced8352-b291-46a6-ace5-6962c4147257}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{4a86ae21-fc2c-4bfc-9b28-e748f13a4120}">
+		<property name="position">
+			<value>1.5</value>
+		</property>
+		<property name="value">
+			<value>100</value>
+		</property>
+	</object>
+</objects>

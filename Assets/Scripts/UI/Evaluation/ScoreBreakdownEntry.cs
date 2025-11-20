@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -24,6 +25,12 @@ public class ScoreBreakdownEntry : MonoBehaviour
 
     private void FixedUpdate()
     {
+        StudioEventEmitter sbmEmitter = GetComponentInChildren<StudioEventEmitter>();
+        if (sbmEmitter)
+        {
+            sbmEmitter.gameObject.SetActive(displayedScore < targetScore);
+        }
+        
         if (displayedScore < targetScore)
         {
             string monospaceTag = $"<mspace={charSpacing.ToString().Replace(',', '.')}em>";

@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms;
 
 public enum StagePhase
 {
@@ -56,6 +54,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float scrollSpeed = 2f;
     [Tooltip("Score awarded for every 1% of over-repairing done on the player's ship.")]
     [SerializeField] private int overRepairScore = 10;
+    [Tooltip("How much score does award for the player's ship integrity?")]
+    [SerializeField] private int shipMaxBonus = 1000;
+    [Tooltip("How much health must have the player's ship to award by its integrity?")]
+    [Range(0f, 1f)]
+    [SerializeField] private float normalizedHealthForBonus = 0.2f;
     [SerializeField] private Vector2 currentShakeValue;
 
     public int OverRepairScore { get { return overRepairScore; } }
@@ -264,6 +267,23 @@ public class GameManager : MonoBehaviour
     {
         if (currentStageStats.Result != StageResult.Unfinished) yield break;
         currentStageStats.Result = success ? StageResult.Cleared : StageResult.Failed;
+
+        if (success)
+        {
+            foreach (GameObject enemyGO in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                Projectile p = enemyGO.GetComponent<Projectile>();
+                if (p) Destroy(enemyGO);
+            }
+
+            PlayerController player = FindAnyObjectByType<PlayerController>();
+            if (player)
+            {
+                float n = normalizedHealthForBonus;
+                currentStageStats.ScoreBreakdown[ScoreType.Ship] = (int)(shipMaxBonus 
+                    * Mathf.Max(0, (player.NormalizedHealth - n) / (1 - n)));
+            }
+        }
 
         StopMusic();
         yield return new WaitForSecondsRealtime(timeFreezeTransitionTime * 3f);
