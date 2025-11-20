@@ -15,6 +15,9 @@ public class Launcher : MonoBehaviour
     [SerializeField] private StudioEventEmitter confirmEmitter;
     // [SerializeField] private Animator systemAnimator;
     [SerializeField] private Image fadeTransitionOverlay;
+    
+    [SerializeField] private GameObject stageClearedTransition, stageFailedTransition;
+    // [SerializeField] private float transitionStayTime = 5f;
 
     [SerializeField] private List<string> attractScenesSequence;
 
@@ -30,7 +33,7 @@ public class Launcher : MonoBehaviour
     private int menuTimer;
     private float clockTimer;
     private readonly int timePerTick = 1;
-    private bool timerEnabled = false;
+    private bool timerEnabled = false, canConfirm = true;
 
     public int MenuTimer
     {
@@ -61,7 +64,7 @@ public class Launcher : MonoBehaviour
     /// <summary>
     /// The stats from all the stages played on this game so far.
     /// </summary>
-    public List<StageStats> GameStageStats { get; }
+    public List<StageStats> GameStageStats { get; private set; }
 
     public bool InTransition { get; private set; }
 
@@ -76,6 +79,13 @@ public class Launcher : MonoBehaviour
         {
             // Store this instance's reference, making it persistent between scenes
             DontDestroyOnLoad((Instance = this).gameObject);
+
+            menuTimerGO.SetActive(false);
+            GameStageStats = new List<StageStats>();
+            canConfirm = true;
+            InTransition = false;
+            fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
+
             NextAttractScene();
         }
     }
@@ -83,15 +93,13 @@ public class Launcher : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        menuTimerGO.SetActive(false);
-        InTransition = false;
-        fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
     }
 
     public void OnConfirm(InputValue value)
     {
-        if (value.isPressed)
+        if (value.isPressed && canConfirm)
         {
+            canConfirm = false;
             switch (SceneManager.GetActiveScene().name)
             {
                 case "CompanyLogo":
@@ -190,6 +198,8 @@ public class Launcher : MonoBehaviour
                 SetupMenuTimer(menuTime);
             }
         }
+
+        canConfirm = true;
     }
 
     public void NextAttractScene()
@@ -202,6 +212,33 @@ public class Launcher : MonoBehaviour
 
         string nextScene = attractScenesSequence[nextSceneIndex];
         SceneManager.LoadScene(nextScene);
+    }
+
+    public void SendEndStage(StageStats stats)
+    {
+        StartCoroutine(SendEndStageCo(stats));
+    }
+
+    private IEnumerator SendEndStageCo(StageStats stats)
+    {
+        bool success = stats.Result == StageResult.Cleared;
+        GameStageStats.Add(stats);
+
+        Animator anim = null;
+        if (success)
+        {
+            GameObject newTransition = Instantiate(stageClearedTransition, stageClearedTransition.transform.parent);
+            newTransition.SetActive(true);
+            anim = newTransition.GetComponent<Animator>();
+        }
+
+        while (anim && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        yield return SceneManager.LoadSceneAsync("Evaluation");
+        if (anim) anim.SetTrigger("End");
     }
 
     /*

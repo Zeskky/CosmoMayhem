@@ -17,7 +17,8 @@ public class Enemy : Damageable
     [SerializeField] private MovementBehaviour movementBehaviour;
     [SerializeField] private bool doWarp = true, doHalt = false, inactiveUntilHalted = false;
     [SerializeField] private Vector2 targetPosition;
-    [SerializeField] private float minSpeedModifier, maxSpeedModifier/*, maxVelocity = 5f*/;
+    [SerializeField] private float minSpeed, maxSpeed/*, maxVelocity = 5f*/;
+    [SerializeField] private float verticalSpeedModifier = 1f;
     [SerializeField] private int baseDamage = 2;
     public int BaseDamage { get { return baseDamage; } }
     [SerializeField] private SpriteRenderer enemyRenderer;
@@ -64,7 +65,7 @@ public class Enemy : Damageable
         nextShotDelay = Random.Range(minShotDelay, maxShotDelay) / ShotRate;
 
         startPosition = transform.position;
-        movementSpeed = Random.Range(minSpeedModifier, maxSpeedModifier);
+        movementSpeed = Random.Range(minSpeed, maxSpeed);
     }
 
     // Update is called once per frame
@@ -201,6 +202,7 @@ public class Enemy : Damageable
         }
 
         // Standard linear movement
+        moveDir.y *= verticalSpeedModifier;
         rb.linearVelocity = moveDir * movementSpeed;
     }
 

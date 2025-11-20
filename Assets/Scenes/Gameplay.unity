@@ -3130,7 +3130,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: 75}
   m_SizeDelta: {x: 450, y: 75}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2145748847
@@ -3252,30 +3252,6 @@ PrefabInstance:
       propertyPath: mainCameraGroup
       value: 
       objectReference: {fileID: 1459317233}
-    - target: {fileID: 4919910698728765218, guid: a00a1adf626cac74485de8b75dc841f3, type: 3}
-      propertyPath: waves.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4919910698728765218, guid: a00a1adf626cac74485de8b75dc841f3, type: 3}
-      propertyPath: waves.Array.data[1].hasBoss
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4919910698728765218, guid: a00a1adf626cac74485de8b75dc841f3, type: 3}
-      propertyPath: waves.Array.data[0].maxDelay
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4919910698728765218, guid: a00a1adf626cac74485de8b75dc841f3, type: 3}
-      propertyPath: waves.Array.data[1].maxDelay
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4919910698728765218, guid: a00a1adf626cac74485de8b75dc841f3, type: 3}
-      propertyPath: waves.Array.data[0].wavePrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4919910698728765218, guid: a00a1adf626cac74485de8b75dc841f3, type: 3}
-      propertyPath: waves.Array.data[1].wavePrefab
-      value: 
-      objectReference: {fileID: 4879657468511175911, guid: a4bb0b106f73f424f991aa0ac65bde09, type: 3}
     - target: {fileID: 6058677593997236051, guid: a00a1adf626cac74485de8b75dc841f3, type: 3}
       propertyPath: m_Name
       value: Game Manager

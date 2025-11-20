@@ -135,13 +135,13 @@ public class GameManager : MonoBehaviour
     private List<GameObject> waveEnemies = new();
     
     public Boss CurrentBoss { get; private set; }
+    public bool BossDefeated { get; set; }
 
     public StagePhase CurrentStagePhase { get; private set; }
 
     [Header("Transition Settings")]
     [SerializeField] private GameObject missionCompletePrefab;
     [SerializeField] private GameObject missionFailedPrefab;
-    [SerializeField] private float transitionStayTime = 5f;
 
     private void Awake()
     {
@@ -179,6 +179,11 @@ public class GameManager : MonoBehaviour
         if (currentStageStats.Result != StageResult.Failed)
         {
             Time.timeScale = Mathf.Clamp01(Time.timeScale + Time.fixedDeltaTime / (timeFreezeTransitionTime * 1.5f));
+        }
+
+        if (IsLastWave() && waveEnemies.Count == 0 && BossDefeated)
+        {
+            StartCoroutine(EndMission(true));
         }
 
         if (bgmEmitter.IsPlaying())
@@ -228,13 +233,9 @@ public class GameManager : MonoBehaviour
 
     public void SpawnNextWave()
     {
+        RemoveMissingWaveEnemies();
         if (currentWave < 0 || IsLastWave())
         {
-            if (IsLastWave() && (waveEnemies.Count == 0 || !CurrentBoss))
-            {
-                StartCoroutine(EndMission(true));
-            }
-
             return;
         }
 
@@ -253,23 +254,24 @@ public class GameManager : MonoBehaviour
             else
             {
                 SpawnWave(nextWave);
-                currentWave++;
             }
-        }
 
-        RemoveMissingWaveEnemies();
+            currentWave++;
+        }
     }
 
     public IEnumerator EndMission(bool success)
     {
+        if (currentStageStats.Result != StageResult.Unfinished) yield break;
+        currentStageStats.Result = success ? StageResult.Cleared : StageResult.Failed;
+
         StopMusic();
+        yield return new WaitForSecondsRealtime(timeFreezeTransitionTime * 3f);
+
+        Launcher.Instance.SendEndStage(currentStageStats);
+
+        /*
         Animator transitionAnim = null;
-
-        yield return new WaitForSeconds(2f);
-
-        currentStageStats.Result = StageResult.Cleared;
-        Launcher.Instance.GameStageStats.Add(currentStageStats);
-
         if (missionCompletePrefab)
         {
             if (success)
@@ -286,6 +288,7 @@ public class GameManager : MonoBehaviour
             transitionAnim.SetTrigger("End");
             yield return SceneManager.LoadSceneAsync("Evaluation");
         }
+        */
     }
 
     private void SpawnWave(Wave wave)

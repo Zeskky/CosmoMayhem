@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   maxHealth: 4
   deathEffect: {fileID: 7053974614867859185, guid: 7b58d95edc3d48a4ba2e24debf6b0445, type: 3}
+  preDeathEffect: {fileID: 0}
   damageImmunityTime: 0.1
   scoreValue: 100
   movementBehaviour: 2
@@ -57,8 +58,9 @@ MonoBehaviour:
   doHalt: 0
   inactiveUntilHalted: 0
   targetPosition: {x: 0.65, y: 0}
-  minSpeedModifier: 1.5
-  maxSpeedModifier: 1.5
+  minSpeed: 2
+  maxSpeed: 2
+  verticalSpeedModifier: 1
   baseDamage: 6
   enemyRenderer: {fileID: 985135051469531841}
   canShoot: 1
