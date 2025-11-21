@@ -1,31 +1,7 @@
 fileFormatVersion: 2
 guid: b154592cde662a344a9c96e7e74e8113
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -8270673971132915660
-    second: CosMay Grade_0
-  - first:
-      213: -2857584282038254988
-    second: CosMay Grade_1
-  - first:
-      213: -4483917324374592226
-    second: CosMay Grade_2
-  - first:
-      213: -3956931207556969295
-    second: CosMay Grade_3
-  - first:
-      213: 6986377727654436416
-    second: CosMay Grade_4
-  - first:
-      213: -8276708456516974627
-    second: CosMay Grade_5
-  - first:
-      213: 456030170633281713
-    second: CosMay Grade_6
-  - first:
-      213: -3190804796065570671
-    second: CosMay Grade_7
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -63,7 +39,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -72,11 +48,11 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 256
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
@@ -87,16 +63,16 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   swizzle: 50462976
-  cookieLightType: 0
+  cookieLightType: 2
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -109,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -134,10 +110,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 430ad89d7d9a83d80800000000000000
-      internalID: -8270673971132915660
+      spriteID: 85681d8bc95d9b846babf0872b3a8eb9
+      internalID: 2022186248
       vertices: []
       indices: 
       edges: []
@@ -156,10 +132,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 472ce515c32d758d0800000000000000
-      internalID: -2857584282038254988
+      spriteID: 72d5557530aeb6b4a9c41b878a02312f
+      internalID: -801540558
       vertices: []
       indices: 
       edges: []
@@ -178,10 +154,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e15be6643fce5c1c0800000000000000
-      internalID: -4483917324374592226
+      spriteID: 40f238190dbe4f04095b5d5e9228f041
+      internalID: 1081277981
       vertices: []
       indices: 
       edges: []
@@ -200,10 +176,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1bcc8ec08082619c0800000000000000
-      internalID: -3956931207556969295
+      spriteID: 67e97cfea1a123446bddc2cb217c3c15
+      internalID: 221239720
       vertices: []
       indices: 
       edges: []
@@ -222,10 +198,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 04e1b83278994f060800000000000000
-      internalID: 6986377727654436416
+      spriteID: ca636d0269dba1e4ea4544405c08073e
+      internalID: 754583513
       vertices: []
       indices: 
       edges: []
@@ -244,10 +220,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: dd785dbb289332d80800000000000000
-      internalID: -8276708456516974627
+      spriteID: e0c12186ac117734594b7ea1bf1d9093
+      internalID: 1838249342
       vertices: []
       indices: 
       edges: []
@@ -266,10 +242,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1b025772605245600800000000000000
-      internalID: 456030170633281713
+      spriteID: f515e1579d6eb194692c693c698e9727
+      internalID: 1259670290
       vertices: []
       indices: 
       edges: []
@@ -288,10 +264,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 19026ee81fbf7b3d0800000000000000
-      internalID: -3190804796065570671
+      spriteID: ea60d066141d4ae49964142607e19c57
+      internalID: -259938182
       vertices: []
       indices: 
       edges: []
@@ -312,8 +288,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8d5fe64e9bf92241929cc5d6619d77c
-      internalID: 390184041
+      spriteID: c437eef67285670418f852e8ef566281
+      internalID: -1099001512
       vertices: []
       indices: 
       edges: []
@@ -334,8 +310,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c002a3e6cf629440b73f69800e14c97
-      internalID: 1458155055
+      spriteID: 4ee8919bab752e643b751b75de506557
+      internalID: -464881972
       vertices: []
       indices: 
       edges: []
@@ -356,8 +332,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92136452b3d25b249bc7d22afe4c7c31
-      internalID: 358485708
+      spriteID: c4f0fec586adf8e4789b0ea99f547d49
+      internalID: 1324400958
       vertices: []
       indices: 
       edges: []
@@ -378,8 +354,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8faaac5cb86e58c4f93f19f731db4f2c
-      internalID: 945708251
+      spriteID: 3d589fda32c7e454aa989c5ef8a419a2
+      internalID: 1776338265
       vertices: []
       indices: 
       edges: []
@@ -400,8 +376,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 559aebd8adc2b9a4f9d55d64203146fd
-      internalID: 1829319762
+      spriteID: deb546e4860a2274d8640c9be4fe2786
+      internalID: 1854937006
       vertices: []
       indices: 
       edges: []
@@ -422,8 +398,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66d2f454aba70d24ebd87a7c80309e46
-      internalID: 79369210
+      spriteID: deca21da1cf6a384fa9d4b13f0dd829d
+      internalID: -1967250988
       vertices: []
       indices: 
       edges: []
@@ -444,14 +420,36 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4fa333f4dd645b6498675c5cdf7a792b
-      internalID: 1276887681
+      spriteID: 7cca2ba192da762408bfef8cd50ceb15
+      internalID: 1128453215
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
       name: CosMay Grade_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5db282fbe07c584881183b8dd06b848
+      internalID: -531459568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CosMay Grade_16
       rect:
         serializedVersion: 2
         x: 256
@@ -466,8 +464,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c054787210a8a7a47b39095e6335771c
-      internalID: 1469791552
+      spriteID: ff14199cb0c19974f88278afcc0f2f9c
+      internalID: 1606142183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CosMay Grade_17
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f02dc32972cfa24dada508d23573696
+      internalID: 1555595894
       vertices: []
       indices: 
       edges: []
@@ -476,7 +496,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 613ec2e0b654fce459c66662f46e278a
+    spriteID: 4d46038780231b14fa9d58a89191feb9
     internalID: 0
     vertices: []
     indices: 
@@ -486,24 +506,26 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":6.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      CosMay Grade_0: -8270673971132915660
-      CosMay Grade_1: -2857584282038254988
-      CosMay Grade_10: 358485708
-      CosMay Grade_11: 945708251
-      CosMay Grade_12: 1829319762
-      CosMay Grade_13: 79369210
-      CosMay Grade_14: 1276887681
-      CosMay Grade_15: 1469791552
-      CosMay Grade_2: -4483917324374592226
-      CosMay Grade_3: -3956931207556969295
-      CosMay Grade_4: 6986377727654436416
-      CosMay Grade_5: -8276708456516974627
-      CosMay Grade_6: 456030170633281713
-      CosMay Grade_7: -3190804796065570671
-      CosMay Grade_8: 390184041
-      CosMay Grade_9: 1458155055
+      CosMay Grade_0: 2022186248
+      CosMay Grade_1: -801540558
+      CosMay Grade_10: 1324400958
+      CosMay Grade_11: 1776338265
+      CosMay Grade_12: 1854937006
+      CosMay Grade_13: -1967250988
+      CosMay Grade_14: 1128453215
+      CosMay Grade_15: -531459568
+      CosMay Grade_16: 1606142183
+      CosMay Grade_17: 1555595894
+      CosMay Grade_2: 1081277981
+      CosMay Grade_3: 221239720
+      CosMay Grade_4: 754583513
+      CosMay Grade_5: 1838249342
+      CosMay Grade_6: 1259670290
+      CosMay Grade_7: -259938182
+      CosMay Grade_8: -1099001512
+      CosMay Grade_9: -464881972
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

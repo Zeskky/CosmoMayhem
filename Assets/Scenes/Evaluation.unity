@@ -212,7 +212,6 @@ GameObject:
   - component: {fileID: 61252941}
   - component: {fileID: 61252940}
   - component: {fileID: 61252942}
-  - component: {fileID: 61252943}
   m_Layer: 5
   m_Name: Mission Total
   m_TagString: Untagged
@@ -295,40 +294,11 @@ MonoBehaviour:
   scoreType: 0
   scoreDisplayBack: {fileID: 613818132}
   scoreDisplayFill: {fileID: 1131626676}
+  tickEmitter: {fileID: 1563280113}
+  bgmEmitter: {fileID: 2118942543}
   charSpacing: 0.825
-  scoreUpdateDuration: 3
+  scoreUpdateDuration: 2
   digits: 8
---- !u!114 &61252943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61252938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 1869174960
-      Data2: 1218862976
-      Data3: 122682303
-      Data4: 1852212067
-    Path: event:/SFX/UI/Score Breakdown Tick
-  Event: 
-  EventPlayTrigger: 11
-  EventStopTrigger: 12
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1 &91600398
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,8 +490,10 @@ MonoBehaviour:
   scoreType: 2
   scoreDisplayBack: {fileID: 1354015475}
   scoreDisplayFill: {fileID: 1505299478}
+  tickEmitter: {fileID: 0}
+  bgmEmitter: {fileID: 0}
   charSpacing: 0.825
-  scoreUpdateDuration: 3
+  scoreUpdateDuration: 2
   digits: 7
 --- !u!114 &236747501
 MonoBehaviour:
@@ -1548,8 +1520,10 @@ MonoBehaviour:
   scoreType: 1
   scoreDisplayBack: {fileID: 2109747233}
   scoreDisplayFill: {fileID: 1240607950}
+  tickEmitter: {fileID: 0}
+  bgmEmitter: {fileID: 0}
   charSpacing: 0.825
-  scoreUpdateDuration: 3
+  scoreUpdateDuration: 2
   digits: 7
 --- !u!1 &1131626674
 GameObject:
@@ -2191,6 +2165,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2118942542}
   - {fileID: 739465391}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2390,8 +2365,10 @@ MonoBehaviour:
   scoreType: 3
   scoreDisplayBack: {fileID: 1414248949}
   scoreDisplayFill: {fileID: 305274625}
+  tickEmitter: {fileID: 0}
+  bgmEmitter: {fileID: 0}
   charSpacing: 0.825
-  scoreUpdateDuration: 3
+  scoreUpdateDuration: 2
   digits: 7
 --- !u!114 &1543386229
 MonoBehaviour:
@@ -2890,6 +2867,73 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2109747231}
   m_CullTransparentMesh: 1
+--- !u!1 &2118942541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2118942542}
+  - component: {fileID: 2118942543}
+  m_Layer: 5
+  m_Name: BGM Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2118942542
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118942541}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1482351021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -167.5}
+  m_SizeDelta: {x: -1240, y: -975}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2118942543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118942541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -941761547
+      Data2: 1247161094
+      Data3: -1788517224
+      Data4: -484091962
+    Path: event:/BGM/Non-Gameplay Themes/Evaluation Screen
+  Event: 
+  EventPlayTrigger: 11
+  EventStopTrigger: 12
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class ScoreBreakdownEntry : MonoBehaviour
 {
     [SerializeField] private ScoreType scoreType;
     [SerializeField] private TMP_Text scoreDisplayBack, scoreDisplayFill;
+    [SerializeField] private StudioEventEmitter tickEmitter, bgmEmitter;
     [SerializeField] private float charSpacing = 0.825f, scoreUpdateDuration = 3f;
     [SerializeField] private int digits = 8;
     private float displayedScore = 0f;
@@ -20,18 +21,23 @@ public class ScoreBreakdownEntry : MonoBehaviour
             targetScore = scoreType != ScoreType.None
                 ? latestStageStats.ScoreBreakdown[scoreType]
                 : latestStageStats.TotalScore;
+
+            if (scoreType == ScoreType.None)
+                Launcher.Instance.SetupMenuTimer(15, false);
         }
     }
 
     private void FixedUpdate()
     {
-        StudioEventEmitter sbmEmitter = GetComponentInChildren<StudioEventEmitter>();
-        if (sbmEmitter)
+        bool finishedCounting = displayedScore >= targetScore;
+        if (scoreType == ScoreType.None)
         {
-            sbmEmitter.gameObject.SetActive(displayedScore < targetScore);
+            if (tickEmitter) tickEmitter.gameObject.SetActive(!finishedCounting);
+            if (bgmEmitter) bgmEmitter.gameObject.SetActive(finishedCounting);
+            Launcher.Instance.TimerEnabled = finishedCounting;
         }
-        
-        if (displayedScore < targetScore)
+
+        if (!finishedCounting)
         {
             string monospaceTag = $"<mspace={charSpacing.ToString().Replace(',', '.')}em>";
             displayedScore = Mathf.Min(displayedScore + Time.fixedDeltaTime * (targetScore / scoreUpdateDuration), targetScore);

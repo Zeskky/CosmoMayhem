@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum StagePhase
 {
@@ -242,7 +243,6 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-
         Wave nextWave = waves[currentWave];
         // print(nextWave.maxDelay - currentWaveTimer);
         if ((currentWaveTimer >= nextWave.maxDelay && !nextWave.hasBoss) || (IsCurrentWaveCleared() && currentWave > 0))
@@ -287,6 +287,10 @@ public class GameManager : MonoBehaviour
 
         StopMusic();
         yield return new WaitForSecondsRealtime(timeFreezeTransitionTime * 3f);
+
+        // Disable all PlayerInput instances
+        foreach (PlayerInput pi in FindObjectsByType<PlayerInput>(FindObjectsSortMode.None))
+            pi.enabled = false;
 
         Launcher.Instance.SendEndStage(currentStageStats);
 
