@@ -51,7 +51,7 @@ MonoBehaviour:
       Data2: 1254958630
       Data3: 686351759
       Data4: -976667438
-    Path: event:/SFX/Enemy/Damage Taken
+    Path: event:/SE/Enemy/Damage Taken
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 0

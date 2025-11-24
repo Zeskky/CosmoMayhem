@@ -232,7 +232,7 @@ MonoBehaviour:
       Data2: 1092771673
       Data3: 72637083
       Data4: -1960816572
-    Path: event:/SFX/Player/Damage Taken
+    Path: event:/SE/Player/Damage Taken
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -579,7 +579,7 @@ MonoBehaviour:
       Data2: 1286210595
       Data3: -8991321
       Data4: 1363763057
-    Path: event:/SFX/Player/Repair
+    Path: event:/SE/Player/Repair
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0

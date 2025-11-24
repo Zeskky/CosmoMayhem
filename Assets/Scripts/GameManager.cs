@@ -226,6 +226,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameOverSequenceCo()
     {
         currentStageStats.Result = StageResult.Failed;
+        StartCoroutine(EndMission(false));
         while (Time.timeScale > 0.05f)
         {
             yield return new WaitForFixedUpdate();
@@ -305,7 +306,7 @@ public class GameManager : MonoBehaviour
             }
 
             float t = Mathf.Max(currentStageStats.StageTime - currentStageStats.StageClearMeanTime, 0);
-            print($"Expected clear time: {currentStageStats.StageClearMeanTime} ({t:N3}s)");
+            // print($"Expected clear time: {currentStageStats.StageClearMeanTime} ({t:N3}s)");
             currentStageStats.ScoreBreakdown[ScoreType.Time] = timeMaxBonus - (int)Mathf.Lerp(0, timeMaxBonus, t / currentStageStats.StageClearMeanTime * timeBonusDecayRate);
         }
 

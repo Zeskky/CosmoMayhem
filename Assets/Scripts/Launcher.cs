@@ -266,18 +266,14 @@ public class Launcher : MonoBehaviour
         bool success = stats.Result == StageResult.Cleared;
         GameStageStats.Add(stats);
 
-        Animator anim = null;
-        if (success)
-        {
-            GameObject newTransition = Instantiate(stageClearedTransition, stageClearedTransition.transform.parent);
-            newTransition.SetActive(true);
-            anim = newTransition.GetComponent<Animator>();
-        }
+        GameObject stageEndTransition = success ? stageClearedTransition : stageFailedTransition;
+
+        GameObject newTransition = Instantiate(stageEndTransition, stageEndTransition.transform.parent);
+        newTransition.SetActive(true);
+        Animator anim = newTransition.GetComponent<Animator>();
 
         while (anim && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
-        {
             yield return new WaitForEndOfFrame();
-        }
 
         yield return SceneManager.LoadSceneAsync("Evaluation");
         if (anim) anim.SetTrigger("End");

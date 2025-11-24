@@ -77,7 +77,7 @@ MonoBehaviour:
     hasBoss: 1
   bossSpawnDelay: 2
   missionCompletePrefab: {fileID: 1809349698785315851, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
-  missionFailedPrefab: {fileID: 0}
+  missionFailedPrefab: {fileID: 1809349698785315851, guid: b51f707c2cb552241aae795b032a47c3, type: 3}
 --- !u!114 &7527896500293634473
 MonoBehaviour:
   m_ObjectHideFlags: 0

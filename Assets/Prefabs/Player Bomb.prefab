@@ -135,6 +135,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   startVelocity: 0
   damage: 5
+  priority: 1
+  scaledPriority: 1
   lifetime: 3
   explosionPrefab: {fileID: 915353063673352615, guid: 5f35ef3db36f03045ad4e58182ded747, type: 3}
 --- !u!58 &5145579274220882240
@@ -192,7 +194,7 @@ MonoBehaviour:
       Data2: 1233618957
       Data3: 1006009231
       Data4: 1950578121
-    Path: event:/SFX/Player/Bomb Launch
+    Path: event:/SE/Player/Bomb Launch
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 0

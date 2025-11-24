@@ -396,7 +396,7 @@ MonoBehaviour:
       Data2: 1314949434
       Data3: -1361357947
       Data4: -817395648
-    Path: event:/SFX/Enemy/Ram Charge
+    Path: event:/SE/Enemy/Ram Charge
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -579,7 +579,7 @@ MonoBehaviour:
       Data2: 1246180994
       Data3: -288841025
       Data4: -1652339341
-    Path: event:/SFX/Enemy/Ram Engage
+    Path: event:/SE/Enemy/Ram Engage
   Event: 
   EventPlayTrigger: 11
   EventStopTrigger: 0

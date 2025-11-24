@@ -133,7 +133,7 @@ MonoBehaviour:
       Data2: 1123695141
       Data3: -77939833
       Data4: 1857358210
-    Path: event:/SFX/Player/Explosion
+    Path: event:/SE/Player/Explosion
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 0

@@ -4915,7 +4915,7 @@ MonoBehaviour:
       Data2: 1271312951
       Data3: -1263951709
       Data4: -1279133707
-    Path: event:/SFX/Enemy/Big Explosion
+    Path: event:/SE/Enemy/Big Explosion
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 0
