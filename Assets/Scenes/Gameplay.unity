@@ -1427,7 +1427,7 @@ MonoBehaviour:
       Data2: 1200708387
       Data3: 1369559230
       Data4: 1986013236
-    Path: event:/SFX/UI/Game Over
+    Path: event:/SE/UI/Game Over
   Event: 
   EventPlayTrigger: 11
   EventStopTrigger: 1
@@ -2511,7 +2511,7 @@ MonoBehaviour:
       Data2: 1256066285
       Data3: -1535712331
       Data4: -1764680032
-    Path: event:/SFX/UI/Boss Incoming
+    Path: event:/SE/UI/Boss Incoming
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0

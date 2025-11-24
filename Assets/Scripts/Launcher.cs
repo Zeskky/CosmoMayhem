@@ -19,7 +19,12 @@ public class Launcher : MonoBehaviour
     [SerializeField] private GameObject stageClearedTransition, stageFailedTransition;
     // [SerializeField] private float transitionStayTime = 5f;
 
-    [SerializeField] private List<string> attractScenesSequence;
+    [SerializeField] private List<string> attractSequenceScenes;
+    [SerializeField] private List<Grade> stageGrades;
+    [SerializeField] private Grade stageFailedGrade;
+
+    public List<Grade> StageGrades {  get { return stageGrades; } }
+    public Grade StageFailedGrade { get { return stageFailedGrade; } }
 
     [Header("Menu Timer Properties")]
     [SerializeField] private bool enableMenuTimer = true;
@@ -150,7 +155,7 @@ public class Launcher : MonoBehaviour
         if (enableMenuTimer)
         {
             // Menu timer logic
-            menuTimerGO.SetActive(MenuTimer > 0);
+            menuTimerGO.SetActive(MenuTimer > 0 && !IsOnAttractSequence());
             if (TimerEnabled)
             {
                 if ((clockTimer += Time.deltaTime) >= timePerTick)
@@ -160,6 +165,11 @@ public class Launcher : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool IsOnAttractSequence()
+    {
+        return attractSequenceScenes.Contains(SceneManager.GetActiveScene().name);
     }
 
     public void SetupMenuTimer(int menuTime, bool enabled = true)
@@ -188,9 +198,11 @@ public class Launcher : MonoBehaviour
             case "Gameplay":
                 nextScene = "Evaluation";
                 break;
+                /*
             case "Evaluation":
                 nextScene = "GameOver";
                 break;
+                */
         }
 
         return nextScene;
@@ -234,13 +246,13 @@ public class Launcher : MonoBehaviour
 
     public void NextAttractScene()
     {
-        int nextSceneIndex = attractScenesSequence.IndexOf(SceneManager.GetActiveScene().name) + 1;
-        if (nextSceneIndex >= attractScenesSequence.Count)
+        int nextSceneIndex = attractSequenceScenes.IndexOf(SceneManager.GetActiveScene().name) + 1;
+        if (nextSceneIndex >= attractSequenceScenes.Count)
         {
             nextSceneIndex = 0;
         }
 
-        string nextScene = attractScenesSequence[nextSceneIndex];
+        string nextScene = attractSequenceScenes[nextSceneIndex];
         SceneManager.LoadScene(nextScene);
     }
 

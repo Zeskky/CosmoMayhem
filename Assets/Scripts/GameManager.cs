@@ -32,7 +32,8 @@ public enum ScoreType
     None,
     Enemy,
     Pickup,
-    Ship
+    Ship,
+    Time,
 }
 
 [System.Serializable]
@@ -40,12 +41,25 @@ public class StageStats
 {
     // public bool Cleared { get; set; }
     public StageResult Result { get; set; }
-    public Dictionary<ScoreType, int> scoreBreakdown = new();
+    private Dictionary<ScoreType, int> scoreBreakdown = new();
     public Dictionary<ScoreType, int> ScoreBreakdown { get { return scoreBreakdown; } }
+    public float StageTime { get; set; }
+    public float StageClearMeanTime { get; set; }
+
+    public int MaxScore { get; set; }
 
     public int TotalScore
     {
         get { return ScoreBreakdown.Values.Sum(); }
+    }
+
+    public Grade GetStageGrade()
+    {
+        if (Result == StageResult.Failed)
+            return Launcher.Instance.StageFailedGrade;
+
+        List<Grade> sortedGrades = Launcher.Instance.StageGrades.OrderByDescending(sg => sg.TargetScoreRatio).ToList();
+        return sortedGrades.FirstOrDefault(g => ((float)TotalScore / MaxScore) >= g.TargetScoreRatio);
     }
 }
 
@@ -57,9 +71,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int overRepairScore = 10;
     [Tooltip("How much score does award for the player's ship integrity?")]
     [SerializeField] private int shipMaxBonus = 1000;
-    [Tooltip("How much health must have the player's ship to award by its integrity?")]
+    [Tooltip("How much health must the player's ship have to award by its integrity?")]
     [Range(0f, 1f)]
     [SerializeField] private float normalizedHealthForBonus = 0.2f;
+    [Tooltip("How much score does award for the player's clear time?")]
+    [SerializeField] private int timeMaxBonus = 3000;
+    [Tooltip("How much time has the player before the timeMaxBonus runs out? (Expressed as X times the stage's maximum length, in seconds)")]
+    [SerializeField] private float timeBonusDecayRate = 1.6f;
+    [SerializeField] private float stageMeanTimeScale = 1.2f;
     [SerializeField] private Vector2 currentShakeValue;
 
     public int OverRepairScore { get { return overRepairScore; } }
@@ -137,7 +156,7 @@ public class GameManager : MonoBehaviour
     public List<Wave> Waves { get {  return waves; } }
     private int currentWave = 0;
     private List<GameObject> waveEnemies = new();
-    
+
     public Boss CurrentBoss { get; private set; }
     public bool BossDefeated { get; set; }
 
@@ -164,8 +183,11 @@ public class GameManager : MonoBehaviour
     private void SetupStageStats()
     {
         currentStageStats.ScoreBreakdown[ScoreType.Enemy] = 
-        currentStageStats.ScoreBreakdown[ScoreType.Pickup] = 
-        currentStageStats.ScoreBreakdown[ScoreType.Ship] = 0;
+        currentStageStats.ScoreBreakdown[ScoreType.Pickup] =
+        currentStageStats.ScoreBreakdown[ScoreType.Ship] =
+        currentStageStats.ScoreBreakdown[ScoreType.Time] = 0;
+        currentStageStats.MaxScore = GetMaxPossibleScore();
+        currentStageStats.StageClearMeanTime = GetMeanClearTime();
     }
 
     // Update is called once per frame
@@ -181,19 +203,17 @@ public class GameManager : MonoBehaviour
     {
         // print(currentStageStats.Result);
         if (currentStageStats.Result != StageResult.Failed)
-        {
             Time.timeScale = Mathf.Clamp01(Time.timeScale + Time.fixedDeltaTime / (timeFreezeTransitionTime * 1.5f));
-        }
 
         if (IsLastWave() && waveEnemies.Count == 0 && BossDefeated)
-        {
             StartCoroutine(EndMission(true));
-        }
+        else currentStageStats.StageTime += Time.fixedDeltaTime;
+
+        print(currentStageStats.StageTime);
 
         if (bgmEmitter.IsPlaying())
         {
             RuntimeManager.StudioSystem.setParameterByName("Music Pitch", Time.timeScale);
-
             bgmEmitter.SetParameter("Stage State", (int)CurrentStagePhase);
         }
     }
@@ -283,6 +303,10 @@ public class GameManager : MonoBehaviour
                 currentStageStats.ScoreBreakdown[ScoreType.Ship] = (int)(shipMaxBonus 
                     * Mathf.Max(0, (player.NormalizedHealth - n) / (1 - n)));
             }
+
+            float t = Mathf.Max(currentStageStats.StageTime - currentStageStats.StageClearMeanTime, 0);
+            print($"Expected clear time: {currentStageStats.StageClearMeanTime} ({t:N3}s)");
+            currentStageStats.ScoreBreakdown[ScoreType.Time] = timeMaxBonus - (int)Mathf.Lerp(0, timeMaxBonus, t / currentStageStats.StageClearMeanTime * timeBonusDecayRate);
         }
 
         StopMusic();
@@ -407,5 +431,32 @@ public class GameManager : MonoBehaviour
     public void StopMusic()
     {
         bgmEmitter.Stop();
+    }
+
+    public int GetMinPossibleScore()
+    {
+        int score = 0;
+
+        foreach (Wave wave in waves)
+        {
+            foreach (Enemy enemy in wave.wavePrefab.GetComponentsInChildren<Enemy>())
+            {
+                score += enemy.ScoreValue;
+            }
+        }
+
+        return score;
+    }
+
+    public int GetMaxPossibleScore()
+    {
+        return GetMinPossibleScore() * maxMultiplier;
+    }
+
+    public float GetMeanClearTime()
+    {
+        float clearTime = 0;
+        foreach (Wave wave in waves) clearTime += wave.maxDelay;
+        return clearTime * stageMeanTimeScale;
     }
 }

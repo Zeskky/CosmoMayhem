@@ -48,10 +48,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   scrollSpeed: 2
   overRepairScore: 10
+  shipMaxBonus: 1000
+  normalizedHealthForBonus: 0.2
+  timeMaxBonus: 2000
+  timeBonusDecayRate: 1.6
+  stageMeanTimeScale: 1.5
+  currentShakeValue: {x: 0, y: 0}
   maxMultiplier: 4
   comboPerMultiplier: 5
   gameOverMessage: {fileID: 0}
   spawnArea: {fileID: 2288270598786639468}
+  mainCameraGroup: {fileID: 0}
   randomOffset: {x: 0, y: 4}
   timeFreezeTransitionTime: 0.75
   bgmEmitter: {fileID: 7527896500293634473}
@@ -71,7 +78,6 @@ MonoBehaviour:
   bossSpawnDelay: 2
   missionCompletePrefab: {fileID: 1809349698785315851, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
   missionFailedPrefab: {fileID: 0}
-  transitionStayTime: 5
 --- !u!114 &7527896500293634473
 MonoBehaviour:
   m_ObjectHideFlags: 0

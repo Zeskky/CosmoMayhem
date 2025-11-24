@@ -367,6 +367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   maxHealth: 40
   deathEffect: {fileID: 8435334467506718440, guid: 8a318e1cdaeaa954487cd173289de587, type: 3}
+  preDeathEffect: {fileID: 0}
   damageImmunityTime: 1
   movementSpeed: 5
   immunityBlinkDuration: 0.4
@@ -706,7 +707,7 @@ MonoBehaviour:
       Data2: 1290485367
       Data3: 702153608
       Data4: -1542095722
-    Path: event:/SFX/Player/Dash
+    Path: event:/SE/Player/Dash
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0

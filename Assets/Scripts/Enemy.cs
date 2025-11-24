@@ -14,6 +14,8 @@ public class Enemy : Damageable
 {
     [Header("Basic Enemy Properties")]
     [SerializeField] private int scoreValue = 10;
+    public int ScoreValue { get { return scoreValue; } }
+
     [SerializeField] private MovementBehaviour movementBehaviour;
     [SerializeField] private bool doWarp = true, doHalt = false, inactiveUntilHalted = false;
     [SerializeField] private Vector2 targetPosition;

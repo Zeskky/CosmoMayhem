@@ -1006,7 +1006,7 @@ MonoBehaviour:
       Data2: 1147479848
       Data3: 552775055
       Data4: -250180311
-    Path: event:/SFX/UI/RAKUJIN Logo
+    Path: event:/SE/UI/RAKUJIN Logo
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0

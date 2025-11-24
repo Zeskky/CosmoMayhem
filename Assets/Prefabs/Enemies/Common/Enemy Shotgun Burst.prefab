@@ -72,7 +72,7 @@ MonoBehaviour:
       Data2: 1183051035
       Data3: 1552603288
       Data4: 1569437597
-    Path: event:/SFX/Enemy/Laser Shot
+    Path: event:/SE/Enemy/Laser Shot
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 0

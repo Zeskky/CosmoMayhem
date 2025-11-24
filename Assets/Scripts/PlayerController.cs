@@ -63,6 +63,12 @@ public class PlayerController : Damageable
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (shotTimer > 0)
         {
             if ((shotTimer -= Time.deltaTime) <= 0)
@@ -267,8 +273,8 @@ public class PlayerController : Damageable
                 // Contact damage, usually enemy's x 2
                 TakeDamage(enemy.BaseDamage * 2);
                 // Make sure the enemy also takes retaliation damage
-                // Floored half the player ship's shot power (May be 0)
-                enemy.TakeDamage(shotDamage / 2);
+                // Floored half the enemy's base damage (May be 0)
+                enemy.TakeDamage(enemy.BaseDamage / 2);
             }
 
             if (projectile && WasDamagedThisFrame)

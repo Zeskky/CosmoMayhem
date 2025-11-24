@@ -2013,7 +2013,7 @@ MonoBehaviour:
       Data2: 1125706910
       Data3: -1889115732
       Data4: -648520656
-    Path: event:/SFX/UI/Default Screen In
+    Path: event:/SE/UI/Default Screen In
   Event: 
   EventPlayTrigger: 11
   EventStopTrigger: 0

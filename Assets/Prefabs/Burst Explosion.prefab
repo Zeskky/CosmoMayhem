@@ -51,6 +51,8 @@ MonoBehaviour:
   projectileVelocity: 6
   burstMaxAngle: 360
   projectileOffset: 0.5
+  burstAngleAnchor: 0.5
+  projectileDamage: 1
 --- !u!114 &9100569614908630108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,7 +72,7 @@ MonoBehaviour:
       Data2: 1225938673
       Data3: 1653317036
       Data4: -444923859
-    Path: event:/SFX/Neutral/Bomb Explosion
+    Path: event:/SE/Neutral/Bomb Explosion
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 0

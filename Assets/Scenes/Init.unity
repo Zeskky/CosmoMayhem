@@ -879,7 +879,7 @@ MonoBehaviour:
       Data2: 1259723466
       Data3: -1113382784
       Data4: 1520524102
-    Path: event:/SFX/UI/Menu Timer Tick
+    Path: event:/SE/UI/Menu Timer Tick
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -989,7 +989,7 @@ MonoBehaviour:
       Data2: 1306242826
       Data3: 550463667
       Data4: -770922289
-    Path: event:/SFX/UI/Confirm
+    Path: event:/SE/UI/Confirm
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -1193,9 +1193,43 @@ MonoBehaviour:
   fadeTransitionOverlay: {fileID: 442950999}
   stageClearedTransition: {fileID: 731034828}
   stageFailedTransition: {fileID: 0}
-  attractScenesSequence:
+  attractSequenceScenes:
   - CompanyLogo
   - Title
+  stageGrades:
+  - targetScoreRatio: 0
+    gradeSprite: {fileID: -801540558, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.55
+    gradeSprite: {fileID: 1081277981, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.575
+    gradeSprite: {fileID: 221239720, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.6
+    gradeSprite: {fileID: 754583513, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.65
+    gradeSprite: {fileID: 1838249342, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.675
+    gradeSprite: {fileID: 1259670290, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.7
+    gradeSprite: {fileID: -259938182, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.75
+    gradeSprite: {fileID: -1099001512, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.775
+    gradeSprite: {fileID: -464881972, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.8
+    gradeSprite: {fileID: 1324400958, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.85
+    gradeSprite: {fileID: 1776338265, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.875
+    gradeSprite: {fileID: 1854937006, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.9
+    gradeSprite: {fileID: -1967250988, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.95
+    gradeSprite: {fileID: 1128453215, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.975
+    gradeSprite: {fileID: -531459568, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  stageFailedGrade:
+    targetScoreRatio: 0
+    gradeSprite: {fileID: 0}
   enableMenuTimer: 1
   menuTime: 20
   menuTimerGO: {fileID: 756369333}

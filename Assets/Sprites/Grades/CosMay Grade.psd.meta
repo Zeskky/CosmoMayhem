@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CosMay Grade_0
+      name: D-
       rect:
         serializedVersion: 2
         x: 0
@@ -119,7 +119,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_1
+      name: D
       rect:
         serializedVersion: 2
         x: 256
@@ -141,7 +141,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_2
+      name: D+
       rect:
         serializedVersion: 2
         x: 512
@@ -163,7 +163,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_3
+      name: C-
       rect:
         serializedVersion: 2
         x: 0
@@ -185,7 +185,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_4
+      name: C
       rect:
         serializedVersion: 2
         x: 256
@@ -207,7 +207,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_5
+      name: C+
       rect:
         serializedVersion: 2
         x: 512
@@ -229,7 +229,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_6
+      name: B-
       rect:
         serializedVersion: 2
         x: 0
@@ -251,7 +251,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_7
+      name: B
       rect:
         serializedVersion: 2
         x: 256
@@ -273,7 +273,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_8
+      name: B+
       rect:
         serializedVersion: 2
         x: 512
@@ -295,7 +295,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_9
+      name: A-
       rect:
         serializedVersion: 2
         x: 0
@@ -317,7 +317,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_10
+      name: A
       rect:
         serializedVersion: 2
         x: 256
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_11
+      name: A+
       rect:
         serializedVersion: 2
         x: 512
@@ -361,7 +361,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_12
+      name: S-
       rect:
         serializedVersion: 2
         x: 0
@@ -383,7 +383,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_13
+      name: S
       rect:
         serializedVersion: 2
         x: 256
@@ -405,7 +405,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_14
+      name: S+
       rect:
         serializedVersion: 2
         x: 512
@@ -427,7 +427,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_15
+      name: SS
       rect:
         serializedVersion: 2
         x: 0
@@ -449,7 +449,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_16
+      name: F
       rect:
         serializedVersion: 2
         x: 256
@@ -471,7 +471,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CosMay Grade_17
+      name: '-'
       rect:
         serializedVersion: 2
         x: 512
@@ -508,24 +508,24 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      CosMay Grade_0: 2022186248
-      CosMay Grade_1: -801540558
-      CosMay Grade_10: 1324400958
-      CosMay Grade_11: 1776338265
-      CosMay Grade_12: 1854937006
-      CosMay Grade_13: -1967250988
-      CosMay Grade_14: 1128453215
-      CosMay Grade_15: -531459568
-      CosMay Grade_16: 1606142183
-      CosMay Grade_17: 1555595894
-      CosMay Grade_2: 1081277981
-      CosMay Grade_3: 221239720
-      CosMay Grade_4: 754583513
-      CosMay Grade_5: 1838249342
-      CosMay Grade_6: 1259670290
-      CosMay Grade_7: -259938182
-      CosMay Grade_8: -1099001512
-      CosMay Grade_9: -464881972
+      '-': 1555595894
+      A: 1324400958
+      A+: 1776338265
+      A-: -464881972
+      B: -259938182
+      B+: -1099001512
+      B-: 1259670290
+      C: 754583513
+      C+: 1838249342
+      C-: 221239720
+      D: -801540558
+      D+: 1081277981
+      D-: 2022186248
+      F: 1606142183
+      S: -1967250988
+      S+: 1128453215
+      S-: 1854937006
+      SS: -531459568
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

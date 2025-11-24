@@ -89,17 +89,17 @@ MonoBehaviour:
   targetPosition: {x: 0.75, y: 0.5}
   minSpeed: 2
   maxSpeed: 2
-  verticalSpeedModifier: 2
-  baseDamage: 9
+  verticalSpeedModifier: 2.5
+  baseDamage: 8
   enemyRenderer: {fileID: 7774631650632125931}
   canShoot: 1
-  minShotDelay: 3
-  maxShotDelay: 4
+  minShotDelay: 2.7
+  maxShotDelay: 3.6
   shotSpeed: 5
   cannonPoint: {fileID: 4964342637670509707}
   doesRam: 0
-  ramDelay: 4
-  ramChargeTime: 1
+  ramDelay: 5
+  ramChargeTime: 0.8695652
   ramSpeedModifier: 16
   ramTrail: {fileID: 8049832972001899725}
   ramChargeEmitter: {fileID: 6914975147322046201}

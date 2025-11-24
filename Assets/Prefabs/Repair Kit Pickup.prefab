@@ -292,7 +292,7 @@ MonoBehaviour:
       Data2: 1200609475
       Data3: 1956390826
       Data4: -1785202440
-    Path: event:/SFX/Player/Got Pickup
+    Path: event:/SE/Player/Got Pickup
   Event: 
   EventPlayTrigger: 2
   EventStopTrigger: 0

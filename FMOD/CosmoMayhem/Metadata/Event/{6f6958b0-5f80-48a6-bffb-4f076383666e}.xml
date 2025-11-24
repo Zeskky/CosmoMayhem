@@ -82,7 +82,7 @@
 	</object>
 	<object class="SingleSound" id="{7012a1b4-3fae-4355-9508-a360cb441d36}">
 		<property name="length">
-			<value>0.16455782312925171</value>
+			<value>0.13600000000000001</value>
 		</property>
 		<property name="startOffset">
 			<value>3</value>
