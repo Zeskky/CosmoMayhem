@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="MixerPort" id="{18a6446e-b445-43e9-9642-2ee95adff577}">
+		<property name="volume">
+			<value>-2</value>
+		</property>
+		<property name="name">
+			<value>Master SFX</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{23f1a4f8-ce6b-46f8-9ab7-e6e989597ec9}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{88248ee0-abdf-4d06-9e8f-695b460c59b2}</destination>
+		</relationship>
+		<relationship name="mixer">
+			<destination>{e5479790-7f5b-4382-9666-00f1a916e43f}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{23f1a4f8-ce6b-46f8-9ab7-e6e989597ec9}">
+		<relationship name="effects">
+			<destination>{d656e098-0fcc-42d3-b2f9-341c3b4cc564}</destination>
+			<destination>{5f9589ce-1a38-4b82-82e8-a811c1c24feb}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{88248ee0-abdf-4d06-9e8f-695b460c59b2}" />
+	<object class="LimiterEffect" id="{d656e098-0fcc-42d3-b2f9-341c3b4cc564}">
+		<property name="boost">
+			<value>12</value>
+		</property>
+	</object>
+	<object class="MixerBusFader" id="{5f9589ce-1a38-4b82-82e8-a811c1c24feb}" />
+</objects>

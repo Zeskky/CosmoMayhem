@@ -410,6 +410,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2849551471354289040, guid: b51f707c2cb552241aae795b032a47c3, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 184549375
+      objectReference: {fileID: 0}
     - target: {fileID: 3464988806522681966, guid: b51f707c2cb552241aae795b032a47c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -500,6 +504,69 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3464988806522681966, guid: b51f707c2cb552241aae795b032a47c3, type: 3}
   m_PrefabInstance: {fileID: 352940129}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &392827054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 392827055}
+  - component: {fileID: 392827056}
+  m_Layer: 0
+  m_Name: Music Fade-out Command
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &392827055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392827054}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 813153487}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &392827056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392827054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 919109540
+      Data2: 1278375344
+      Data3: 1786031015
+      Data4: 421541678
+    Path: snapshot:/Music Fade Out
+  Event: 
+  EventPlayTrigger: 11
+  EventStopTrigger: 12
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &442950997
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,8 +708,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294901503
+  m_fontColor: {r: 1, g: 0.99433964, b: 0.99433964, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -711,6 +778,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 482931232}
   m_CullTransparentMesh: 1
+--- !u!1 &530270494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1809349698785315851, guid: b51f707c2cb552241aae795b032a47c3, type: 3}
+  m_PrefabInstance: {fileID: 352940129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &605496985
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605496986}
+  - component: {fileID: 605496987}
+  m_Layer: 0
+  m_Name: Menu Selection Change
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &605496986
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605496985}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 813153487}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &605496987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605496985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 62800896
+      Data2: 1177369614
+      Data3: 1322355373
+      Data4: 270676294
+    Path: event:/SE/UI/Mode Selector
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &731034826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -839,7 +974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &756369334
 RectTransform:
   m_ObjectHideFlags: 0
@@ -929,8 +1064,55 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1702270335}
+  - {fileID: 605496986}
+  - {fileID: 392827055}
   m_Father: {fileID: 1881517050}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &821540429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 821540430}
+  - component: {fileID: 821540431}
+  m_Layer: 0
+  m_Name: Score Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &821540430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821540429}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1881517050}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &821540431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821540429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2d356536970cd499d6273a5e1e939e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalScoresManager
+  maxHighScores: 10
 --- !u!1 &904902404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,9 +1479,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuLauncher
   confirmEmitter: {fileID: 1702270334}
+  selectionChangeEmitter: {fileID: 605496987}
+  musicFadeoutCommand: {fileID: 392827056}
   fadeTransitionOverlay: {fileID: 442950999}
   stageClearedTransition: {fileID: 731034828}
-  stageFailedTransition: {fileID: 0}
+  stageFailedTransition: {fileID: 530270494}
   attractSequenceScenes:
   - CompanyLogo
   - Title
@@ -1336,14 +1520,14 @@ MonoBehaviour:
     gradeSprite: {fileID: -531459568, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   stageFailedGrade:
     targetScoreRatio: 0
-    gradeSprite: {fileID: 0}
+    gradeSprite: {fileID: 1606142183, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   enableMenuTimer: 1
   menuTime: 20
   menuTimerGO: {fileID: 756369333}
   menuTimerCounterLabel: {fileID: 482931234}
   menuTimerBackground: {fileID: 756369335}
   timerNormalColor: {r: 1, g: 1, b: 1, a: 1}
-  timerDangerColor: {r: 0.6980392, g: 0.1333333, b: 0.1333333, a: 1}
+  timerDangerColor: {r: 0.75, g: 0.07500002, b: 0.07500002, a: 1}
   timerTickThreshold: 5
   timerTickEmitter: {fileID: 904902406}
 --- !u!114 &1881517049
@@ -1393,6 +1577,7 @@ Transform:
   - {fileID: 121735718}
   - {fileID: 124863246}
   - {fileID: 813153487}
+  - {fileID: 821540430}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807

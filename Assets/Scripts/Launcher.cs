@@ -12,7 +12,8 @@ public class Launcher : MonoBehaviour
     public static Launcher Instance;
 
     // [SerializeField] private GameObject attractStartPanel;
-    [SerializeField] private StudioEventEmitter confirmEmitter;
+    [SerializeField] private StudioEventEmitter confirmEmitter, selectionChangeEmitter;
+    [SerializeField] private StudioEventEmitter musicFadeoutCommand;
     // [SerializeField] private Animator systemAnimator;
     [SerializeField] private Image fadeTransitionOverlay;
     
@@ -56,7 +57,8 @@ public class Launcher : MonoBehaviour
             if (menuTimer <= 0)
             {
                 menuTimer = 0;
-                StartCoroutine(ScreenOutCo());
+                DoMenuLogic();
+                //StartCoroutine(ScreenOutCo());
             }
             else if (menuTimer <= timerTickThreshold)
             {
@@ -130,6 +132,27 @@ public class Launcher : MonoBehaviour
 
             if (confirmEmitter) confirmEmitter.Play();
         }
+    }
+
+    public void OnMoveCursor(InputValue value)
+    {
+        Vector2 cursorDir = value.Get<Vector2>();
+        if (cursorDir.magnitude >= 0.4f)
+        {
+            MoveMenuCursor(cursorDir);
+        }
+    }
+
+    private void MoveMenuCursor(Vector2 direction)
+    {
+        InteractableMenu currentMenu;
+        if (currentMenu = FindFirstObjectByType<InteractableMenu>())
+            currentMenu.MenuItemIndex += Mathf.CeilToInt(direction.x);
+    }
+
+    public void PlaySelectionChangeSound()
+    {
+        if (selectionChangeEmitter) selectionChangeEmitter.Play();
     }
 
     private void LateUpdate()
@@ -208,11 +231,38 @@ public class Launcher : MonoBehaviour
         return nextScene;
     }
 
-    public IEnumerator ScreenOutCo(float duration = 1f)
+    public void DoMenuLogic()
     {
-        string targetScene = GetNextSceneName();
+        InteractableMenu currentMenu = FindFirstObjectByType<InteractableMenu>();
+        if (currentMenu)
+        {
+            currentMenu.CurrentMenuItem.OnConfirm();
+            //StartCoroutine(ScreenOutCo());
+        }
+        else
+        {
+            if (SceneManager.GetActiveScene().name == "CompanyLogo")
+            {
+                StartCoroutine(ScreenOutCo());
+            }
+        }
+    }
+
+    public void GoToScene(string targetScene)
+    {
+        StartCoroutine(ScreenOutCo(targetScene));
+    }
+
+    public IEnumerator ScreenOutCo(string targetScene = "", float duration = 1f)
+    {
+        if (string.IsNullOrEmpty(targetScene))
+            targetScene = GetNextSceneName();
+
         TimerEnabled = false;
         float t = 0;
+
+        // Do music fade-out
+        musicFadeoutCommand.gameObject.SetActive(true);
         while (t < 1)
         {
             fadeTransitionOverlay.color = new Color(0f, 0f, 0f, t);
@@ -241,6 +291,7 @@ public class Launcher : MonoBehaviour
             }
         }
 
+        SetMusicStatus(false);
         canConfirm = true;
     }
 
@@ -261,9 +312,18 @@ public class Launcher : MonoBehaviour
         StartCoroutine(SendEndStageCo(stats));
     }
 
+    public void SetMusicStatus(bool state = true)
+    {
+        musicFadeoutCommand.gameObject.SetActive(state);
+    }
+
     private IEnumerator SendEndStageCo(StageStats stats)
     {
         bool success = stats.Result == StageResult.Cleared;
+        
+        // Do music fade-out
+        musicFadeoutCommand.Play();
+
         GameStageStats.Add(stats);
 
         GameObject stageEndTransition = success ? stageClearedTransition : stageFailedTransition;
@@ -276,6 +336,15 @@ public class Launcher : MonoBehaviour
             yield return new WaitForEndOfFrame();
 
         yield return SceneManager.LoadSceneAsync("Evaluation");
+
+        Time.timeScale = 1.0f;
+
+        ScoreEntry newEntry = new()
+        {
+            score = stats.TotalScore
+        };
+        LocalScoresManager.Instance.SubmitScoreEntry(newEntry);
+        SetMusicStatus(true);
         if (anim) anim.SetTrigger("End");
     }
 

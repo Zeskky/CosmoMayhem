@@ -6,6 +6,7 @@
 		</relationship>
 		<relationship name="port">
 			<destination>{27b70bb7-f3bb-49ed-9df4-33375842cdd9}</destination>
+			<destination>{18a6446e-b445-43e9-9642-2ee95adff577}</destination>
 		</relationship>
 		<relationship name="snapshotList">
 			<destination>{f4106c39-f831-4810-9369-ce1b079285c1}</destination>

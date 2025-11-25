@@ -32,6 +32,7 @@ public class ScoreBreakdownEntry : MonoBehaviour
         bool finishedCounting = displayedScore >= targetScore;
         if (scoreType == ScoreType.None)
         {
+            Launcher.Instance.SetMusicStatus(true);
             if (tickEmitter) tickEmitter.gameObject.SetActive(!finishedCounting);
             if (bgmEmitter) bgmEmitter.gameObject.SetActive(finishedCounting);
             Launcher.Instance.TimerEnabled = finishedCounting;

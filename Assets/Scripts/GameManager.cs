@@ -226,7 +226,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameOverSequenceCo()
     {
         currentStageStats.Result = StageResult.Failed;
-        StartCoroutine(EndMission(false));
+        Launcher.Instance.SendEndStage(currentStageStats);
         while (Time.timeScale > 0.05f)
         {
             yield return new WaitForFixedUpdate();
