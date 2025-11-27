@@ -126,7 +126,7 @@ MonoBehaviour:
   priority: 1
   scaledPriority: 0
   lifetime: 3
-  explosionPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 7850036625576316092, guid: 9370770727c444f468a78fff38e70bce, type: 3}
 --- !u!114 &1773090250813598960
 MonoBehaviour:
   m_ObjectHideFlags: 0

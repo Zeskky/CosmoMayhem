@@ -280,7 +280,8 @@ public class PlayerController : Damageable
             if (projectile && WasDamagedThisFrame)
             {
                 // Destroy the colliding projectile, only if the player took damage
-                Destroy(collision.gameObject);
+                //Destroy(collision.gameObject);
+                projectile.DestroyProjectile();
             }
         }
     }

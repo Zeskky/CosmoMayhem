@@ -15,23 +15,27 @@ public class InteractableMenu : MonoBehaviour
         get { return menuItemIndex; }
         set
         {
-            int newIndex = allowOptionWarp ? value % menuItems.Count
-                : Mathf.Clamp(value, 0, menuItems.Count - 1);
-
-            if (newIndex != menuItemIndex)
+            if (menuItems.Count == 0) menuItemIndex = 0;
+            else
             {
-                menuItemIndex = newIndex;
+                int newIndex = allowOptionWarp ? value % menuItems.Count
+                    : Mathf.Clamp(value, 0, menuItems.Count - 1);
 
-                // Play sound and focus the new menu item if it has actually changed
-                Launcher.Instance.PlaySelectionChangeSound();
-                playerCursors.ForEach(cur => cur.transform.SetParent(CurrentMenuItem.CursorContainer));
+                if (newIndex != menuItemIndex)
+                {
+                    menuItemIndex = newIndex;
+
+                    // Play sound and focus the new menu item if it has actually changed
+                    Launcher.Instance.PlaySelectionChangeSound();
+                    playerCursors.ForEach(cur => cur.transform.SetParent(CurrentMenuItem.CursorContainer));
+                }
             }
         }
     }
 
     public MenuItem CurrentMenuItem
     {
-        get { return menuItems[menuItemIndex]; }
+        get { return menuItems.Count > 0 ? menuItems[menuItemIndex] : null; }
     }
 
     public void GoToScene(string sceneName)

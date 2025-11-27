@@ -395,11 +395,14 @@ public class GameManager : MonoBehaviour
             Random.Range(-1f, 1f) * currentShakeValue.y
         );
 
-        (mainCameraGroup.parent = Camera.main.transform).position = new Vector3(
-            transform.position.x + shakeOffset.x, 
-            transform.position.y + shakeOffset.y, 
-            -10
-        );
+        if (mainCameraGroup)
+        {
+            (mainCameraGroup.parent = Camera.main.transform).position = new Vector3(
+                transform.position.x + shakeOffset.x,
+                transform.position.y + shakeOffset.y,
+                -10
+            );
+        }
     }
 
     public Vector2 GetSpawnAreaPosition()
@@ -459,5 +462,10 @@ public class GameManager : MonoBehaviour
         float clearTime = 0;
         foreach (Wave wave in waves) clearTime += wave.maxDelay;
         return clearTime * stageMeanTimeScale;
+    }
+
+    public void DestroySceneLeftovers()
+    {
+        Destroy(mainCameraGroup.gameObject);
     }
 }

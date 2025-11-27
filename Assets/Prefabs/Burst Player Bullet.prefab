@@ -112,6 +112,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   startVelocity: 0
   damage: 2
+  priority: 1
+  scaledPriority: 1
   lifetime: 3
   explosionPrefab: {fileID: 0}
 --- !u!1 &8484345974598504575

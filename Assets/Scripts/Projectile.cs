@@ -38,9 +38,8 @@ public class Projectile : MonoBehaviour
     {
         yield return delay > 0 ? new WaitForSeconds(delay) : null;
         if (explosionPrefab && explode)
-        {
-            GameObject newExplosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        }
+            _ = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        
         Destroy(gameObject);
     }
 

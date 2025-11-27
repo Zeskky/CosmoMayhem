@@ -515,12 +515,12 @@ GameObject:
   - component: {fileID: 392827055}
   - component: {fileID: 392827056}
   m_Layer: 0
-  m_Name: Music Fade-out Command
+  m_Name: Music State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &392827055
 Transform:
   m_ObjectHideFlags: 0
@@ -557,8 +557,8 @@ MonoBehaviour:
       Data4: 421541678
     Path: snapshot:/Music Fade Out
   Event: 
-  EventPlayTrigger: 11
-  EventStopTrigger: 12
+  EventPlayTrigger: 12
+  EventStopTrigger: 11
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
@@ -1079,7 +1079,7 @@ GameObject:
   - component: {fileID: 821540430}
   - component: {fileID: 821540431}
   m_Layer: 0
-  m_Name: Score Manager
+  m_Name: Scores Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1112,7 +1112,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b2d356536970cd499d6273a5e1e939e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalScoresManager
-  maxHighScores: 10
+  initialScores:
+  - PlayerName: Chris
+    Score: 8500
+    SubmitTimestamp: 20252227062247822
+  - PlayerName: Oliver
+    Score: 6750
+    SubmitTimestamp: 20252227062247828
+  - PlayerName: Sarah
+    Score: 5000
+    SubmitTimestamp: 20252227062247828
+  - PlayerName: Mark
+    Score: 3500
+    SubmitTimestamp: 20252227062247828
+  - PlayerName: John
+    Score: 2000
+    SubmitTimestamp: 20252227062247828
+  maxHighScores: 5
+  localScoresKey: LocalScores
 --- !u!1 &904902404
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,10 +46,7 @@ public class Launcher : MonoBehaviour
 
     public int MenuTimer
     {
-        get
-        {
-            return menuTimer;
-        }
+        get { return menuTimer; }
         set
         {
             menuTimer = value;
@@ -97,7 +94,7 @@ public class Launcher : MonoBehaviour
             InTransition = false;
             fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
 
-            NextAttractScene();
+            StartCoroutine(NextAttractScene());
         }
     }
 
@@ -114,11 +111,14 @@ public class Launcher : MonoBehaviour
             switch (SceneManager.GetActiveScene().name)
             {
                 case "CompanyLogo":
+                    StartCoroutine(ScreenOutCo(GetNextSceneName()));
                     break;
                 case "Title":
                     GameObject menu = GameObject.FindGameObjectWithTag("Menu");
                     if (menu ? menu.GetComponent<Animator>() : false)
                         menu.GetComponent<Animator>().SetTrigger("Confirm");
+                    
+                    StartCoroutine(ScreenOutCo(GetNextSceneName()));
                     break;
                 case "Menu":
                 case "Evaluation":
@@ -148,6 +148,12 @@ public class Launcher : MonoBehaviour
         InteractableMenu currentMenu;
         if (currentMenu = FindFirstObjectByType<InteractableMenu>())
             currentMenu.MenuItemIndex += Mathf.CeilToInt(direction.x);
+        else
+        {
+            // Advance Attract sequence
+            if (IsOnAttractSequence())
+                StartCoroutine(ScreenOutCo());
+        }
     }
 
     public void PlaySelectionChangeSound()
@@ -167,7 +173,7 @@ public class Launcher : MonoBehaviour
                 print(asi.normalizedTime);
                 if (asi.IsTag("Out") && asi.normalizedTime >= 1)
                 {
-                    NextAttractScene();
+                    StartCoroutine(NextAttractScene());
                 }
             }
         }
@@ -195,13 +201,13 @@ public class Launcher : MonoBehaviour
         return attractSequenceScenes.Contains(SceneManager.GetActiveScene().name);
     }
 
-    public void SetupMenuTimer(int menuTime, bool enabled = true)
+    public void SetupMenuTimer(int menuTime, bool startEnabled = true)
     {
         if (enableMenuTimer)
         {
             clockTimer = 0;
             MenuTimer = menuTime;
-            TimerEnabled = enabled;
+            TimerEnabled = startEnabled;
         }
     }
 
@@ -235,17 +241,11 @@ public class Launcher : MonoBehaviour
     {
         InteractableMenu currentMenu = FindFirstObjectByType<InteractableMenu>();
         if (currentMenu)
-        {
-            currentMenu.CurrentMenuItem.OnConfirm();
+            if (currentMenu.CurrentMenuItem)
+                currentMenu.CurrentMenuItem.OnConfirm();
             //StartCoroutine(ScreenOutCo());
-        }
         else
-        {
-            if (SceneManager.GetActiveScene().name == "CompanyLogo")
-            {
-                StartCoroutine(ScreenOutCo());
-            }
-        }
+            StartCoroutine(ScreenOutCo(shouldAdvance: true));
     }
 
     public void GoToScene(string targetScene)
@@ -253,16 +253,18 @@ public class Launcher : MonoBehaviour
         StartCoroutine(ScreenOutCo(targetScene));
     }
 
-    public IEnumerator ScreenOutCo(string targetScene = "", float duration = 1f)
+    public IEnumerator ScreenOutCo(string targetScene = "", float duration = 1f, bool shouldAdvance = false)
     {
-        if (string.IsNullOrEmpty(targetScene))
+        if (string.IsNullOrEmpty(targetScene) 
+            && (!IsOnAttractSequence() || shouldAdvance))
             targetScene = GetNextSceneName();
 
         TimerEnabled = false;
         float t = 0;
 
         // Do music fade-out
-        musicFadeoutCommand.gameObject.SetActive(true);
+        SetMusicStatus(false);
+
         while (t < 1)
         {
             fadeTransitionOverlay.color = new Color(0f, 0f, 0f, t);
@@ -271,31 +273,30 @@ public class Launcher : MonoBehaviour
         }
 
         fadeTransitionOverlay.color = Color.black;
+        
+        // Disable UI input in-game
+        GetComponent<PlayerInput>().enabled = !targetScene.Contains("Gameplay");
+
         if (string.IsNullOrEmpty(targetScene))
         {
             // Next attract scene
-            NextAttractScene();
+            yield return NextAttractScene();
         }
         else
         {
-            // Disable UI input in-game
-            GetComponent<PlayerInput>().enabled = !targetScene.Contains("Gameplay");
 
             // Specified scene
             yield return SceneManager.LoadSceneAsync(targetScene);
-            fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
             
-            if (!targetScene.Contains("Gameplay"))
-            {
-                SetupMenuTimer(menuTime);
-            }
+            if (!targetScene.Contains("Gameplay")) SetupMenuTimer(menuTime);
         }
 
-        SetMusicStatus(false);
+        fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
+        SetMusicStatus(true);
         canConfirm = true;
     }
 
-    public void NextAttractScene()
+    public IEnumerator NextAttractScene()
     {
         int nextSceneIndex = attractSequenceScenes.IndexOf(SceneManager.GetActiveScene().name) + 1;
         if (nextSceneIndex >= attractSequenceScenes.Count)
@@ -304,7 +305,7 @@ public class Launcher : MonoBehaviour
         }
 
         string nextScene = attractSequenceScenes[nextSceneIndex];
-        SceneManager.LoadScene(nextScene);
+        yield return SceneManager.LoadSceneAsync(nextScene);
     }
 
     public void SendEndStage(StageStats stats)
@@ -320,9 +321,9 @@ public class Launcher : MonoBehaviour
     private IEnumerator SendEndStageCo(StageStats stats)
     {
         bool success = stats.Result == StageResult.Cleared;
-        
+
         // Do music fade-out
-        musicFadeoutCommand.Play();
+        SetMusicStatus(false);
 
         GameStageStats.Add(stats);
 
@@ -335,15 +336,16 @@ public class Launcher : MonoBehaviour
         while (anim && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             yield return new WaitForEndOfFrame();
 
+        GameManager.Instance.DestroySceneLeftovers();
         yield return SceneManager.LoadSceneAsync("Evaluation");
 
         Time.timeScale = 1.0f;
 
         ScoreEntry newEntry = new()
         {
-            score = stats.TotalScore
+            Score = stats.TotalScore
         };
-        LocalScoresManager.Instance.SubmitScoreEntry(newEntry);
+
         SetMusicStatus(true);
         if (anim) anim.SetTrigger("End");
     }
