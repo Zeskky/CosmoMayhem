@@ -28,6 +28,9 @@
 		<relationship name="timeline">
 			<destination>{ad288ed3-082c-4031-8d9e-ed504e6900c4}</destination>
 		</relationship>
+		<relationship name="banks">
+			<destination>{0ce9fa59-f09a-4ef8-b418-3149988f136d}</destination>
+		</relationship>
 	</object>
 	<object class="EventMixer" id="{1be6bf29-c0c5-4fef-9f40-1b657bce2664}">
 		<relationship name="masterBus">
@@ -84,7 +87,7 @@
 	</object>
 	<object class="SingleSound" id="{e457ecd3-f307-44f3-a708-4ade5a0db00d}">
 		<property name="length">
-			<value>1.8</value>
+			<value>1.6000000000000001</value>
 		</property>
 		<relationship name="fadeOutCurve">
 			<destination>{6877a692-f1ca-4014-bb4b-13c0de4b2f1a}</destination>
@@ -134,7 +137,7 @@
 	<object class="MixerBusFader" id="{bf4880a2-83bf-409f-bfab-378de771eaf8}" />
 	<object class="AutomationPoint" id="{01721550-9469-417c-86e8-c1e316b00e09}">
 		<property name="position">
-			<value>0.80000000000000004</value>
+			<value>1.1500000000000001</value>
 		</property>
 		<property name="value">
 			<value>1</value>
@@ -145,7 +148,7 @@
 	</object>
 	<object class="AutomationPoint" id="{cb70ac28-fe1b-4547-8058-1431d4b290ea}">
 		<property name="position">
-			<value>1.8</value>
+			<value>1.6000000000000001</value>
 		</property>
 		<property name="value">
 			<value>0</value>
@@ -153,7 +156,7 @@
 	</object>
 	<object class="AutomationPoint" id="{f581419d-8bbf-486b-8e5f-80f35afa82a7}">
 		<property name="position">
-			<value>0.29999999999999999</value>
+			<value>0</value>
 		</property>
 		<property name="value">
 			<value>0</value>
@@ -161,7 +164,7 @@
 	</object>
 	<object class="AutomationPoint" id="{6030171e-2e7e-4b54-b0ef-54b884801cb0}">
 		<property name="position">
-			<value>1.5</value>
+			<value>1.2</value>
 		</property>
 		<property name="value">
 			<value>24</value>

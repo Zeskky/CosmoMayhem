@@ -38,22 +38,32 @@ public class PlayerController : Damageable
     [SerializeField] private int minSupercoreCharge = 1000, supercorePassiveCharge = 5;
     [SerializeField] private float compositeInputMarginTime = .1f;
     [SerializeField] private GameObject beamAttackCue;
+    [SerializeField] private StudioEventEmitter supercoreReadyEmitter;
+    private int currentSupercoreCharge = 0;
     private float scPassiveChargeTimer;
     private float scChargeCooldownTimer;
     private float compositeInputTimer;
     private bool anyFireActionPerformed = false;
-    private int currentSupercoreCharge = 0;
+
     public int CurrentSupercoreCharge
     {
         get {  return currentSupercoreCharge; }
         set
         {
+            float oldPercent = CurrentSupercoreChargePercent;
             currentSupercoreCharge = Mathf.Clamp(value, 0, minSupercoreCharge);
-            if (currentSupercoreCharge == minSupercoreCharge)
+            if (currentSupercoreCharge == minSupercoreCharge && oldPercent < 1f)
             {
                 print("Supercore Ready! Primary Fire + Alt Fire to activate!");
+                supercoreReadyEmitter.Play();
             }
+
         }
+    }
+
+    public float CurrentSupercoreChargePercent
+    {
+        get => (float)currentSupercoreCharge / minSupercoreCharge;
     }
 
     public bool CanChargeSupercore
@@ -299,14 +309,14 @@ public class PlayerController : Damageable
 
     private void ActivateSuperCore()
     {
-        if (CurrentSupercoreCharge == minSupercoreCharge)
+        if (CurrentSupercoreChargePercent >= 1f)
         {
             if (beamAttackCue)
             {
                 Instantiate(beamAttackCue, cannonPoint.transform);
                 print("SuperCore has been activated!");
-                CurrentSupercoreCharge = 0;
             }
+            CurrentSupercoreCharge = 0;
         }
         else
         {

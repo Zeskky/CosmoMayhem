@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     private float displayedScore = 0;
 
     [SerializeField] private Image healthBar, healthBarFill, healthBarBuffer;
+    [SerializeField] private Image scChargeBar;
+    [SerializeField] private Color scChargingColor, scReadyColor;
     [SerializeField] private float healthBarBufferRate = .1f;
     [SerializeField] [Range(0f, 1f)] private float criticalHealthThreshold = .2f;
     [SerializeField] private float criticalHealthEffectSpeed = 1;
@@ -81,6 +83,31 @@ public class UIManager : MonoBehaviour
             // Systems OK
             healthBar.color = Color.black;
         }
+
+        // What I actually see
+        if (player)
+            // Supercore Charge Bar
+            scChargeBar.color = 
+                (scChargeBar.fillAmount = player.CurrentSupercoreChargePercent) >= 1f
+                ? scReadyColor
+                : scChargingColor;
+
+        // What mortal programmers see
+        /*
+        if (player)
+        {
+            // Supercore Charge Bar
+            scChargeBar.fillAmount = player.CurrentSupercoreChargePercent;
+            if (player.CurrentSupercoreChargePercent >= 1f)
+            {
+                scChargeBar.color = scReadyColor;
+            }
+            else
+            {
+                scChargeBar.color = scChargingColor;
+            }
+        }
+        */
 
         string monospaceTag = $"<mspace={charSpacing.ToString().Replace(',', '.')}em>";
         displayedScore = Mathf.Min(displayedScore + Time.fixedDeltaTime * scoreUpdateRate, GameManager.Instance.CurrentStageStats.TotalScore);
