@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{d2dc924b-f648-4d01-bea8-cc468e317cb7}">
+		<property name="assetPath">
+			<value>SFX/UI/sc_jingle.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.80000000000000004</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f96c9af9-8379-4194-abea-419de59fa13e}</destination>
+		</relationship>
+	</object>
+</objects>

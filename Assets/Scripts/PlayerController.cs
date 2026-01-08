@@ -34,15 +34,33 @@ public class PlayerController : Damageable
     [SerializeField] private StudioEventEmitter dashEmitter;
 
     [Header("Super Core Properties")]
+    [SerializeField] private float supercoreChargeCooldownTime = 5f;
+    [SerializeField] private int minSupercoreCharge = 1000, supercorePassiveCharge = 5;
+    [SerializeField] private float compositeInputMarginTime = .1f;
+    [SerializeField] private GameObject beamAttackCue;
+    private float scPassiveChargeTimer;
+    private float scChargeCooldownTimer;
+    private float compositeInputTimer;
     private bool anyFireActionPerformed = false;
-    [SerializeField] private int minSupercoreCharge = 100;
     private int currentSupercoreCharge = 0;
     public int CurrentSupercoreCharge
     {
         get {  return currentSupercoreCharge; }
         set
         {
-            currentSupercoreCharge = Mathf.Clamp(value, 0, currentSupercoreCharge);
+            currentSupercoreCharge = Mathf.Clamp(value, 0, minSupercoreCharge);
+            if (currentSupercoreCharge == minSupercoreCharge)
+            {
+                print("Supercore Ready! Primary Fire + Alt Fire to activate!");
+            }
+        }
+    }
+
+    public bool CanChargeSupercore
+    {
+        get
+        {
+            return scChargeCooldownTimer <= 0;
         }
     }
 
@@ -75,7 +93,7 @@ public class PlayerController : Damageable
             {
                 shotTimer = 0;
                 // SuperCore input reset
-                anyFireActionPerformed = false;
+                // anyFireActionPerformed = false;
             }
         }
 
@@ -85,8 +103,14 @@ public class PlayerController : Damageable
             {
                 altShotTimer = 0;
                 // SuperCore input reset
-                anyFireActionPerformed = false;
+                // anyFireActionPerformed = false;
             }
+        }
+
+        if ((scPassiveChargeTimer += Time.deltaTime) >= 1f)
+        {
+            scPassiveChargeTimer--;
+            CurrentSupercoreCharge += supercorePassiveCharge;
         }
 
         rb.linearVelocity = (MovementDirection + dashVelocityModifier) * movementSpeed;
@@ -118,7 +142,7 @@ public class PlayerController : Damageable
             if (anyFireActionPerformed)
             {
                 anyFireActionPerformed = false;
-                ActivateSuperCore();
+                //ActivateSuperCore();
             }
             else
             {
@@ -152,6 +176,11 @@ public class PlayerController : Damageable
         dashChargeTimer = Mathf.Max(dashChargeTimer - Time.fixedDeltaTime, 0);
         dashChargeBar.size = new(1 - dashChargeTimer / dashChargeCooldown, dashChargeBar.size.y);
         dashChargeBar.color = IsDashReady ? Color.white : Color.gray;
+
+        if ((compositeInputTimer -= Time.fixedDeltaTime) <= 0)
+        {
+            compositeInputTimer = 0f;
+        }
     }
 
     public void OnMove(InputValue value)
@@ -161,19 +190,42 @@ public class PlayerController : Damageable
 
     public void OnFire(InputValue value)
     {
-        fireState = value.isPressed;
+        if (fireState = value.isPressed)
+        {
+            if (compositeInputTimer > 0f)
+            {
+                ActivateSuperCore();
+            }
+            else
+            {
+                // Start Super Core composite input timer
+                compositeInputTimer = compositeInputMarginTime;
+            }
+        }
     }
 
     public void OnAltFire(InputValue value)
     {
-        altFireState = value.isPressed;
+        if (altFireState = value.isPressed)
+        {
+            if (compositeInputTimer > 0f)
+            {
+                ActivateSuperCore();
+            }
+            else
+            {
+                // Start Super Core composite input timer
+                compositeInputTimer = compositeInputMarginTime;
+            }
+        }
+
         // Bomb throw
         if (altFireState && altShotTimer <= 0)
         {
             if (anyFireActionPerformed)
             {
                 anyFireActionPerformed = false;
-                ActivateSuperCore();
+                //ActivateSuperCore();
             }
             else
             {
@@ -249,7 +301,12 @@ public class PlayerController : Damageable
     {
         if (CurrentSupercoreCharge == minSupercoreCharge)
         {
-            print("SuperCore has been activated!");
+            if (beamAttackCue)
+            {
+                Instantiate(beamAttackCue, cannonPoint.transform);
+                print("SuperCore has been activated!");
+                CurrentSupercoreCharge = 0;
+            }
         }
         else
         {

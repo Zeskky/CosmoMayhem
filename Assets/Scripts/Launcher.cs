@@ -170,7 +170,7 @@ public class Launcher : MonoBehaviour
             if (outAnim = animatorGO.GetComponent<Animator>())
             {
                 AnimatorStateInfo asi = outAnim.GetCurrentAnimatorStateInfo(0);
-                print(asi.normalizedTime);
+                // print(asi.normalizedTime);
                 if (asi.IsTag("Out") && asi.normalizedTime >= 1)
                 {
                     StartCoroutine(NextAttractScene());

@@ -295,8 +295,9 @@ GameObject:
   - component: {fileID: 1995752253807687883}
   - component: {fileID: 7597167091740267234}
   - component: {fileID: 7168836888834264495}
+  - component: {fileID: 1264578278895285133}
   m_Layer: 0
-  m_Name: Beam Charge Effect
+  m_Name: Beam Charge Cue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -372,3 +373,16 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &1264578278895285133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753568386269829810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c094f239a809f4a942691738e6914c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackCue
+  attackObject: {fileID: 6717536199687831076, guid: 66d87448add6b4f4dadbbf32d7030a4f, type: 3}

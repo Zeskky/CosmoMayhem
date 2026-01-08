@@ -209,7 +209,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(EndMission(true));
         else currentStageStats.StageTime += Time.fixedDeltaTime;
 
-        print(currentStageStats.StageTime);
+        // print(currentStageStats.StageTime);
 
         if (bgmEmitter.IsPlaying())
         {

@@ -424,7 +424,11 @@ MonoBehaviour:
   dashForce: 1
   dashChargeBar: {fileID: 4579013004544539250}
   dashEmitter: {fileID: 5334040350609371175}
-  minSupercoreCharge: 100
+  supercoreChargeCooldownTime: 5
+  minSupercoreCharge: 500
+  supercorePassiveCharge: 5
+  compositeInputMarginTime: 0.1
+  beamAttackCue: {fileID: 7753568386269829810, guid: a2e53cf8d8cdd90479813ba8a46c58db, type: 3}
 --- !u!60 &7420576533980361835
 PolygonCollider2D:
   m_ObjectHideFlags: 0

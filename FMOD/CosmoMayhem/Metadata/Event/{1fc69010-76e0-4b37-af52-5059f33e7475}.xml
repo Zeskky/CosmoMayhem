@@ -117,6 +117,7 @@
 		<property name="start">
 			<value>1</value>
 		</property>
+		<property name="name" />
 		<relationship name="parameters">
 			<destination>{740f27b9-94ce-4c47-8344-ab1798d25f75}</destination>
 		</relationship>

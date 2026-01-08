@@ -82,7 +82,7 @@
 	</object>
 	<object class="SingleSound" id="{7012a1b4-3fae-4355-9508-a360cb441d36}">
 		<property name="length">
-			<value>0.13600000000000001</value>
+			<value>0.13400000000000001</value>
 		</property>
 		<property name="startOffset">
 			<value>3</value>
@@ -113,6 +113,9 @@
 		<relationship name="markerTrack">
 			<destination>{2d4baf97-d2b8-48b2-9998-93235b778782}</destination>
 		</relationship>
+		<relationship name="triggerConditions">
+			<destination>{f580900b-64b7-4d84-b240-214f44d641ff}</destination>
+		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{0cbc7024-1329-493b-b884-6d91ca07dd90}">
 		<relationship name="effects">
@@ -121,5 +124,6 @@
 	</object>
 	<object class="MixerBusPanner" id="{338f4cb2-e891-4ac0-91d4-2550fc0e965e}" />
 	<object class="MixerBusFader" id="{e0c624d1-7e45-48f0-ab3b-8903e4586f47}" />
+	<object class="EventCondition" id="{f580900b-64b7-4d84-b240-214f44d641ff}" />
 	<object class="MixerBusFader" id="{4d5ea048-ff8d-4b2d-b606-dc68ad76e6a3}" />
 </objects>

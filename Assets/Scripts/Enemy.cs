@@ -14,6 +14,7 @@ public class Enemy : Damageable
 {
     [Header("Basic Enemy Properties")]
     [SerializeField] private int scoreValue = 10;
+    [SerializeField] private int supercoreCharge = 20;
     public int ScoreValue { get { return scoreValue; } }
 
     [SerializeField] private MovementBehaviour movementBehaviour;
@@ -237,6 +238,12 @@ public class Enemy : Damageable
         GameManager.Instance.CurrentStageStats.ScoreBreakdown[ScoreType.Enemy] += scoreValue * GameManager.Instance.Multiplier;
         GameManager.Instance.Combo++;
         GameManager.Instance.MultiplierProgress++;
+
+        PlayerController pc;
+        if (pc = FindAnyObjectByType<PlayerController>())
+        {
+            pc.CurrentSupercoreCharge += supercoreCharge;
+        }
         base.Die();
     }
 
