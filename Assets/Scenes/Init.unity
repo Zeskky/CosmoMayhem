@@ -708,7 +708,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294901503
+    rgba: 4281220582
   m_fontColor: {r: 1, g: 0.99433964, b: 0.99433964, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -968,6 +968,7 @@ GameObject:
   - component: {fileID: 756369334}
   - component: {fileID: 756369336}
   - component: {fileID: 756369335}
+  - component: {fileID: 756369337}
   m_Layer: 5
   m_Name: Menu Timer
   m_TagString: Untagged
@@ -1034,6 +1035,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756369333}
   m_CullTransparentMesh: 1
+--- !u!95 &756369337
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756369333}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 195f63304cb36814e8cba86b0b5983c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &813153486
 GameObject:
   m_ObjectHideFlags: 0

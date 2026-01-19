@@ -2,6 +2,7 @@ using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -33,7 +34,7 @@ public class Launcher : MonoBehaviour
     [SerializeField] private GameObject menuTimerGO;
     [SerializeField] private TMP_Text menuTimerCounterLabel;
     [SerializeField] private Image menuTimerBackground;
-    [SerializeField] private Color timerNormalColor, timerDangerColor;
+    // [SerializeField] private Color timerNormalColor, timerDangerColor;
     [SerializeField] private int timerTickThreshold = 5;
     [SerializeField] private StudioEventEmitter timerTickEmitter;
     private int menuTimer;
@@ -59,12 +60,18 @@ public class Launcher : MonoBehaviour
             }
             else if (menuTimer <= timerTickThreshold)
             {
-                menuTimerCounterLabel.color = timerDangerColor;
+                // menuTimerCounterLabel.color = timerDangerColor;
                 timerTickEmitter.Play();
+                Animator timerAnimator;
+                if (timerAnimator = menuTimerGO.GetComponent<Animator>())
+                {
+                    timerAnimator.SetTrigger("Hurry Up");
+                }
+                
             }
             else
             {
-                menuTimerCounterLabel.color = timerNormalColor;
+                // menuTimerCounterLabel.color = timerNormalColor;
             }
         }
     }
