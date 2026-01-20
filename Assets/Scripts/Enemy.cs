@@ -239,11 +239,6 @@ public class Enemy : Damageable
         GameManager.Instance.Combo++;
         GameManager.Instance.MultiplierProgress++;
 
-        PlayerController pc;
-        if (pc = FindAnyObjectByType<PlayerController>())
-        {
-            pc.CurrentSupercoreCharge += supercoreCharge;
-        }
         base.Die();
     }
 
@@ -270,6 +265,12 @@ public class Enemy : Damageable
     {
         if (base.TakeDamage(damage))
         {
+            PlayerController pc;
+            if (pc = FindAnyObjectByType<PlayerController>())
+            {
+                pc.CurrentSupercoreCharge += damage;
+            }
+
             if (Health <= 0)
             {
                 Die();
