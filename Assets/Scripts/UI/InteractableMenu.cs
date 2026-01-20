@@ -43,6 +43,11 @@ public class InteractableMenu : MonoBehaviour
         Launcher.Instance.GoToScene(sceneName);
     }
 
+    public void GoToMenu(InteractableMenu menu)
+    {
+
+    }
+
     private void Start()
     {
 
