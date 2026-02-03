@@ -606,10 +606,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2849551471354289040, guid: b51f707c2cb552241aae795b032a47c3, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 184549375
-      objectReference: {fileID: 0}
     - target: {fileID: 3464988806522681966, guid: b51f707c2cb552241aae795b032a47c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -904,8 +900,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294901503
-  m_fontColor: {r: 1, g: 0.99433964, b: 0.99433964, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1133,6 +1129,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2849551471354289040, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2849551471354289040, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2849551471354289040, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3464988806522681966, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1246,7 +1254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &756369334
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2222,33 +2230,33 @@ MonoBehaviour:
   stageGrades:
   - targetScoreRatio: 0
     gradeSprite: {fileID: -801540558, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.55
+  - targetScoreRatio: 0.5
     gradeSprite: {fileID: 1081277981, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.575
+  - targetScoreRatio: 0.55
     gradeSprite: {fileID: 221239720, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   - targetScoreRatio: 0.6
     gradeSprite: {fileID: 754583513, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.65
+  - targetScoreRatio: 0.64
     gradeSprite: {fileID: 1838249342, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.675
+  - targetScoreRatio: 0.67
     gradeSprite: {fileID: 1259670290, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   - targetScoreRatio: 0.7
     gradeSprite: {fileID: -259938182, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.75
+  - targetScoreRatio: 0.72
     gradeSprite: {fileID: -1099001512, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.775
+  - targetScoreRatio: 0.76
     gradeSprite: {fileID: -464881972, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   - targetScoreRatio: 0.8
     gradeSprite: {fileID: 1324400958, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   - targetScoreRatio: 0.85
     gradeSprite: {fileID: 1776338265, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.875
+  - targetScoreRatio: 0.89
     gradeSprite: {fileID: 1854937006, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.9
+  - targetScoreRatio: 0.92
     gradeSprite: {fileID: -1967250988, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.95
+  - targetScoreRatio: 0.94
     gradeSprite: {fileID: 1128453215, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.975
+  - targetScoreRatio: 0.96
     gradeSprite: {fileID: -531459568, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   stageFailedGrade:
     targetScoreRatio: 0
@@ -2258,7 +2266,7 @@ MonoBehaviour:
   menuTimerGO: {fileID: 756369333}
   menuTimerCounterLabel: {fileID: 482931234}
   menuTimerBackground: {fileID: 756369335}
-  timerTickThreshold: 5
+  timerTickThreshold: 8
   timerTickEmitter: {fileID: 904902406}
 --- !u!114 &1881517049
 MonoBehaviour:

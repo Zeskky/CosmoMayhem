@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class Launcher : MonoBehaviour
 {
-    public static Launcher Instance;
+    public static Launcher Instance { get; private set; }
 
     // [SerializeField] private GameObject attractStartPanel;
     [SerializeField] private StudioEventEmitter confirmEmitter, selectionChangeEmitter;
@@ -128,7 +128,9 @@ public class Launcher : MonoBehaviour
                     StartCoroutine(ScreenOutCo(GetNextSceneName()));
                     break;
                 case "Menu":
+                    break;
                 case "Evaluation":
+                    StartCoroutine(ScreenOutCo(GetNextSceneName()));
                     break;
                 default:
                     return;
@@ -234,11 +236,9 @@ public class Launcher : MonoBehaviour
             case "Gameplay":
                 nextScene = "Evaluation";
                 break;
-                /*
             case "Evaluation":
                 nextScene = "GameOver";
                 break;
-                */
         }
 
         return nextScene;
