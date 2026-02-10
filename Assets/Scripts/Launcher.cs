@@ -118,19 +118,17 @@ public class Launcher : MonoBehaviour
             switch (SceneManager.GetActiveScene().name)
             {
                 case "CompanyLogo":
+                case "Evaluation":
+                case "GameOver":
                     StartCoroutine(ScreenOutCo(GetNextSceneName()));
                     break;
                 case "Title":
                     GameObject menu = GameObject.FindGameObjectWithTag("Menu");
                     if (menu ? menu.GetComponent<Animator>() : false)
                         menu.GetComponent<Animator>().SetTrigger("Confirm");
-                    
                     StartCoroutine(ScreenOutCo(GetNextSceneName()));
                     break;
                 case "Menu":
-                    break;
-                case "Evaluation":
-                    StartCoroutine(ScreenOutCo(GetNextSceneName()));
                     break;
                 default:
                     return;
@@ -238,6 +236,9 @@ public class Launcher : MonoBehaviour
                 break;
             case "Evaluation":
                 nextScene = "GameOver";
+                break;
+            case "GameOver":
+                nextScene = "CompanyLogo";
                 break;
         }
 
