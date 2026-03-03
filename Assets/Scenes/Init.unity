@@ -900,8 +900,13 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
+<<<<<<< Updated upstream
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+=======
+    rgba: 4294901503
+  m_fontColor: {r: 1, g: 0.99433964, b: 0.99433964, a: 1}
+>>>>>>> Stashed changes
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2262,7 +2267,7 @@ MonoBehaviour:
     targetScoreRatio: 0
     gradeSprite: {fileID: 1606142183, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   enableMenuTimer: 1
-  menuTime: 20
+  menuTime: 30
   menuTimerGO: {fileID: 756369333}
   menuTimerCounterLabel: {fileID: 482931234}
   menuTimerBackground: {fileID: 756369335}
