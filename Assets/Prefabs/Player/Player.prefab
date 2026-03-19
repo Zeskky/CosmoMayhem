@@ -516,7 +516,7 @@ MonoBehaviour:
   dashChargeBar: {fileID: 4579013004544539250}
   dashEmitter: {fileID: 5334040350609371175}
   supercoreChargeCooldownTime: 5
-  minSupercoreCharge: 400
+  minSupercoreCharge: 500
   supercorePassiveCharge: 5
   compositeInputMarginTime: 0.1
   beamAttackCue: {fileID: 7753568386269829810, guid: a2e53cf8d8cdd90479813ba8a46c58db, type: 3}

@@ -53,7 +53,7 @@ MonoBehaviour:
   preDeathEffect: {fileID: 0}
   damageImmunityTime: 0.1
   scoreValue: 100
-  supercoreCharge: 35
+  supercoreCharge: 25
   movementBehaviour: 2
   doWarp: 1
   doHalt: 0

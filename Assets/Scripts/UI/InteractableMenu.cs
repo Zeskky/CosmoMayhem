@@ -50,10 +50,6 @@ public class InteractableMenu : MonoBehaviour
 
     private void Start()
     {
-        PlayerInput pi = Launcher.Instance.GetComponent<PlayerInput>();
-        if (pi)
-        {
-            pi.enabled = true;
-        }
+
     }
 }

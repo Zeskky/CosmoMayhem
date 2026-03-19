@@ -151,10 +151,9 @@ public class Enemy : Damageable
                     // Enemy will make a sine-like movement
                     float s = 4 * transform.localScale.magnitude;
                     float t = s * movementTimer % s;
-                    moveDir.y = (movementTimer % 2 >= 1
+                    moveDir.y = movementTimer % 2 >= 1
                         ? t - (s / 2) // Odd
-                        : -t + (s / 2)) // Even
-                        * 0.5f;
+                        : -t + (s / 2); // Even
                     break;
                 case MovementBehaviour.FollowPlayerY:
                     // Enemy will follow the player ship vertically (y)
