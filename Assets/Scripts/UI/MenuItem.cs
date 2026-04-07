@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public enum MenuItemCondition
@@ -18,7 +19,8 @@ public enum MenuItemCondition
     NoSingle,
 }
 
-public class MenuItem : MonoBehaviour
+[RequireComponent(typeof(RectTransform), typeof(Selectable))]
+public class MenuItem : MonoBehaviour, ISelectHandler, ISubmitHandler
 {
     [SerializeField] private Image dimFilter;
     [SerializeField] private UnityEvent confirmEvent;
@@ -32,7 +34,13 @@ public class MenuItem : MonoBehaviour
         
     }
 
-    public void OnConfirm()
+    public void OnSelect(BaseEventData eventData)
+    {
+        InteractableMenu.UpdatePlayerCursor(cursorContainer);
+        Launcher.Instance.PlaySelectionChangeSound();
+    }
+
+    public void OnSubmit(BaseEventData eventData)
     {
         // TODO: get elegible condition working
         confirmEvent.Invoke();

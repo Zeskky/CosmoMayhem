@@ -2,7 +2,6 @@ using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -56,7 +55,7 @@ public class Launcher : MonoBehaviour
             {
                 menuTimer = 0;
                 DoMenuLogic();
-                //StartCoroutine(ScreenOutCo());
+                StartCoroutine(ScreenOutCo());
             }
             else if (menuTimer <= timerTickThreshold)
             {
@@ -154,7 +153,9 @@ public class Launcher : MonoBehaviour
     {
         InteractableMenu currentMenu;
         if (currentMenu = FindFirstObjectByType<InteractableMenu>())
-            currentMenu.MenuItemIndex += Mathf.CeilToInt(direction.x);
+        {
+            // currentMenu.MenuItemIndex += Mathf.CeilToInt(direction.x);
+        }
         else
         {
             // Advance Attract sequence
@@ -248,12 +249,19 @@ public class Launcher : MonoBehaviour
     public void DoMenuLogic()
     {
         InteractableMenu currentMenu = FindFirstObjectByType<InteractableMenu>();
+
         if (currentMenu)
+        {
+            /*
             if (currentMenu.CurrentMenuItem)
                 currentMenu.CurrentMenuItem.OnConfirm();
+            */
             //StartCoroutine(ScreenOutCo());
+        }
         else
-            StartCoroutine(ScreenOutCo(shouldAdvance: true));
+        {
+            // StartCoroutine(ScreenOutCo(shouldAdvance: true));
+        }
     }
 
     public void GoToScene(string targetScene)
@@ -267,6 +275,7 @@ public class Launcher : MonoBehaviour
             && (!IsOnAttractSequence() || shouldAdvance))
             targetScene = GetNextSceneName();
 
+        print(targetScene);
         TimerEnabled = false;
         float t = 0;
 
