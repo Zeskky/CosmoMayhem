@@ -2230,33 +2230,15 @@ MonoBehaviour:
   stageGrades:
   - targetScoreRatio: 0
     gradeSprite: {fileID: -801540558, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.5
-    gradeSprite: {fileID: 1081277981, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   - targetScoreRatio: 0.55
-    gradeSprite: {fileID: 221239720, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.6
     gradeSprite: {fileID: 754583513, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.64
-    gradeSprite: {fileID: 1838249342, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.67
-    gradeSprite: {fileID: 1259670290, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.7
+  - targetScoreRatio: 0.625
     gradeSprite: {fileID: -259938182, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.72
-    gradeSprite: {fileID: -1099001512, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.76
-    gradeSprite: {fileID: -464881972, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.8
+  - targetScoreRatio: 0.7
     gradeSprite: {fileID: 1324400958, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.85
-    gradeSprite: {fileID: 1776338265, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.89
-    gradeSprite: {fileID: 1854937006, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.92
+  - targetScoreRatio: 0.8
     gradeSprite: {fileID: -1967250988, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.94
-    gradeSprite: {fileID: 1128453215, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.96
+  - targetScoreRatio: 0.9
     gradeSprite: {fileID: -531459568, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   stageFailedGrade:
     targetScoreRatio: 0

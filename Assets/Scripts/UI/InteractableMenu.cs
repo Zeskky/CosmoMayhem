@@ -1,16 +1,16 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class InteractableMenu : MonoBehaviour
 {
-    // [SerializeField] private List<MenuItem> menuItems;
+    [SerializeField] private List<MenuItem> menuItems;
     [SerializeField] private Selectable defaultMenuItem;
     [SerializeField] private bool allowOptionWarp = false;
     [SerializeField] private List<GameObject> playerCursors;
+    [SerializeField] private Animator anim;
     /*
     private int menuItemIndex = 0;
 
@@ -45,7 +45,35 @@ public class InteractableMenu : MonoBehaviour
 
     public void GoToScene(string sceneName)
     {
-        Launcher.Instance.GoToScene(sceneName);
+        StartCoroutine(PingChoiceCo(sceneName));
+    }
+
+    private IEnumerator PingChoiceCo(string nextScene = "")
+    {
+        if (anim)
+        {
+            foreach (MenuItem mi in menuItems)
+            {
+                print(EventSystem.current.currentSelectedGameObject);
+                if (mi.gameObject != EventSystem.current.currentSelectedGameObject)
+                {
+                    mi.HideMenuItem(true);
+                }
+            }
+            anim.SetTrigger("Choose");
+            AnimatorStateInfo asi = anim.GetCurrentAnimatorStateInfo(0);
+            while (!asi.IsTag("Out"))
+            {
+                asi = anim.GetCurrentAnimatorStateInfo(0);
+                yield return null;
+            }
+            while (asi.normalizedTime >= 1f)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+        }
+
+        Launcher.Instance.GoToScene(nextScene);
     }
 
     public void GoToMenu(InteractableMenu menu)

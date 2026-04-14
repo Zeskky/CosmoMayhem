@@ -43,6 +43,7 @@ public class Launcher : MonoBehaviour
 
     public bool TimerEnabled { get; set; }
     private bool canConfirm = true;
+    public Coroutine CurrentSceneChange {  get; private set; }
 
     public int MenuTimer
     {
@@ -55,7 +56,6 @@ public class Launcher : MonoBehaviour
             {
                 menuTimer = 0;
                 DoMenuLogic();
-                StartCoroutine(ScreenOutCo());
             }
             else if (menuTimer <= timerTickThreshold)
             {
@@ -119,13 +119,13 @@ public class Launcher : MonoBehaviour
                 case "CompanyLogo":
                 case "Evaluation":
                 case "GameOver":
-                    StartCoroutine(ScreenOutCo(GetNextSceneName()));
+                    GoToScene(GetNextSceneName());
                     break;
                 case "Title":
                     GameObject menu = GameObject.FindGameObjectWithTag("Menu");
                     if (menu ? menu.GetComponent<Animator>() : false)
                         menu.GetComponent<Animator>().SetTrigger("Confirm");
-                    StartCoroutine(ScreenOutCo(GetNextSceneName()));
+                    GoToScene(GetNextSceneName());
                     break;
                 case "Menu":
                     break;
@@ -160,7 +160,7 @@ public class Launcher : MonoBehaviour
         {
             // Advance Attract sequence
             if (IsOnAttractSequence())
-                StartCoroutine(ScreenOutCo());
+                GoToScene();
         }
     }
 
@@ -260,57 +260,66 @@ public class Launcher : MonoBehaviour
         }
         else
         {
+            GoToScene();
             // StartCoroutine(ScreenOutCo(shouldAdvance: true));
         }
     }
 
-    public void GoToScene(string targetScene)
+    public void GoToScene(string targetScene = "")
     {
-        StartCoroutine(ScreenOutCo(targetScene));
+        CurrentSceneChange ??= StartCoroutine(ScreenOutCo(targetScene));
     }
 
     public IEnumerator ScreenOutCo(string targetScene = "", float duration = 1f, bool shouldAdvance = false)
     {
-        if (string.IsNullOrEmpty(targetScene) 
-            && (!IsOnAttractSequence() || shouldAdvance))
-            targetScene = GetNextSceneName();
-
-        print(targetScene);
-        TimerEnabled = false;
-        float t = 0;
-
-        // Do music fade-out
-        SetMusicStatus(false);
-
-        while (t < 1)
+        try
         {
-            fadeTransitionOverlay.color = new Color(0f, 0f, 0f, t);
-            yield return new WaitForEndOfFrame();
-            t += Time.unscaledDeltaTime / duration;
+            if (string.IsNullOrEmpty(targetScene)
+                && (!IsOnAttractSequence() || shouldAdvance))
+                targetScene = GetNextSceneName();
+
+            print(targetScene);
+            TimerEnabled = false;
+            float t = 0;
+
+            // Do music fade-out
+            SetMusicStatus(false);
+
+            while (t < 1)
+            {
+                fadeTransitionOverlay.color = new Color(0f, 0f, 0f, t);
+                yield return new WaitForEndOfFrame();
+                t += Time.unscaledDeltaTime / duration;
+            }
+
+            fadeTransitionOverlay.color = Color.black;
+
+            // Disable UI input in-game
+            GetComponent<PlayerInput>().enabled = !targetScene.Contains("Gameplay");
+
+            if (string.IsNullOrEmpty(targetScene))
+            {
+                // Next attract scene
+                yield return NextAttractScene();
+            }
+            else
+            {
+
+                // Specified scene
+                yield return SceneManager.LoadSceneAsync(targetScene);
+
+                if (!targetScene.Contains("Gameplay")) SetupMenuTimer(menuTime);
+            }
+
+            fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
+            SetMusicStatus(true);
+            canConfirm = true;
         }
-
-        fadeTransitionOverlay.color = Color.black;
-        
-        // Disable UI input in-game
-        GetComponent<PlayerInput>().enabled = !targetScene.Contains("Gameplay");
-
-        if (string.IsNullOrEmpty(targetScene))
+        finally
         {
-            // Next attract scene
-            yield return NextAttractScene();
+            // Make sure to set this coroutine as finished
+            CurrentSceneChange = null;
         }
-        else
-        {
-
-            // Specified scene
-            yield return SceneManager.LoadSceneAsync(targetScene);
-            
-            if (!targetScene.Contains("Gameplay")) SetupMenuTimer(menuTime);
-        }
-
-        fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
-        SetMusicStatus(true);
-        canConfirm = true;
     }
 
     public IEnumerator NextAttractScene()

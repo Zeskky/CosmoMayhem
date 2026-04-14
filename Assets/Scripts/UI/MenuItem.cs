@@ -40,6 +40,20 @@ public class MenuItem : MonoBehaviour, ISelectHandler, ISubmitHandler
         Launcher.Instance.PlaySelectionChangeSound();
     }
 
+    public void HideMenuItem(bool affectLayout = false)
+    {
+        if (affectLayout)
+        {
+            // Disable the GameObject
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            // Set its scale to 0 visually
+            transform.localScale = Vector3.zero;
+        }
+    }
+
     public void OnSubmit(BaseEventData eventData)
     {
         // TODO: get elegible condition working
