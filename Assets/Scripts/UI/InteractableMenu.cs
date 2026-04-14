@@ -73,7 +73,10 @@ public class InteractableMenu : MonoBehaviour
             }
         }
 
-        Launcher.Instance.GoToScene(nextScene);
+        if (!string.IsNullOrEmpty(nextScene))
+        {
+            Launcher.Instance.GoToScene(nextScene);
+        }
     }
 
     public void GoToMenu(InteractableMenu menu)
