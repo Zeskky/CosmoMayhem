@@ -45,7 +45,14 @@ public class InteractableMenu : MonoBehaviour
 
     public void GoToScene(string sceneName)
     {
-        StartCoroutine(PingChoiceCo(sceneName));
+        if (!string.IsNullOrEmpty(sceneName))
+        {
+            StartCoroutine(PingChoiceCo(sceneName));
+        }
+        else
+        {
+            Launcher.Instance.GoToScene();
+        }
     }
 
     private IEnumerator PingChoiceCo(string nextScene = "")
@@ -73,15 +80,12 @@ public class InteractableMenu : MonoBehaviour
             }
         }
 
-        if (!string.IsNullOrEmpty(nextScene))
-        {
-            Launcher.Instance.GoToScene(nextScene);
-        }
+        Launcher.Instance.NextSceneName = nextScene;
     }
 
-    public void GoToMenu(InteractableMenu menu)
+    public void InstantiateMenu(InteractableMenu menu)
     {
-
+        InteractableMenu im = Instantiate(menu, transform.parent);
     }
 
     public static void UpdatePlayerCursor(Transform newPoint)

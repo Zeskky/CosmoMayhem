@@ -39,7 +39,7 @@ public class Launcher : MonoBehaviour
     private int menuTimer;
     private float clockTimer;
     private readonly int timePerTick = 1;
-    private string nextSceneName;
+    public string NextSceneName { get; set; }
 
     public bool TimerEnabled { get; set; }
     private bool canConfirm = true;
@@ -265,7 +265,16 @@ public class Launcher : MonoBehaviour
         }
     }
 
-    public void GoToScene(string targetScene = "")
+    public void GoToScene()
+    {
+        if (!string.IsNullOrEmpty(NextSceneName))
+        {
+            GoToScene(NextSceneName);
+            NextSceneName = string.Empty;
+        }
+    }
+
+    public void GoToScene(string targetScene)
     {
         CurrentSceneChange ??= StartCoroutine(ScreenOutCo(targetScene));
     }
