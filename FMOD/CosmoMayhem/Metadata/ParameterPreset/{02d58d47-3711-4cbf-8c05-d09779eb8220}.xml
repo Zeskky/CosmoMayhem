@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{02d58d47-3711-4cbf-8c05-d09779eb8220}">
+		<property name="name">
+			<value>Round Number</value>
+		</property>
+		<relationship name="folder">
+			<destination>{f84edd32-db8f-476a-8483-478ea19aaa3d}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{8b4ec2bb-2e89-4799-b828-850d0abd9f4e}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{8b4ec2bb-2e89-4799-b828-850d0abd9f4e}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="minimum">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>11</value>
+		</property>
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

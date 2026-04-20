@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{86fa72fa-c8e1-4e0b-b3b8-2b1e1a6cb6b1}">
+		<property name="assetPath">
+			<value>SFX/Voices/Male/war_medic.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.66972789115646258</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f96c9af9-8379-4194-abea-419de59fa13e}</destination>
+		</relationship>
+	</object>
+</objects>

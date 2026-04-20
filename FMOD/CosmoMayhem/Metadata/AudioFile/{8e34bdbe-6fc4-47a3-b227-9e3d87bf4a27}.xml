@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{8e34bdbe-6fc4-47a3-b227-9e3d87bf4a27}">
+		<property name="assetPath">
+			<value>SFX/Voices/Female/hurry_up.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.72605442176870749</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f96c9af9-8379-4194-abea-419de59fa13e}</destination>
+		</relationship>
+	</object>
+</objects>

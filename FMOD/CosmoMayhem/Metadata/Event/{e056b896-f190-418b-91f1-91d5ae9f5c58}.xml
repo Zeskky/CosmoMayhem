@@ -43,6 +43,7 @@
 		</relationship>
 		<relationship name="modules">
 			<destination>{e457ecd3-f307-44f3-a708-4ade5a0db00d}</destination>
+			<destination>{0d1e8cd0-640b-4bb6-bc79-f1374761b005}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{bca204b1-b856-44a6-a66c-eb599c893729}</destination>
@@ -64,6 +65,7 @@
 	<object class="Timeline" id="{ad288ed3-082c-4031-8d9e-ed504e6900c4}">
 		<relationship name="modules">
 			<destination>{e457ecd3-f307-44f3-a708-4ade5a0db00d}</destination>
+			<destination>{0d1e8cd0-640b-4bb6-bc79-f1374761b005}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{bca204b1-b856-44a6-a66c-eb599c893729}">
@@ -94,6 +96,20 @@
 		</relationship>
 		<relationship name="audioFile">
 			<destination>{2b02a06d-1da7-4b12-bcb6-4df756e6fae5}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{0d1e8cd0-640b-4bb6-bc79-f1374761b005}">
+		<property name="isAsync">
+			<value>true</value>
+		</property>
+		<property name="length">
+			<value>0.95401360544217684</value>
+		</property>
+		<property name="pitch">
+			<value>-10</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{be9672af-633d-4448-8810-2ec82186d1af}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{e2e2c2de-6e2b-45d9-a9eb-395137d18d0b}">

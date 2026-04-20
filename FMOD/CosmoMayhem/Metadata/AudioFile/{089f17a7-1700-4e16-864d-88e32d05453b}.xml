@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{089f17a7-1700-4e16-864d-88e32d05453b}">
+		<property name="assetPath">
+			<value>SFX/Voices/Male/war_target_destroyed.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.3414739229024943</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f96c9af9-8379-4194-abea-419de59fa13e}</destination>
+		</relationship>
+	</object>
+</objects>

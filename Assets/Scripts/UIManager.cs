@@ -20,6 +20,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float criticalHealthEffectSpeed = 1;
     [SerializeField] private Gradient criticalHealthEffectGradient;
 
+    [SerializeField] private Image criticalHealthBorder;
+    [SerializeField] private float healthBorderFadeTime = 1f;
+    private float healthBorderTimer = 0;
+    [SerializeField] private Animator introAnimator;
+
     [Header("Boss UI Elements")]
     [SerializeField] private GameObject bossAlertOverlay, bossHealthBar;
     [SerializeField] private Image bossHealthBarFill, bossHealthBarBuffer;
@@ -68,29 +73,41 @@ public class UIManager : MonoBehaviour
             barBuffer: healthBarBuffer
         );
 
+        // Intro Overlay
+        if (introAnimator && !GameManager.Instance.GameStarted)
+        {
+            AnimatorStateInfo asi = introAnimator.GetCurrentAnimatorStateInfo(0);
+            GameManager.Instance.GameStarted = asi.IsTag("Out") && asi.normalizedTime >= 1f;
+        }
+
         if (!player)
         {
             // Obliterated
             healthBar.color = Color.red;
+            healthBorderTimer = 1;
         }
         else if ((float)player.NormalizedHealth <= criticalHealthThreshold)
         {
             // Critical damage
             healthBar.color = criticalHealthEffectGradient.Evaluate((Time.time * criticalHealthEffectSpeed) % 1);
+            healthBorderTimer = Mathf.Min(healthBorderTimer + Time.deltaTime, healthBorderFadeTime);
         }
         else
         {
             // Systems OK
             healthBar.color = Color.black;
+            healthBorderTimer = Mathf.Max(healthBorderTimer - Time.deltaTime, 0);
         }
 
         // What I actually see
         if (player)
             // Supercore Charge Bar
-            scChargeBar.color = 
+            scChargeBar.color =
                 (scChargeBar.fillAmount = player.CurrentSupercoreChargePercent) >= 1f
                 ? scReadyColor
                 : scChargingColor;
+
+        criticalHealthBorder.color = new(1, 1, 1, healthBorderTimer / healthBorderFadeTime);
 
         // What mortal programmers see
         /*

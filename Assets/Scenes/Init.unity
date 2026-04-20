@@ -2230,9 +2230,9 @@ MonoBehaviour:
   stageGrades:
   - targetScoreRatio: 0
     gradeSprite: {fileID: -801540558, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.55
+  - targetScoreRatio: 0.4
     gradeSprite: {fileID: 754583513, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.625
+  - targetScoreRatio: 0.55
     gradeSprite: {fileID: -259938182, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   - targetScoreRatio: 0.7
     gradeSprite: {fileID: 1324400958, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
@@ -2244,7 +2244,7 @@ MonoBehaviour:
     targetScoreRatio: 0
     gradeSprite: {fileID: 1606142183, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   enableMenuTimer: 1
-  menuTime: 30
+  menuTime: 20
   menuTimerGO: {fileID: 756369333}
   menuTimerCounterLabel: {fileID: 482931234}
   menuTimerBackground: {fileID: 756369335}

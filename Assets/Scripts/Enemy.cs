@@ -146,6 +146,10 @@ public class Enemy : Damageable
                             moveDir = (player.transform.position - transform.position).normalized;
                             transform.right = moveDir;
                         }
+                        else
+                        {
+                            moveDir.y = Mathf.Lerp(moveDir.y, 0, Time.deltaTime * 5f);
+                        }
                     break;
                 case MovementBehaviour.Wavy:
                     // Enemy will make a sine-like movement
@@ -159,7 +163,9 @@ public class Enemy : Damageable
                 case MovementBehaviour.FollowPlayerY:
                     // Enemy will follow the player ship vertically (y)
                     if (player)
+                    {
                         moveDir.y = (player.transform.position - transform.position).normalized.y;
+                    }
                     break;
             }
 

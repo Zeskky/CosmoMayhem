@@ -7,6 +7,9 @@
 		<property name="name">
 			<value>Master SFX</value>
 		</property>
+		<property name="portType">
+			<value>4</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{23f1a4f8-ce6b-46f8-9ab7-e6e989597ec9}</destination>
 		</relationship>

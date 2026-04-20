@@ -29,7 +29,7 @@ public class Launcher : MonoBehaviour
 
     [Header("Menu Timer Properties")]
     [SerializeField] private bool enableMenuTimer = true;
-    [SerializeField] private int menuTime = 30;
+    [SerializeField] private int menuTime = 20;
     [SerializeField] private GameObject menuTimerGO;
     [SerializeField] private TMP_Text menuTimerCounterLabel;
     [SerializeField] private Image menuTimerBackground;

@@ -142,6 +142,7 @@ public class GameManager : MonoBehaviour
     }
 
     //[SerializeField] private GameObject enemyPrefab;
+    [Header("Scene References")]
     [SerializeField] private GameObject gameOverMessage;
     [SerializeField] private Transform spawnArea, mainCameraGroup;
     [SerializeField] private Vector2 randomOffset;
@@ -159,6 +160,7 @@ public class GameManager : MonoBehaviour
 
     public Boss CurrentBoss { get; private set; }
     public bool BossDefeated { get; set; }
+    public bool GameStarted { get; set; }
 
     public StagePhase CurrentStagePhase { get; private set; }
 
@@ -193,7 +195,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentWaveTimer += Time.deltaTime;
+        if (GameStarted)
+        {
+            currentWaveTimer += Time.deltaTime;
+            print(currentWaveTimer);
+        }
+
         transform.position += new Vector3(scrollSpeed * Time.deltaTime, 0);
 
         SpawnNextWave();
@@ -207,7 +214,8 @@ public class GameManager : MonoBehaviour
 
         if (IsLastWave() && waveEnemies.Count == 0 && BossDefeated)
             StartCoroutine(EndMission(true));
-        else currentStageStats.StageTime += Time.fixedDeltaTime;
+        else if (GameStarted) 
+            currentStageStats.StageTime += Time.fixedDeltaTime;
 
         // print(currentStageStats.StageTime);
 
