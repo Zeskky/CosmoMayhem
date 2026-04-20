@@ -2250,6 +2250,9 @@ MonoBehaviour:
   menuTimerBackground: {fileID: 756369335}
   timerTickThreshold: 8
   timerTickEmitter: {fileID: 904902406}
+  excludeTimerFromScenes:
+  - Gameplay
+  - GameOver
 --- !u!114 &1881517049
 MonoBehaviour:
   m_ObjectHideFlags: 0

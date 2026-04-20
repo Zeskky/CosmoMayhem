@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class InteractableMenu : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class InteractableMenu : MonoBehaviour
     [SerializeField] private bool allowOptionWarp = false;
     [SerializeField] private List<GameObject> playerCursors;
     [SerializeField] private Animator anim;
+
+    [SerializeField] private UnityEvent fallbackOnConfirm;
+    public UnityEvent FallbackOnConfirm { get => fallbackOnConfirm; }
+
+
     /*
     private int menuItemIndex = 0;
 
@@ -61,7 +67,7 @@ public class InteractableMenu : MonoBehaviour
         {
             foreach (MenuItem mi in menuItems)
             {
-                print(EventSystem.current.currentSelectedGameObject);
+                //print(EventSystem.current.currentSelectedGameObject);
                 if (mi.gameObject != EventSystem.current.currentSelectedGameObject)
                 {
                     mi.HideMenuItem(true);

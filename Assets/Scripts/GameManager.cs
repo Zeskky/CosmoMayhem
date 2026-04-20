@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour
         if (GameStarted)
         {
             currentWaveTimer += Time.deltaTime;
-            print(currentWaveTimer);
+            //print(currentWaveTimer);
         }
 
         transform.position += new Vector3(scrollSpeed * Time.deltaTime, 0);

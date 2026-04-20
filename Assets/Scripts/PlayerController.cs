@@ -314,13 +314,13 @@ public class PlayerController : Damageable
             if (beamAttackCue)
             {
                 Instantiate(beamAttackCue, cannonPoint.transform);
-                print("SuperCore has been activated!");
+                //print("SuperCore has been activated!");
             }
             CurrentSupercoreCharge = 0;
         }
         else
         {
-            print("SuperCore is not ready yet.");
+            //print("SuperCore is not ready yet.");
         }
     }
 

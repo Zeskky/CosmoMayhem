@@ -2,6 +2,7 @@ using FMODUnity;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ScoreBreakdownEntry : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class ScoreBreakdownEntry : MonoBehaviour
     private int targetScore = 0;
 
     private bool achievedNewRecord = false;
+    private bool playingMusic = false;
 
     private void Start()
     {
@@ -40,10 +42,13 @@ public class ScoreBreakdownEntry : MonoBehaviour
         bool finishedCounting = displayedScore >= targetScore;
         if (scoreType == ScoreType.None)
         {
-            if (finishedCounting)
+            if (finishedCounting && !playingMusic)
             {
+                playingMusic = true;
                 Launcher.Instance.SetMusicStatus(true);
             }
+
+            Launcher.Instance.GetComponent<PlayerInput>().enabled = finishedCounting;
 
             if (tickEmitter) tickEmitter.gameObject.SetActive(!finishedCounting);
             if (bgmEmitter) bgmEmitter.gameObject.SetActive(finishedCounting);

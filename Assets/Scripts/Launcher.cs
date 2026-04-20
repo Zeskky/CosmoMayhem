@@ -36,9 +36,12 @@ public class Launcher : MonoBehaviour
     // [SerializeField] private Color timerNormalColor, timerDangerColor;
     [SerializeField] private int timerTickThreshold = 5;
     [SerializeField] private StudioEventEmitter timerTickEmitter;
+    [Tooltip("The list of Scene names to exclude the Menu timer from. By default, it is enabled on any Scene.")]
+    [SerializeField] private List<string> excludeTimerFromScenes;
     private int menuTimer;
     private float clockTimer;
     private readonly int timePerTick = 1;
+    private Vector3 startCameraPos;
     public string NextSceneName { get; set; }
 
     public bool TimerEnabled { get; set; }
@@ -107,6 +110,7 @@ public class Launcher : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        startCameraPos = Camera.main.transform.position;
     }
 
     public void OnConfirm(InputValue value)
@@ -226,6 +230,8 @@ public class Launcher : MonoBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case "CompanyLogo":
+                nextScene = "Title";
+                break;
             case "Title":
                 nextScene = "Menu";
                 break;
@@ -257,21 +263,25 @@ public class Launcher : MonoBehaviour
                 currentMenu.CurrentMenuItem.OnConfirm();
             */
             //StartCoroutine(ScreenOutCo());
+
+            currentMenu.FallbackOnConfirm.Invoke();
         }
+        /*
         else
         {
-            GoToScene();
+            // TODO: Go to next stage if player cleared the stage
             // StartCoroutine(ScreenOutCo(shouldAdvance: true));
         }
+        */
     }
 
     public void GoToScene()
     {
-        if (!string.IsNullOrEmpty(NextSceneName))
-        {
-            GoToScene(NextSceneName);
-            NextSceneName = string.Empty;
-        }
+        // print(NextSceneName);
+        GoToScene(string.IsNullOrEmpty(NextSceneName) 
+            ? GetNextSceneName() 
+            : NextSceneName);
+        NextSceneName = string.Empty;
     }
 
     public void GoToScene(string targetScene)
@@ -287,7 +297,7 @@ public class Launcher : MonoBehaviour
                 && (!IsOnAttractSequence() || shouldAdvance))
                 targetScene = GetNextSceneName();
 
-            print(targetScene);
+            // print(targetScene);
             TimerEnabled = false;
             float t = 0;
 
@@ -313,11 +323,10 @@ public class Launcher : MonoBehaviour
             }
             else
             {
-
                 // Specified scene
                 yield return SceneManager.LoadSceneAsync(targetScene);
 
-                if (!targetScene.Contains("Gameplay")) SetupMenuTimer(menuTime);
+                if (!excludeTimerFromScenes.Contains(targetScene)) SetupMenuTimer(menuTime);
             }
 
             fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
@@ -350,6 +359,7 @@ public class Launcher : MonoBehaviour
 
     public void SetMusicStatus(bool state = true)
     {
+        print($"Music status set to {state}");
         musicFadeoutCommand.gameObject.SetActive(state);
     }
 
@@ -374,6 +384,7 @@ public class Launcher : MonoBehaviour
         GameManager.Instance.DestroySceneLeftovers();
         yield return SceneManager.LoadSceneAsync("Evaluation");
 
+        Camera.main.transform.position = startCameraPos;
         Time.timeScale = 1.0f;
 
         ScoreEntry newEntry = new()

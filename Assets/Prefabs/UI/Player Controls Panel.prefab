@@ -121,6 +121,9 @@ MonoBehaviour:
   allowOptionWarp: 0
   playerCursors: []
   anim: {fileID: 1541537778800877986}
+  fallbackOnConfirm:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1411868000002177996
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +192,7 @@ MonoBehaviour:
   m_text: Dodge <sprite index=16>      + <sprite index=30 color=EEFC330>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
-  m_sharedMaterial: {fileID: -3819232164141076039, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: edd2cef355d35ed438f2ce8d90f71e62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -325,7 +328,7 @@ MonoBehaviour:
   m_text: Fire <sprite index=30 color=55FF550>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
-  m_sharedMaterial: {fileID: -3819232164141076039, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: edd2cef355d35ed438f2ce8d90f71e62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -597,7 +600,7 @@ MonoBehaviour:
   m_text: Special <sprite index=30 color=DD00000>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
-  m_sharedMaterial: {fileID: -3819232164141076039, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: edd2cef355d35ed438f2ce8d90f71e62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -733,7 +736,7 @@ MonoBehaviour:
   m_text: Take these baddies out of your sight!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
-  m_sharedMaterial: {fileID: -3819232164141076039, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: edd2cef355d35ed438f2ce8d90f71e62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -936,7 +939,7 @@ MonoBehaviour:
   m_text: SuperCore <sprite index=30 color=55FF550>      +<sprite index=30 color=DD00000>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
-  m_sharedMaterial: {fileID: -3819232164141076039, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: edd2cef355d35ed438f2ce8d90f71e62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1072,7 +1075,7 @@ MonoBehaviour:
   m_text: Move <sprite index=16>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
-  m_sharedMaterial: {fileID: -3819232164141076039, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: edd2cef355d35ed438f2ce8d90f71e62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
