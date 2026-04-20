@@ -40,6 +40,11 @@ public class MenuItem : MonoBehaviour, ISelectHandler, ISubmitHandler
         Launcher.Instance.PlaySelectionChangeSound();
     }
 
+    public void InvokeConfirm()
+    {
+        confirmEvent.Invoke();
+    }
+
     public void HideMenuItem(bool affectLayout = false)
     {
         if (affectLayout)

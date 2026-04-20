@@ -59,10 +59,10 @@ MonoBehaviour:
   doHalt: 0
   inactiveUntilHalted: 0
   targetPosition: {x: 0.65, y: 0}
-  minSpeed: 2
-  maxSpeed: 2
-  verticalSpeedModifier: 1
-  baseDamage: 6
+  minSpeed: 1.5
+  maxSpeed: 1.5
+  verticalSpeedModifier: 0.75
+  baseDamage: 5
   enemyRenderer: {fileID: 985135051469531841}
   canShoot: 1
   minShotDelay: 1.25

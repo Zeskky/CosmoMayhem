@@ -398,6 +398,7 @@ public class GameManager : MonoBehaviour
 
     private void LateUpdate()
     {
+        /*
         Vector2 shakeOffset = new(
             Random.Range(-1f, 1f) * currentShakeValue.x, 
             Random.Range(-1f, 1f) * currentShakeValue.y
@@ -410,7 +411,7 @@ public class GameManager : MonoBehaviour
                 transform.position.y + shakeOffset.y,
                 -10
             );
-        }
+        }*/
     }
 
     public Vector2 GetSpawnAreaPosition()
@@ -451,9 +452,12 @@ public class GameManager : MonoBehaviour
 
         foreach (Wave wave in waves)
         {
-            foreach (Enemy enemy in wave.wavePrefab.GetComponentsInChildren<Enemy>())
+            if (wave.wavePrefab)
             {
-                score += enemy.ScoreValue;
+                foreach (Enemy enemy in wave.wavePrefab.GetComponentsInChildren<Enemy>())
+                {
+                    score += enemy.ScoreValue;
+                }
             }
         }
 
@@ -474,6 +478,6 @@ public class GameManager : MonoBehaviour
 
     public void DestroySceneLeftovers()
     {
-        Destroy(mainCameraGroup.gameObject);
+        // Destroy(mainCameraGroup.gameObject);
     }
 }

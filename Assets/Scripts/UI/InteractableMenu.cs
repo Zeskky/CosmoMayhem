@@ -61,6 +61,19 @@ public class InteractableMenu : MonoBehaviour
         }
     }
 
+    public void DoTimeoutAction()
+    {
+        if (EventSystem.current.currentSelectedGameObject)
+        {
+            MenuItem mi = EventSystem.current.currentSelectedGameObject.GetComponent<MenuItem>();
+            mi.InvokeConfirm();
+        }
+        else
+        {
+            FallbackOnConfirm.Invoke();
+        }
+    }
+
     private IEnumerator PingChoiceCo(string nextScene = "")
     {
         if (anim)

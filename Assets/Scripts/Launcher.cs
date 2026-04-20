@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -41,7 +42,7 @@ public class Launcher : MonoBehaviour
     private int menuTimer;
     private float clockTimer;
     private readonly int timePerTick = 1;
-    private Vector3 startCameraPos;
+    // private Vector3 startCameraPos;
     public string NextSceneName { get; set; }
 
     public bool TimerEnabled { get; set; }
@@ -89,33 +90,31 @@ public class Launcher : MonoBehaviour
     {
         if (Instance)
         {
-            // Already existing instance: destroy this one
-            Destroy(gameObject);
+            // Already existing instance: renew it
+            Destroy(Instance.gameObject);
         }
-        else
-        {
-            // Store this instance's reference, making it persistent between scenes
-            DontDestroyOnLoad((Instance = this).gameObject);
 
-            menuTimerGO.SetActive(false);
-            GameStageStats = new List<StageStats>();
-            canConfirm = true;
-            InTransition = false;
-            fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
+        // Store this instance's reference, making it persistent between scenes
+        DontDestroyOnLoad((Instance = this).gameObject);
 
-            StartCoroutine(NextAttractScene());
-        }
+        menuTimerGO.SetActive(false);
+        GameStageStats = new List<StageStats>();
+        canConfirm = true;
+        InTransition = false;
+        fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
+
+        StartCoroutine(NextAttractScene());
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        startCameraPos = Camera.main.transform.position;
+        // startCameraPos = Camera.main.transform.position;
     }
 
-    public void OnConfirm(InputValue value)
+    public void OnConfirm(InputValue iv)
     {
-        if (value.isPressed && canConfirm)
+        if (iv.isPressed && canConfirm)
         {
             canConfirm = false;
             switch (SceneManager.GetActiveScene().name)
@@ -144,9 +143,9 @@ public class Launcher : MonoBehaviour
         }
     }
 
-    public void OnMoveCursor(InputValue value)
+    public void OnMoveCursor(InputValue iv)
     {
-        Vector2 cursorDir = value.Get<Vector2>();
+        Vector2 cursorDir = iv.Get<Vector2>();
         if (cursorDir.magnitude >= 0.4f)
         {
             MoveMenuCursor(cursorDir);
@@ -166,6 +165,22 @@ public class Launcher : MonoBehaviour
             if (IsOnAttractSequence())
                 GoToScene();
         }
+    }
+    /*
+    public void OnReset(InputValue iv)
+    {
+        if (iv.isPressed)
+        {
+            SceneManager.LoadScene("Init");
+        }
+    }
+    */
+
+    public void OnFastForward(InputValue iv)
+    {
+#if UNITY_EDITOR
+        Time.timeScale = iv.isPressed ? 3f : 1f;
+#endif
     }
 
     public void PlaySelectionChangeSound()
@@ -263,8 +278,7 @@ public class Launcher : MonoBehaviour
                 currentMenu.CurrentMenuItem.OnConfirm();
             */
             //StartCoroutine(ScreenOutCo());
-
-            currentMenu.FallbackOnConfirm.Invoke();
+            currentMenu.DoTimeoutAction();
         }
         /*
         else
@@ -359,7 +373,7 @@ public class Launcher : MonoBehaviour
 
     public void SetMusicStatus(bool state = true)
     {
-        print($"Music status set to {state}");
+        // print($"Music status set to {state}");
         musicFadeoutCommand.gameObject.SetActive(state);
     }
 
@@ -384,7 +398,7 @@ public class Launcher : MonoBehaviour
         GameManager.Instance.DestroySceneLeftovers();
         yield return SceneManager.LoadSceneAsync("Evaluation");
 
-        Camera.main.transform.position = startCameraPos;
+        // Camera.main.transform.position = startCameraPos;
         Time.timeScale = 1.0f;
 
         ScoreEntry newEntry = new()

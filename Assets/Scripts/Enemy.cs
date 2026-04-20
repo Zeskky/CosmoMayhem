@@ -20,6 +20,7 @@ public class Enemy : Damageable
     [SerializeField] private MovementBehaviour movementBehaviour;
     [SerializeField] private bool doWarp = true, doHalt = false, inactiveUntilHalted = false;
     [SerializeField] private Vector2 targetPosition;
+    [SerializeField] private bool relativeTP;
     [SerializeField] private float minSpeed, maxSpeed/*, maxVelocity = 5f*/;
     [SerializeField] private float verticalSpeedModifier = 1f;
     [SerializeField] private int baseDamage = 2;
@@ -113,7 +114,7 @@ public class Enemy : Damageable
             ramChargeTimer += Time.deltaTime;
             
             float normalizedCharge = ramChargeTimer / ramChargeTime;
-            Vector2 vpPos = Camera.main.ViewportToWorldPoint(targetPosition);
+            Vector2 vpPos = GetActualTargetPos();
             enemyRenderer.color = ramChargeTimerGradient.Evaluate(normalizedCharge);
 
             transform.position = new Vector3(
@@ -192,9 +193,9 @@ public class Enemy : Damageable
             if (doHalt)
             {
                 // Enemy will halt upon reaching target horizontal position (x)
-                Vector3 actualTargetPosition = Camera.main.ViewportToWorldPoint(targetPosition);
+                // Vector3 actualTargetPosition = Camera.main.ViewportToWorldPoint(targetPosition);
 
-                if (transform.position.x < actualTargetPosition.x)
+                if (transform.position.x < GetActualTargetPos().x)
                 {
                     transform.parent = Camera.main.transform;
                     moveDir.x = 0;
@@ -324,5 +325,10 @@ public class Enemy : Damageable
     public void SetRamBehaviourEnabled(bool enabled)
     {
         doesRam = enabled;
+    }
+
+    public Vector2 GetActualTargetPos()
+    {
+        return relativeTP ? Camera.main.ViewportToWorldPoint(targetPosition) : (targetPosition + (Vector2)Camera.main.transform.position);
     }
 }

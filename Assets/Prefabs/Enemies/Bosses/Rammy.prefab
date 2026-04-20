@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 734021864658981530}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -82,11 +82,13 @@ MonoBehaviour:
   preDeathEffect: {fileID: 0}
   damageImmunityTime: 0.1
   scoreValue: 2000
+  supercoreCharge: 20
   movementBehaviour: 3
   doWarp: 1
   doHalt: 1
   inactiveUntilHalted: 0
-  targetPosition: {x: 0.75, y: 0.5}
+  targetPosition: {x: 4.5, y: 0}
+  relativeTP: 0
   minSpeed: 2
   maxSpeed: 2
   verticalSpeedModifier: 2.5
