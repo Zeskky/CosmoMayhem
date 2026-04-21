@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3253179904963515967}
   m_Layer: 0
-  m_Name: Basic Wave 2
+  m_Name: Pickup Wave 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,11 +29,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4616851920939543017}
-  - {fileID: 5556764209972126096}
+  - {fileID: 6390290672539761058}
+  - {fileID: 2985281207619133482}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &8645750558570583575
+--- !u!1001 &941046550753783398
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -41,61 +41,61 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3253179904963515967}
     m_Modifications:
-    - target: {fileID: 3173132082257341910, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
-      propertyPath: m_Name
-      value: Enemy Basic Ship
-      objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309543977301058699, guid: 496680571f152644591f471bbc809439, type: 3}
+      propertyPath: m_Name
+      value: Repair Kit Pickup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
---- !u!4 &4616851920939543017 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 496680571f152644591f471bbc809439, type: 3}
+--- !u!4 &2985281207619133482 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
-  m_PrefabInstance: {fileID: 8645750558570583575}
+  m_CorrespondingSourceObject: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
+  m_PrefabInstance: {fileID: 941046550753783398}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &8859756483440303726
+--- !u!1001 &8992635301897304046
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -103,57 +103,57 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3253179904963515967}
     m_Modifications:
-    - target: {fileID: 3173132082257341910, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
-      propertyPath: m_Name
-      value: Enemy Basic Ship
-      objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
+    - target: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309543977301058699, guid: 496680571f152644591f471bbc809439, type: 3}
+      propertyPath: m_Name
+      value: Repair Kit Pickup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
---- !u!4 &5556764209972126096 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 496680571f152644591f471bbc809439, type: 3}
+--- !u!4 &6390290672539761058 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4028955915315216382, guid: 040252b553dc0734bad62e3b528d4f0f, type: 3}
-  m_PrefabInstance: {fileID: 8859756483440303726}
+  m_CorrespondingSourceObject: {fileID: 2621831291116490316, guid: 496680571f152644591f471bbc809439, type: 3}
+  m_PrefabInstance: {fileID: 8992635301897304046}
   m_PrefabAsset: {fileID: 0}
