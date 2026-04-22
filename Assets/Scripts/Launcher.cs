@@ -1,6 +1,7 @@
 using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -120,7 +121,6 @@ public class Launcher : MonoBehaviour
             switch (SceneManager.GetActiveScene().name)
             {
                 case "CompanyLogo":
-                case "Evaluation":
                 case "GameOver":
                     GoToScene(GetNextSceneName());
                     break;
@@ -131,6 +131,11 @@ public class Launcher : MonoBehaviour
                     GoToScene(GetNextSceneName());
                     break;
                 case "Menu":
+                    break;
+                case "Evaluation":
+                    StageStats lastStageStats = GameStageStats.LastOrDefault();
+                    bool canContinue = lastStageStats.Result == StageResult.Cleared;
+                    GoToScene(canContinue ? "Gameplay" : "GameOver");
                     break;
                 default:
                     return;
@@ -328,7 +333,7 @@ public class Launcher : MonoBehaviour
             fadeTransitionOverlay.color = Color.black;
 
             // Disable UI input in-game
-            GetComponent<PlayerInput>().enabled = !targetScene.Contains("Gameplay");
+            print(GetComponent<PlayerInput>().enabled = !targetScene.Contains("Gameplay"));
 
             if (string.IsNullOrEmpty(targetScene))
             {
@@ -384,8 +389,6 @@ public class Launcher : MonoBehaviour
         // Do music fade-out
         SetMusicStatus(false);
 
-        GameStageStats.Add(stats);
-
         GameObject stageEndTransition = success ? stageClearedTransition : stageFailedTransition;
 
         GameObject newTransition = Instantiate(stageEndTransition, stageEndTransition.transform.parent);
@@ -395,6 +398,7 @@ public class Launcher : MonoBehaviour
         while (anim && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             yield return new WaitForEndOfFrame();
 
+        GameStageStats.Add(stats);
         GameManager.Instance.DestroySceneLeftovers();
         yield return SceneManager.LoadSceneAsync("Evaluation");
 
@@ -408,6 +412,12 @@ public class Launcher : MonoBehaviour
 
         SetMusicStatus(true);
         if (anim) anim.SetTrigger("End");
+    }
+
+
+    public int GetCurrentGameScore()
+    {
+        return GameStageStats.Sum(gss => gss.TotalScore);
     }
 
     /*

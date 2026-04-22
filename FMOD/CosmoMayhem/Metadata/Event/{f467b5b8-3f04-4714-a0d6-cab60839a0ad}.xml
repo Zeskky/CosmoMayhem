@@ -79,10 +79,10 @@
 	</object>
 	<object class="SingleSound" id="{bab45744-a3d2-4b5e-a9c7-0ce6b3ef6e0a}">
 		<property name="length">
-			<value>179.57333333333332</value>
+			<value>15.014988662131522</value>
 		</property>
 		<relationship name="audioFile">
-			<destination>{eb232edd-bd76-4e44-b10c-f34e1bd3ab09}</destination>
+			<destination>{d86149da-f4eb-4f55-a555-6e26d835379d}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{0ef09568-1e2f-47e1-bca1-d84cbb1944ed}">
@@ -96,7 +96,7 @@
 			<value>0</value>
 		</property>
 		<property name="length">
-			<value>179.57333333333332</value>
+			<value>15.01498866213152</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{7be10e3a-3870-4cb5-a4be-d0137df116be}</destination>

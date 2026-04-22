@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        displayedScore = Launcher.Instance.GetCurrentGameScore();
         if (player = FindAnyObjectByType<PlayerController>())
         {
             healthBar.gameObject.SetActive(player.MaxHealth > 1);
@@ -127,7 +128,11 @@ public class UIManager : MonoBehaviour
         */
 
         string monospaceTag = $"<mspace={charSpacing.ToString().Replace(',', '.')}em>";
-        displayedScore = Mathf.Min(displayedScore + Time.fixedDeltaTime * scoreUpdateRate, GameManager.Instance.CurrentStageStats.TotalScore);
+        displayedScore = Mathf.Min(
+            displayedScore + Time.fixedDeltaTime * scoreUpdateRate,
+            Launcher.Instance.GetCurrentGameScore()
+            + GameManager.Instance.CurrentStageStats.TotalScore
+            );
         scoreLabel.text = $"{monospaceTag}{(int)displayedScore,8}";
         scoreLabelBackground.text = $"{monospaceTag}{((int)displayedScore).ToString().PadLeft(8, '0')}";
         UpdateMultiplier();

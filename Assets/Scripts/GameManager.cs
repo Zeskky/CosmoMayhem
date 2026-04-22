@@ -149,12 +149,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float /*spawnDelay = 1f,*/ timeFreezeTransitionTime = .75f;
     [SerializeField] private StudioEventEmitter bgmEmitter;
 
-    [Header("Wave Settings")]
-    [SerializeField] private List<Wave> waves;
-    [SerializeField] private float bossSpawnDelay;
+    [Header("Stage Settings")]
+    [SerializeField] private StageSettings stageSettings;
+    //[SerializeField] private List<Wave> waves;
+    //[SerializeField] private float bossSpawnDelay;
     private float currentWaveTimer;
 
-    public List<Wave> Waves { get {  return waves; } }
+    //public List<Wave> Waves { get {  return waves; } }
     private int currentWave = 0;
     private List<GameObject> waveEnemies = new();
 
@@ -255,7 +256,7 @@ public class GameManager : MonoBehaviour
     
     public bool IsLastWave()
     {
-        return currentWave >= waves.Count;
+        return currentWave >= stageSettings.Waves.Count;
     }
 
     public void RemoveMissingWaveEnemies()
@@ -272,7 +273,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        Wave nextWave = waves[currentWave];
+        Wave nextWave = stageSettings.Waves[currentWave];
         // print(nextWave.maxDelay - currentWaveTimer);
         if ((currentWaveTimer >= nextWave.maxDelay && !nextWave.hasBoss) || (IsCurrentWaveCleared() && currentWave > 0))
         {
@@ -376,7 +377,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator DoBossSequenceCo(Wave wave)
     {
         CurrentStagePhase = StagePhase.Boss;
-        yield return new WaitForSecondsRealtime(bossSpawnDelay);
+        yield return new WaitForSecondsRealtime(stageSettings.BossSpawnDelay);
         SpawnWave(wave);
     }
 
@@ -450,7 +451,7 @@ public class GameManager : MonoBehaviour
     {
         int score = 0;
 
-        foreach (Wave wave in waves)
+        foreach (Wave wave in stageSettings.Waves)
         {
             if (wave.wavePrefab)
             {
@@ -472,12 +473,17 @@ public class GameManager : MonoBehaviour
     public float GetMeanClearTime()
     {
         float clearTime = 0;
-        foreach (Wave wave in waves) clearTime += wave.maxDelay;
+        foreach (Wave wave in stageSettings.Waves) clearTime += wave.maxDelay;
         return clearTime * stageMeanTimeScale;
     }
 
     public void DestroySceneLeftovers()
     {
+        waveEnemies.ForEach(go => Destroy(go));
+        if (CurrentBoss)
+        {
+            Destroy(CurrentBoss.gameObject);
+        }
         // Destroy(mainCameraGroup.gameObject);
     }
 }

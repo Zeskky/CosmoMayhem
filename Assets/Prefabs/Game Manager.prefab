@@ -55,39 +55,14 @@ MonoBehaviour:
   stageMeanTimeScale: 1.5
   currentShakeValue: {x: 0, y: 0}
   maxMultiplier: 4
-  comboPerMultiplier: 5
+  comboPerMultiplier: 4
   gameOverMessage: {fileID: 0}
   spawnArea: {fileID: 2288270598786639468}
   mainCameraGroup: {fileID: 0}
   randomOffset: {x: 0, y: 4}
   timeFreezeTransitionTime: 0.75
   bgmEmitter: {fileID: 7527896500293634473}
-  waves:
-  - maxDelay: 0.5
-    wavePrefab: {fileID: 1876805798562724599, guid: ae13aaa4d3966224095608afe105a6a7, type: 3}
-    hasBoss: 0
-  - maxDelay: 8
-    wavePrefab: {fileID: 1876805798562724599, guid: d199dd653e4709f4eb7926758952176b, type: 3}
-    hasBoss: 0
-  - maxDelay: 12
-    wavePrefab: {fileID: 1876805798562724599, guid: db183a68caaa0cb4fae87de9e3e00c16, type: 3}
-    hasBoss: 0
-  - maxDelay: 12
-    wavePrefab: {fileID: 1876805798562724599, guid: 73298c9df2eed7b40969a1450da2fe97, type: 3}
-    hasBoss: 0
-  - maxDelay: 12
-    wavePrefab: {fileID: 328773270039521185, guid: 2aedd99f9ea199147b4cb5e372347a52, type: 3}
-    hasBoss: 0
-  - maxDelay: 15
-    wavePrefab: {fileID: 1876805798562724599, guid: 0d24750e34ea6c745aa3ade139a1e651, type: 3}
-    hasBoss: 0
-  - maxDelay: 5
-    wavePrefab: {fileID: 1876805798562724599, guid: d199dd653e4709f4eb7926758952176b, type: 3}
-    hasBoss: 0
-  - maxDelay: 0
-    wavePrefab: {fileID: 4879657468511175911, guid: a4bb0b106f73f424f991aa0ac65bde09, type: 3}
-    hasBoss: 1
-  bossSpawnDelay: 2
+  stageSettings: {fileID: 11400000, guid: 6528843179646c248acf344069100a0d, type: 2}
   missionCompletePrefab: {fileID: 1809349698785315851, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
   missionFailedPrefab: {fileID: 1809349698785315851, guid: b51f707c2cb552241aae795b032a47c3, type: 3}
 --- !u!114 &7527896500293634473

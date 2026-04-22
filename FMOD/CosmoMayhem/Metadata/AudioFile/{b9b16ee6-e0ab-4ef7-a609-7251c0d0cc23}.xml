@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{b9b16ee6-e0ab-4ef7-a609-7251c0d0cc23}">
+		<property name="assetPath">
+			<value>BGM/01 - Login (loop).ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>29.095714285714287</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f96c9af9-8379-4194-abea-419de59fa13e}</destination>
+		</relationship>
+	</object>
+</objects>

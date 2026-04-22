@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54e52b2ba36284448686a0fb37c9e60, type: 3}
+  m_Name: Stage 1
+  m_EditorClassIdentifier: Assembly-CSharp::StageSettings
+  waves:
+  - maxDelay: 1
+    wavePrefab: {fileID: 1876805798562724599, guid: ae13aaa4d3966224095608afe105a6a7, type: 3}
+    hasBoss: 0
+  - maxDelay: 10
+    wavePrefab: {fileID: 1876805798562724599, guid: d199dd653e4709f4eb7926758952176b, type: 3}
+    hasBoss: 0
+  - maxDelay: 12
+    wavePrefab: {fileID: 1876805798562724599, guid: db183a68caaa0cb4fae87de9e3e00c16, type: 3}
+    hasBoss: 0
+  - maxDelay: 15
+    wavePrefab: {fileID: 328773270039521185, guid: 2aedd99f9ea199147b4cb5e372347a52, type: 3}
+    hasBoss: 0
+  - maxDelay: 15
+    wavePrefab: {fileID: 1876805798562724599, guid: 0d24750e34ea6c745aa3ade139a1e651, type: 3}
+    hasBoss: 0
+  - maxDelay: 0
+    wavePrefab: {fileID: 4879657468511175911, guid: a4bb0b106f73f424f991aa0ac65bde09, type: 3}
+    hasBoss: 1
+  shipMaxBonus: 1000
+  timeMaxBonus: 3000
+  timeBonusDecayRate: 1.6
+  stageMeanTimeScale: 1.2
+  bossSpawnDelay: 4
