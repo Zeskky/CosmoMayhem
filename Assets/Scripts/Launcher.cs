@@ -25,9 +25,12 @@ public class Launcher : MonoBehaviour
     [SerializeField] private List<string> attractSequenceScenes;
     [SerializeField] private List<Grade> stageGrades;
     [SerializeField] private Grade stageFailedGrade;
+    [SerializeField] private string nameEntryCharacterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890?!.,";
 
-    public List<Grade> StageGrades {  get { return stageGrades; } }
-    public Grade StageFailedGrade { get { return stageFailedGrade; } }
+    public string NameEntryCharacterSet { get => nameEntryCharacterSet; }
+
+    public List<Grade> StageGrades { get => stageGrades; }
+    public Grade StageFailedGrade { get => stageFailedGrade; }
 
     [Header("Menu Timer Properties")]
     [SerializeField] private bool enableMenuTimer = true;

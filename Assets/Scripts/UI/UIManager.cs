@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void ProgressBarBufferUpdate(float targetFill, Image barFill, Image barBuffer)
+    private void ProgressBarBufferUpdate(float targetFill, Image barFill, Image barBuffer, float rateScale = 1f)
     {
         float currentFill = barBuffer.fillAmount;
 
@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
             // Damage
             barBuffer.color = Color.red;
             barFill.fillAmount = targetFill;
-            barBuffer.fillAmount = Mathf.Max(currentFill - Time.fixedDeltaTime * healthBarBufferRate, targetFill);
+            barBuffer.fillAmount = Mathf.Max(currentFill - Time.fixedDeltaTime * healthBarBufferRate * rateScale, targetFill);
         }
         else
         {
@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
             currentFill = barFill.fillAmount;
             barBuffer.color = Color.green;
             barBuffer.fillAmount = targetFill;
-            barFill.fillAmount = Mathf.Min(currentFill + Time.fixedDeltaTime * healthBarBufferRate, targetFill);
+            barFill.fillAmount = Mathf.Min(currentFill + Time.fixedDeltaTime * healthBarBufferRate * rateScale, targetFill);
         }
     }
 
@@ -147,7 +147,8 @@ public class UIManager : MonoBehaviour
             ProgressBarBufferUpdate(
                 targetFill: currentBoss.NormalizedHealth,
                 barFill: bossHealthBarFill,
-                barBuffer: bossHealthBarBuffer
+                barBuffer: bossHealthBarBuffer,
+                rateScale: 0.15f
             );
             bossDisplayNameLabel.text = currentBoss.DisplayName;
         }
