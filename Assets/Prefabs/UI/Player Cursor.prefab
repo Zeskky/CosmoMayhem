@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: P1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
-  m_sharedMaterial: {fileID: -3819232164141076039, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fe0e42693b2c78a4b806b168d27c878b, type: 2}
+  m_sharedMaterial: {fileID: -5000555738844870171, guid: fe0e42693b2c78a4b806b168d27c878b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 5, y: 30, z: 0, w: 35}
+  m_margin: {x: 0, y: 30, z: 0, w: 35}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

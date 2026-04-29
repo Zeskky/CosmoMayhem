@@ -281,7 +281,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Stage Cleared
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fe0e42693b2c78a4b806b168d27c878b, type: 2}
   m_sharedMaterial: {fileID: -3819232164141076039, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

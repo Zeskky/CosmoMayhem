@@ -483,8 +483,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Game Over
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8090a608186ff4b4093dfdf9b6f1d777, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: edd2cef355d35ed438f2ce8d90f71e62, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fe0e42693b2c78a4b806b168d27c878b, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 962ed27ac70e02648b3ffefc95b504fe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -514,7 +514,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

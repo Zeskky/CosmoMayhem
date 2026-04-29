@@ -26,8 +26,10 @@ public class Launcher : MonoBehaviour
     [SerializeField] private List<Grade> stageGrades;
     [SerializeField] private Grade stageFailedGrade;
     [SerializeField] private string nameEntryCharacterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890?!.,";
+    [SerializeField] private int nameEntryMaxLength = 10;
 
     public string NameEntryCharacterSet { get => nameEntryCharacterSet; }
+    public int NameEntryMaxLength { get => nameEntryMaxLength; }
 
     public List<Grade> StageGrades { get => stageGrades; }
     public Grade StageFailedGrade { get => stageFailedGrade; }
@@ -137,8 +139,8 @@ public class Launcher : MonoBehaviour
                     break;
                 case "Evaluation":
                     StageStats lastStageStats = GameStageStats.LastOrDefault();
-                    bool canContinue = lastStageStats.Result == StageResult.Cleared;
-                    GoToScene(canContinue ? "Gameplay" : "GameOver");
+                    bool success = true;//lastStageStats.Result == StageResult.Cleared;
+                    GoToScene(success ? "NameEntry" : "GameOver");
                     break;
                 default:
                     return;

@@ -191,6 +191,11 @@ public class PlayerController : Damageable
         {
             compositeInputTimer = 0f;
         }
+
+        if (Keyboard.current.f4Key.wasPressedThisFrame)
+        {
+            TakeDamage(maxHealth);
+        }
     }
 
     public void OnMove(InputValue value)

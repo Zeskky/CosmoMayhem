@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Evaluation.unity
     guid: b9e7a98f4160a1749a395aaaec522d9e
   - enabled: 1
+    path: Assets/Scenes/NameEntry.unity
+    guid: 031fa5d2be8d0ff4986e8f419b77f252
+  - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 7c3d574063750fa4ca4a066932d6ed6a
   m_configObjects:
