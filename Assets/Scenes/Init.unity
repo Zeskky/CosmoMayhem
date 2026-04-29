@@ -172,7 +172,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -514,7 +514,7 @@ MonoBehaviour:
   m_text: Free Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fe0e42693b2c78a4b806b168d27c878b, type: 2}
-  m_sharedMaterial: {fileID: -5000555738844870171, guid: fe0e42693b2c78a4b806b168d27c878b, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 962ed27ac70e02648b3ffefc95b504fe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -620,7 +620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2849551471354289040, guid: b51f707c2cb552241aae795b032a47c3, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3464988806522681966, guid: b51f707c2cb552241aae795b032a47c3, type: 3}
       propertyPath: m_Pivot.x
@@ -1159,7 +1159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2849551471354289040, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3464988806522681966, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
       propertyPath: m_Pivot.x
@@ -2183,11 +2183,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 0
+  far clip plane: 5000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.1730757
+  orthographic size: 5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2274,24 +2274,26 @@ MonoBehaviour:
   attractSequenceScenes:
   - CompanyLogo
   - Title
+  - Leaderboard
   stageGrades:
   - targetScoreRatio: 0
     gradeSprite: {fileID: -801540558, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.35
-    gradeSprite: {fileID: 754583513, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   - targetScoreRatio: 0.5
-    gradeSprite: {fileID: -259938182, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+    gradeSprite: {fileID: 754583513, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   - targetScoreRatio: 0.65
+    gradeSprite: {fileID: -259938182, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 0.75
     gradeSprite: {fileID: 1324400958, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.8
+  - targetScoreRatio: 0.85
     gradeSprite: {fileID: -1967250988, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.9
+  - targetScoreRatio: 0.95
     gradeSprite: {fileID: -531459568, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   stageFailedGrade:
     targetScoreRatio: 0
     gradeSprite: {fileID: 1606142183, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   nameEntryCharacterSet: ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,!?
   nameEntryMaxLength: 10
+  defaultHighScoreName: RAKUJIN
   enableMenuTimer: 1
   menuTime: 20
   menuTimerGO: {fileID: 756369333}
@@ -2301,6 +2303,7 @@ MonoBehaviour:
   timerTickEmitter: {fileID: 904902406}
   excludeTimerFromScenes:
   - Gameplay
+  - Leaderboards
   - GameOver
 --- !u!114 &1881517049
 MonoBehaviour:

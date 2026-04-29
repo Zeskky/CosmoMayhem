@@ -42,6 +42,15 @@ public class LocalScoresManager : MonoBehaviour
         return LocalScores.soloScores.Contains(entry);
     }
 
+    public bool IsNewRecord(int score)
+    {
+        return score 
+            >= LocalScores.soloScores
+            .OrderByDescending(ls => ls.Score)
+            .LastOrDefault()
+            .Score;
+    }
+
     public void WriteScoresToDisk()
     {
         string jsonDump = JsonUtility.ToJson(LocalScores);

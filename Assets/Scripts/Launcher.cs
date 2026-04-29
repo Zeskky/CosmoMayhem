@@ -27,9 +27,11 @@ public class Launcher : MonoBehaviour
     [SerializeField] private Grade stageFailedGrade;
     [SerializeField] private string nameEntryCharacterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890?!.,";
     [SerializeField] private int nameEntryMaxLength = 10;
+    [SerializeField] private string defaultHighScoreName = "RAKUJIN";
 
     public string NameEntryCharacterSet { get => nameEntryCharacterSet; }
     public int NameEntryMaxLength { get => nameEntryMaxLength; }
+    public string DefaultHighScoreName {  get => defaultHighScoreName; }
 
     public List<Grade> StageGrades { get => stageGrades; }
     public Grade StageFailedGrade { get => stageFailedGrade; }
@@ -65,6 +67,7 @@ public class Launcher : MonoBehaviour
             if (menuTimer <= 0)
             {
                 menuTimer = 0;
+                TimerEnabled = false;
                 DoMenuLogic();
             }
             else if (menuTimer <= timerTickThreshold)
@@ -139,8 +142,12 @@ public class Launcher : MonoBehaviour
                     break;
                 case "Evaluation":
                     StageStats lastStageStats = GameStageStats.LastOrDefault();
-                    bool success = true;//lastStageStats.Result == StageResult.Cleared;
-                    GoToScene(success ? "NameEntry" : "GameOver");
+                    bool highScore = false;
+                    if (lastStageStats != null)
+                    {
+                        highScore = LocalScoresManager.Instance.IsNewRecord(lastStageStats.TotalScore);//lastStageStats.Result == StageResult.Cleared;
+                    }
+                    GoToScene(highScore ? "NameEntry" : "GameOver");
                     break;
                 default:
                     return;
@@ -173,7 +180,7 @@ public class Launcher : MonoBehaviour
         {
             // Advance Attract sequence
             if (IsOnAttractSequence())
-                GoToScene();
+                GoToScene(GetNextSceneName());
         }
     }
     /*
@@ -267,6 +274,7 @@ public class Launcher : MonoBehaviour
                 nextScene = "Evaluation";
                 break;
             case "Evaluation":
+            case "NameEntry":
                 nextScene = "GameOver";
                 break;
             case "GameOver":

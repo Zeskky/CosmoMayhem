@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class NameCharacter : MonoBehaviour, ISelectHandler, ISubmitHandler
 {
-    [SerializeField] private EventReference selectEventRef, submitEventRef;
+    // [SerializeField] private EventReference selectEventRef, submitEventRef;
     public NameEntryPanel NameEntryPanel { get; set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,15 +22,40 @@ public class NameCharacter : MonoBehaviour, ISelectHandler, ISubmitHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        RuntimeManager.PlayOneShot(selectEventRef);
+        //RuntimeManager.PlayOneShot(selectEventRef);
+        NameEntryPanel.OnSelectedCharacterChange();
     }
 
     public void OnSubmit(BaseEventData eventData)
     {
-        // Make sure the name does not surpass the input limit
-        if (NameEntryPanel.TypeCharacter(GetComponent<TMP_Text>().text))
+        string textValue = GetComponent<TMP_Text>().text;
+
+        switch (textValue)
         {
-            RuntimeManager.PlayOneShot(submitEventRef);
+            case "DEL":
+                NameEntryPanel.DeleteLastCharacter();
+                /*
+                if (NameEntryPanel.DeleteLastCharacter())
+                    RuntimeManager.PlayOneShot(selectEventRef);
+                */
+                break;
+            case "END":
+                NameEntryPanel.EndInput();
+                //RuntimeManager.PlayOneShot(submitEventRef);
+                break;
+            default:
+                // Make sure the name does not surpass the input limit
+                if (NameEntryPanel.TypeCharacter(textValue))
+                {
+                    //RuntimeManager.PlayOneShot(submitEventRef);
+                }
+                else
+                {
+                    // Jump to the 'END' button if reached the name length cap
+                    NameEntryPanel.JumpToEnd();
+                }
+                break;
         }
+
     }
 }

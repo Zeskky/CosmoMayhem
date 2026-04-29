@@ -30,9 +30,12 @@ public class ScoreBreakdownEntry : MonoBehaviour
             if (scoreType == ScoreType.None)
             {
                 Launcher.Instance.SetupMenuTimer(15, false);
+                /*
                 achievedNewRecord = LocalScoresManager.Instance.SubmitScoreEntry(
                     new ScoreEntry() { Score = latestStageStats.TotalScore }
                 );
+                */
+                achievedNewRecord = LocalScoresManager.Instance.IsNewRecord(latestStageStats.TotalScore);
             }
         }
     }

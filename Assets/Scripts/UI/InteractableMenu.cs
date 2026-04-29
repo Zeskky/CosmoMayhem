@@ -63,9 +63,10 @@ public class InteractableMenu : MonoBehaviour
 
     public void DoTimeoutAction()
     {
-        if (EventSystem.current.currentSelectedGameObject)
+        GameObject currentGO = EventSystem.current.currentSelectedGameObject;
+        MenuItem mi;
+        if (currentGO && (mi = currentGO.GetComponent<MenuItem>()))
         {
-            MenuItem mi = EventSystem.current.currentSelectedGameObject.GetComponent<MenuItem>();
             mi.InvokeConfirm();
         }
         else

@@ -148,7 +148,7 @@ public class UIManager : MonoBehaviour
                 targetFill: currentBoss.NormalizedHealth,
                 barFill: bossHealthBarFill,
                 barBuffer: bossHealthBarBuffer,
-                rateScale: 0.15f
+                rateScale: 0.1f
             );
             bossDisplayNameLabel.text = currentBoss.DisplayName;
         }
