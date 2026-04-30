@@ -45,8 +45,8 @@ public class Launcher : MonoBehaviour
     // [SerializeField] private Color timerNormalColor, timerDangerColor;
     [SerializeField] private int timerTickThreshold = 5;
     [SerializeField] private StudioEventEmitter timerTickEmitter;
-    [Tooltip("The list of Scene names to exclude the Menu timer from. By default, it is enabled on any Scene.")]
-    [SerializeField] private List<string> excludeTimerFromScenes;
+    [Tooltip("The list of Scene names to hide the Menu Timer from. By default, it is visible on any Scene.")]
+    [SerializeField] private List<string> hideTimerFromScenes;
     private int menuTimer;
     private float clockTimer;
     private readonly int timePerTick = 1;
@@ -112,7 +112,7 @@ public class Launcher : MonoBehaviour
         InTransition = false;
         fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
 
-        StartCoroutine(NextAttractScene());
+        StartCoroutine(NextAttractSceneCo());
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -180,7 +180,7 @@ public class Launcher : MonoBehaviour
         {
             // Advance Attract sequence
             if (IsOnAttractSequence())
-                GoToScene(GetNextSceneName());
+                GoToScene(GetNextAttractScene());
         }
     }
     /*
@@ -217,7 +217,7 @@ public class Launcher : MonoBehaviour
                 // print(asi.normalizedTime);
                 if (asi.IsTag("Out") && asi.normalizedTime >= 1)
                 {
-                    StartCoroutine(NextAttractScene());
+                    StartCoroutine(NextAttractSceneCo());
                 }
             }
         }
@@ -245,7 +245,7 @@ public class Launcher : MonoBehaviour
         return attractSequenceScenes.Contains(SceneManager.GetActiveScene().name);
     }
 
-    public void SetupMenuTimer(int menuTime, bool startEnabled = true)
+    public void SetupMenuTimer(int menuTime, bool startEnabled = true, bool visible = true)
     {
         if (enableMenuTimer)
         {
@@ -265,6 +265,7 @@ public class Launcher : MonoBehaviour
                 nextScene = "Title";
                 break;
             case "Title":
+            case "Leaderboard":
                 nextScene = "Menu";
                 break;
             case "Menu":
@@ -351,14 +352,14 @@ public class Launcher : MonoBehaviour
             if (string.IsNullOrEmpty(targetScene))
             {
                 // Next attract scene
-                yield return NextAttractScene();
+                yield return NextAttractSceneCo();
             }
             else
             {
                 // Specified scene
                 yield return SceneManager.LoadSceneAsync(targetScene);
 
-                if (!excludeTimerFromScenes.Contains(targetScene)) SetupMenuTimer(menuTime);
+                if (!hideTimerFromScenes.Contains(targetScene)) SetupMenuTimer(menuTime);
             }
 
             fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
@@ -372,7 +373,12 @@ public class Launcher : MonoBehaviour
         }
     }
 
-    public IEnumerator NextAttractScene()
+    public IEnumerator NextAttractSceneCo()
+    {
+        yield return SceneManager.LoadSceneAsync(GetNextAttractScene());
+    }
+
+    public string GetNextAttractScene()
     {
         int nextSceneIndex = attractSequenceScenes.IndexOf(SceneManager.GetActiveScene().name) + 1;
         if (nextSceneIndex >= attractSequenceScenes.Count)
@@ -380,8 +386,7 @@ public class Launcher : MonoBehaviour
             nextSceneIndex = 0;
         }
 
-        string nextScene = attractSequenceScenes[nextSceneIndex];
-        yield return SceneManager.LoadSceneAsync(nextScene);
+        return attractSequenceScenes[nextSceneIndex];
     }
 
     public void SendEndStage(StageStats stats)

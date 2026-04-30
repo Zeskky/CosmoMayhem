@@ -694,7 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d160e12a225a744b938129381e6390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeaderboardRenderer
-  leaderboardEntryGO: {fileID: 1006617067}
+  leaderboardEntryGO: {fileID: 451189286}
 --- !u!1 &1233797613
 GameObject:
   m_ObjectHideFlags: 0

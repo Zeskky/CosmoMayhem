@@ -2303,7 +2303,7 @@ MonoBehaviour:
   timerTickEmitter: {fileID: 904902406}
   excludeTimerFromScenes:
   - Gameplay
-  - Leaderboards
+  - Leaderboard
   - GameOver
 --- !u!114 &1881517049
 MonoBehaviour:

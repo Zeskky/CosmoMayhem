@@ -8,7 +8,8 @@ public class LeaderboardEntry : MonoBehaviour
 
     public void UpdateEntryData(string name, int score)
     {
-        int place = transform.GetSiblingIndex() + 1;
+        // This also counts the inactive GameObjects
+        int place = transform.GetSiblingIndex();
         placeLabel.text = place.ToString();
         // Set the place color label depending on the rank
         placeLabel.color = place switch
