@@ -2,6 +2,7 @@ using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -79,7 +80,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("How much time has the player before the timeMaxBonus runs out? (Expressed as X times the stage's maximum length, in seconds)")]
     [SerializeField] private float timeBonusDecayRate = 1.6f;
     [SerializeField] private float stageMeanTimeScale = 1.2f;
-    [SerializeField] private Vector2 currentShakeValue;
+    // [SerializeField] private Vector2 currentShakeValue;
+
 
     public int OverRepairScore { get { return overRepairScore; } }
 
@@ -148,6 +150,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Vector2 randomOffset;
     [SerializeField] private float /*spawnDelay = 1f,*/ timeFreezeTransitionTime = .75f;
     [SerializeField] private StudioEventEmitter bgmEmitter;
+    [SerializeField] private CinemachineCamera cmCamera;
+    private float shakeTimer;
 
     [Header("Stage Settings")]
     [SerializeField] private StageSettings stageSettings;
@@ -413,6 +417,18 @@ public class GameManager : MonoBehaviour
                 -10
             );
         }*/
+
+        // Camera shake logic
+        shakeTimer -= Time.deltaTime;
+        if (shakeTimer <= 0f)
+        {
+            // Reset timer on shake end
+            shakeTimer = 0f;
+
+            CinemachineBasicMultiChannelPerlin perlin = 
+                cmCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
+            perlin.AmplitudeGain = 0;
+        }
     }
 
     public Vector2 GetSpawnAreaPosition()
@@ -420,12 +436,13 @@ public class GameManager : MonoBehaviour
         return spawnArea.position;
     }
 
+    /*
     public void ShakeScreen(float magnitude)
     {
-        StartCoroutine(ShakeScreen(new Vector2(magnitude, magnitude)));
+        StartCoroutine(ShakeScreenCo(new Vector2(magnitude, magnitude)));
     }
 
-    public IEnumerator ShakeScreen(Vector2 shakeMagnitude, float duration = 1f, bool decay = true)
+    public IEnumerator ShakeScreenCo(Vector2 shakeMagnitude, float duration = 1f, bool decay = true)
     {
         if (shakeMagnitude.magnitude > 0f && duration > 0f)
         {
@@ -441,7 +458,7 @@ public class GameManager : MonoBehaviour
             currentShakeValue = Vector2.zero;
         }
     }
-
+    */
     public void StopMusic()
     {
         bgmEmitter.Stop();
@@ -485,5 +502,14 @@ public class GameManager : MonoBehaviour
             Destroy(CurrentBoss.gameObject);
         }
         // Destroy(mainCameraGroup.gameObject);
+    }
+
+    public void ShakeCamera(float strength, float time)
+    {
+
+        CinemachineBasicMultiChannelPerlin perlin =
+            cmCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        perlin.AmplitudeGain = strength;
+        shakeTimer = time;
     }
 }

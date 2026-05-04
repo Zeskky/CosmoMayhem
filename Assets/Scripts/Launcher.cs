@@ -45,8 +45,8 @@ public class Launcher : MonoBehaviour
     // [SerializeField] private Color timerNormalColor, timerDangerColor;
     [SerializeField] private int timerTickThreshold = 5;
     [SerializeField] private StudioEventEmitter timerTickEmitter;
-    [Tooltip("The list of Scene names to hide the Menu Timer from. By default, it is visible on any Scene.")]
-    [SerializeField] private List<string> hideTimerFromScenes;
+    [Tooltip("The list of Scene names to disable the Menu Timer from. By default, it is enabled on every Scene.")]
+    [SerializeField] private List<string> disableTimerFromScenes;
     private int menuTimer;
     private float clockTimer;
     private readonly int timePerTick = 1;
@@ -73,7 +73,9 @@ public class Launcher : MonoBehaviour
             else if (menuTimer <= timerTickThreshold)
             {
                 // menuTimerCounterLabel.color = timerDangerColor;
-                timerTickEmitter.Play();
+                if (menuTimerGO.activeInHierarchy)
+                    timerTickEmitter.Play();
+
                 Animator timerAnimator;
                 if (timerAnimator = menuTimerGO.GetComponent<Animator>())
                 {
@@ -130,6 +132,7 @@ public class Launcher : MonoBehaviour
             {
                 case "CompanyLogo":
                 case "GameOver":
+                case "Leaderboard":
                     GoToScene(GetNextSceneName());
                     break;
                 case "Title":
@@ -217,7 +220,8 @@ public class Launcher : MonoBehaviour
                 // print(asi.normalizedTime);
                 if (asi.IsTag("Out") && asi.normalizedTime >= 1)
                 {
-                    StartCoroutine(NextAttractSceneCo());
+                    // StartCoroutine(NextAttractSceneCo());
+                    GoToScene(GetNextAttractScene(), 0f);
                 }
             }
         }
@@ -252,6 +256,7 @@ public class Launcher : MonoBehaviour
             clockTimer = 0;
             MenuTimer = menuTime;
             TimerEnabled = startEnabled;
+            menuTimerGO.SetActive(visible);
         }
     }
 
@@ -299,10 +304,16 @@ public class Launcher : MonoBehaviour
             //StartCoroutine(ScreenOutCo());
             currentMenu.DoTimeoutAction();
         }
+        else
+        {
+            if (IsOnAttractSequence())
+            {
+                GoToScene(GetNextAttractScene());
+            }
+        }
         /*
         else
         {
-            // TODO: Go to next stage if player cleared the stage
             // StartCoroutine(ScreenOutCo(shouldAdvance: true));
         }
         */
@@ -317,9 +328,9 @@ public class Launcher : MonoBehaviour
         NextSceneName = string.Empty;
     }
 
-    public void GoToScene(string targetScene)
+    public void GoToScene(string targetScene, float duration = 1f)
     {
-        CurrentSceneChange ??= StartCoroutine(ScreenOutCo(targetScene));
+        CurrentSceneChange ??= StartCoroutine(ScreenOutCo(targetScene, duration));
     }
 
     public IEnumerator ScreenOutCo(string targetScene = "", float duration = 1f, bool shouldAdvance = false)
@@ -337,7 +348,7 @@ public class Launcher : MonoBehaviour
             // Do music fade-out
             SetMusicStatus(false);
 
-            while (t < 1)
+            while (t < 1 && duration > 0)
             {
                 fadeTransitionOverlay.color = new Color(0f, 0f, 0f, t);
                 yield return new WaitForEndOfFrame();
@@ -347,8 +358,9 @@ public class Launcher : MonoBehaviour
             fadeTransitionOverlay.color = Color.black;
 
             // Disable UI input in-game
-            print(GetComponent<PlayerInput>().enabled = !targetScene.Contains("Gameplay"));
-
+            GetComponent<PlayerInput>().enabled = !targetScene.Contains("Gameplay");
+            //print(GetComponent<PlayerInput>().enabled);
+            
             if (string.IsNullOrEmpty(targetScene))
             {
                 // Next attract scene
@@ -359,7 +371,11 @@ public class Launcher : MonoBehaviour
                 // Specified scene
                 yield return SceneManager.LoadSceneAsync(targetScene);
 
-                if (!hideTimerFromScenes.Contains(targetScene)) SetupMenuTimer(menuTime);
+                if (!disableTimerFromScenes.Contains(targetScene)) 
+                    SetupMenuTimer(
+                        menuTime,
+                        visible: !attractSequenceScenes.Contains(targetScene)
+                    );
             }
 
             fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);

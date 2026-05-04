@@ -31,8 +31,8 @@ MonoBehaviour:
   - maxDelay: 0
     wavePrefab: {fileID: 4879657468511175911, guid: a4bb0b106f73f424f991aa0ac65bde09, type: 3}
     hasBoss: 1
-  shipMaxBonus: 1000
-  timeMaxBonus: 3000
-  timeBonusDecayRate: 1.6
-  stageMeanTimeScale: 1.2
+  shipMaxBonus: 1500
+  timeMaxBonus: 6000
+  timeBonusDecayRate: 2
+  stageMeanTimeScale: 1.15
   bossSpawnDelay: 4

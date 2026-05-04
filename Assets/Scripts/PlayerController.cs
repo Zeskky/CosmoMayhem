@@ -27,6 +27,8 @@ public class PlayerController : Damageable
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private StudioEventEmitter damageEmitter, repairEmitter;
 
+    [SerializeField] private float damageCameraShakeStrength = 4f;
+
     [Header("Dash Mechanic Properties")]
     [SerializeField] private int maxDashCharges = 2;
     [SerializeField] private float dashChargeCooldown = 4f, dashDelay = 1f, dashDuration = 0.5f, dashForce = 4f;
@@ -279,6 +281,8 @@ public class PlayerController : Damageable
     {
         if (base.TakeDamage(damage))
         {
+            float percent = (float)damage / maxHealth;
+            GameManager.Instance.ShakeCamera(percent * damageCameraShakeStrength, 0.3f);
             // Reset combo to 0
             GameManager.Instance.Combo = 0;
             GameManager.Instance.MultiplierProgress--;

@@ -246,6 +246,7 @@ public class Enemy : Damageable
         GameManager.Instance.CurrentStageStats.ScoreBreakdown[ScoreType.Enemy] += scoreValue * GameManager.Instance.Multiplier;
         GameManager.Instance.Combo++;
         GameManager.Instance.MultiplierProgress++;
+        GameManager.Instance.ShakeCamera(Random.Range(0.3f, 0.5f) * maxHealth, 0.15f);
 
         base.Die();
     }
@@ -276,7 +277,7 @@ public class Enemy : Damageable
             PlayerController pc;
             if (pc = FindAnyObjectByType<PlayerController>())
             {
-                pc.CurrentSupercoreCharge += damage;
+                pc.CurrentSupercoreCharge += (int)(damage + supercoreCharge / 10f);
             }
 
             if (Health <= 0)

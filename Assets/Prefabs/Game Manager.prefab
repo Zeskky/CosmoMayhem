@@ -52,8 +52,7 @@ MonoBehaviour:
   normalizedHealthForBonus: 0.2
   timeMaxBonus: 2000
   timeBonusDecayRate: 1.6
-  stageMeanTimeScale: 1.5
-  currentShakeValue: {x: 0, y: 0}
+  stageMeanTimeScale: 1
   maxMultiplier: 4
   comboPerMultiplier: 4
   gameOverMessage: {fileID: 0}
@@ -62,6 +61,7 @@ MonoBehaviour:
   randomOffset: {x: 0, y: 4}
   timeFreezeTransitionTime: 0.75
   bgmEmitter: {fileID: 7527896500293634473}
+  cmCamera: {fileID: 0}
   stageSettings: {fileID: 11400000, guid: 6528843179646c248acf344069100a0d, type: 2}
   missionCompletePrefab: {fileID: 1809349698785315851, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
   missionFailedPrefab: {fileID: 1809349698785315851, guid: b51f707c2cb552241aae795b032a47c3, type: 3}

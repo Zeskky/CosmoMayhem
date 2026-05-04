@@ -1571,20 +1571,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalScoresManager
   initialScores:
-  - PlayerName: Chris
-    Score: 8500
-    SubmitTimestamp: 20252227062247822
-  - PlayerName: Oliver
-    Score: 6750
+  - PlayerName: CHRIS
+    Score: 8000
     SubmitTimestamp: 20252227062247828
-  - PlayerName: Sarah
+  - PlayerName: MAX
+    Score: 7000
+    SubmitTimestamp: 20252227062247828
+  - PlayerName: CAROL
+    Score: 6000
+    SubmitTimestamp: 20252227062247828
+  - PlayerName: LIAM
     Score: 5000
     SubmitTimestamp: 20252227062247828
-  - PlayerName: Mark
-    Score: 3500
-    SubmitTimestamp: 20252227062247828
-  - PlayerName: John
-    Score: 2000
+  - PlayerName: JUDY
+    Score: 4000
     SubmitTimestamp: 20252227062247828
   maxHighScores: 5
   localScoresKey: LocalScores
@@ -2183,9 +2183,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0
+  near clip plane: -5
   far clip plane: 5000
-  field of view: 60
+  field of view: 40
   orthographic: 1
   orthographic size: 5
   m_Depth: 0
@@ -2278,15 +2278,15 @@ MonoBehaviour:
   stageGrades:
   - targetScoreRatio: 0
     gradeSprite: {fileID: -801540558, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.5
+  - targetScoreRatio: 0.6
     gradeSprite: {fileID: 754583513, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.65
+  - targetScoreRatio: 0.7
     gradeSprite: {fileID: -259938182, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.75
+  - targetScoreRatio: 0.8
     gradeSprite: {fileID: 1324400958, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.85
+  - targetScoreRatio: 0.9
     gradeSprite: {fileID: -1967250988, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.95
+  - targetScoreRatio: 1
     gradeSprite: {fileID: -531459568, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   stageFailedGrade:
     targetScoreRatio: 0
@@ -2301,9 +2301,9 @@ MonoBehaviour:
   menuTimerBackground: {fileID: 756369335}
   timerTickThreshold: 8
   timerTickEmitter: {fileID: 904902406}
-  excludeTimerFromScenes:
+  disableTimerFromScenes:
+  - CompanyLogo
   - Gameplay
-  - Leaderboard
   - GameOver
 --- !u!114 &1881517049
 MonoBehaviour:
