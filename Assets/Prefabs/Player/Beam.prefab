@@ -298,8 +298,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   startVelocity: 0
   damage: 1
-  priority: 1
-  scaledPriority: 1
+  priority: 10
+  scaledPriority: 0
   lifetime: 4
   lifetimeOutAnimatorTrigger: Out
   destroyOnContact: 0

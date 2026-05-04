@@ -6,7 +6,6 @@ public class Projectile : MonoBehaviour
 {
     public float startVelocity;
     public int damage = 1;
-    [Range(1, 10)]
     public int priority = 0;
     [SerializeField] private bool scaledPriority = true;
     [Tooltip("How long the projectile will stay in scene. Set this value below 0 if you want to destroy this object manually.")]
@@ -31,6 +30,11 @@ public class Projectile : MonoBehaviour
     void Update()
     {
 
+    }
+
+    private void OnValidate()
+    {
+        priority = Mathf.Max(priority, 0);
     }
 
     public void ForceProjectileDestruction()
