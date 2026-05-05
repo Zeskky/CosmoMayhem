@@ -45,7 +45,7 @@
             ],
             "bindings": [
                 {
-                    "name": "2D Vector",
+                    "name": "WASD",
                     "id": "df429d42-627b-4289-abc7-024934cb758d",
                     "path": "2DVector",
                     "interactions": "",
@@ -101,6 +101,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ddd6c1e2-39e3-46c0-9388-9613026ac57c",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8e2c87fe-5b63-4fec-b28d-df0ea3f76cbb",
                     "path": "<Keyboard>/h",
                     "interactions": "",
@@ -117,6 +128,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c737ee19-95cb-495d-80bc-baa3ec3b0966",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -145,11 +167,33 @@
                 },
                 {
                     "name": "",
+                    "id": "6de1966f-12b0-4699-95be-7ffd447dd5cb",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Alt Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f70df299-08c1-4d45-a6a7-7580a9ba017f",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93f50f82-262b-45a4-8c5b-3bf2fdc4d7cb",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -240,6 +284,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c434c064-76ed-4bb2-9346-b86b6a2039ba",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e02e5a2b-e07d-44eb-8a01-2f2ddf949a02",
                     "path": "<Keyboard>/j",
                     "interactions": "",
@@ -256,6 +311,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "392dc810-6e37-4a2b-b783-bba308233323",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -372,6 +438,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c8091834-a19f-40a5-8f51-8fb2597f2a9f",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Move Cursor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c807e24f-617f-4986-a033-f18fa1f63aa7",
                     "path": "<Keyboard>/f5",
                     "interactions": "",
@@ -419,6 +496,17 @@
                 {
                     "devicePath": "<Mouse>",
                     "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
                     "isOR": false
                 }
             ]

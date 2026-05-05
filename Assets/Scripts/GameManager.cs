@@ -151,7 +151,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float /*spawnDelay = 1f,*/ timeFreezeTransitionTime = .75f;
     [SerializeField] private StudioEventEmitter bgmEmitter;
     [SerializeField] private CinemachineCamera cmCamera;
-    private float shakeTimer;
+    [SerializeField] private float cameraShakeDecayRate = 2f;
+    private float currentShakeStrength;
 
     [Header("Stage Settings")]
     [SerializeField] private StageSettings stageSettings;
@@ -419,16 +420,12 @@ public class GameManager : MonoBehaviour
         }*/
 
         // Camera shake logic
-        shakeTimer -= Time.deltaTime;
-        if (shakeTimer <= 0f)
-        {
-            // Reset timer on shake end
-            shakeTimer = 0f;
+        CinemachineBasicMultiChannelPerlin perlin =
+            cmCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        perlin.AmplitudeGain = currentShakeStrength;
 
-            CinemachineBasicMultiChannelPerlin perlin = 
-                cmCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
-            perlin.AmplitudeGain = 0;
-        }
+        currentShakeStrength = Mathf.Max(currentShakeStrength - (cameraShakeDecayRate * Time.unscaledDeltaTime), 0);
+
     }
 
     public Vector2 GetSpawnAreaPosition()
@@ -504,12 +501,8 @@ public class GameManager : MonoBehaviour
         // Destroy(mainCameraGroup.gameObject);
     }
 
-    public void ShakeCamera(float strength, float time)
+    public void ShakeCamera(float strength)
     {
-
-        CinemachineBasicMultiChannelPerlin perlin =
-            cmCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
-        perlin.AmplitudeGain = strength;
-        shakeTimer = time;
+        currentShakeStrength += strength;
     }
 }

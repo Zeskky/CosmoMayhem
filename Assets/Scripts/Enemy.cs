@@ -246,7 +246,7 @@ public class Enemy : Damageable
         GameManager.Instance.CurrentStageStats.ScoreBreakdown[ScoreType.Enemy] += scoreValue * GameManager.Instance.Multiplier;
         GameManager.Instance.Combo++;
         GameManager.Instance.MultiplierProgress++;
-        GameManager.Instance.ShakeCamera(Random.Range(0.3f, 0.5f) * maxHealth, 0.15f);
+        GameManager.Instance.ShakeCamera(Random.Range(0.3f, 0.5f) * maxHealth);
 
         base.Die();
     }

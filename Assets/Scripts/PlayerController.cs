@@ -282,7 +282,7 @@ public class PlayerController : Damageable
         if (base.TakeDamage(damage))
         {
             float percent = (float)damage / maxHealth;
-            GameManager.Instance.ShakeCamera(percent * damageCameraShakeStrength, 0.3f);
+            GameManager.Instance.ShakeCamera(percent * damageCameraShakeStrength);
             // Reset combo to 0
             GameManager.Instance.Combo = 0;
             GameManager.Instance.MultiplierProgress--;
