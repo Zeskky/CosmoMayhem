@@ -90,6 +90,7 @@ public class Launcher : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// The stats from all the stages played on this game so far.
     /// </summary>
@@ -295,6 +296,7 @@ public class Launcher : MonoBehaviour
     {
         InteractableMenu currentMenu = FindFirstObjectByType<InteractableMenu>();
 
+
         if (currentMenu)
         {
             /*
@@ -302,6 +304,11 @@ public class Launcher : MonoBehaviour
                 currentMenu.CurrentMenuItem.OnConfirm();
             */
             //StartCoroutine(ScreenOutCo());
+            if (SceneManager.GetActiveScene().name == "Menu")
+            {
+                // Avoid new players to join
+                GetComponent<PlayerInputManager>().DisableJoining();
+            }
             currentMenu.DoTimeoutAction();
         }
         else
@@ -452,6 +459,17 @@ public class Launcher : MonoBehaviour
     public int GetCurrentGameScore()
     {
         return GameStageStats.Sum(gss => gss.TotalScore);
+    }
+
+    private void OnPlayerJoined(PlayerInput pi)
+    {
+        print(pi.currentControlScheme);
+    }
+
+    public void CheckForPlayerJoining()
+    {
+        PlayerInputManager pim = GetComponent<PlayerInputManager>();
+        
     }
 
     /*

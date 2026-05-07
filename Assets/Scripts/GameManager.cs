@@ -147,6 +147,7 @@ public class GameManager : MonoBehaviour
     [Header("Scene References")]
     [SerializeField] private GameObject gameOverMessage;
     [SerializeField] private Transform spawnArea, mainCameraGroup;
+    [SerializeField] private List<Transform> playerSpawnPoints;
     [SerializeField] private Vector2 randomOffset;
     [SerializeField] private float /*spawnDelay = 1f,*/ timeFreezeTransitionTime = .75f;
     [SerializeField] private StudioEventEmitter bgmEmitter;
