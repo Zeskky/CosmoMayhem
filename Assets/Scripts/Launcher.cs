@@ -9,6 +9,19 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class PlayerInfo
+{
+    public int playerIndex;
+    public InputDevice device;
+
+    public PlayerInfo(int _playerIndex, InputDevice _device)
+    {
+        playerIndex = _playerIndex;
+        device = _device;
+    }
+}
+
 public class Launcher : MonoBehaviour
 {
     public static Launcher Instance { get; private set; }
@@ -95,6 +108,9 @@ public class Launcher : MonoBehaviour
     /// The stats from all the stages played on this game so far.
     /// </summary>
     public List<StageStats> GameStageStats { get; private set; }
+    public List<PlayerInfo> JoinedPlayers { get; private set; }
+    public PlayerInputManager PIM { get; private set; }
+    [SerializeField] private GameObject uiPlayerPrefab;
 
     public bool InTransition { get; private set; }
 
@@ -110,10 +126,13 @@ public class Launcher : MonoBehaviour
         DontDestroyOnLoad((Instance = this).gameObject);
 
         menuTimerGO.SetActive(false);
-        GameStageStats = new List<StageStats>();
+        GameStageStats = new();
+        JoinedPlayers = new();
         canConfirm = true;
         InTransition = false;
         fadeTransitionOverlay.color = new Color(0f, 0f, 0f, 0f);
+        PIM = GetComponent<PlayerInputManager>();
+        PIM.playerPrefab = uiPlayerPrefab;
 
         StartCoroutine(NextAttractSceneCo());
     }
@@ -302,13 +321,14 @@ public class Launcher : MonoBehaviour
             /*
             if (currentMenu.CurrentMenuItem)
                 currentMenu.CurrentMenuItem.OnConfirm();
-            */
             //StartCoroutine(ScreenOutCo());
+
             if (SceneManager.GetActiveScene().name == "Menu")
             {
                 // Avoid new players to join
-                GetComponent<PlayerInputManager>().DisableJoining();
+                pim.DisableJoining();
             }
+            */
             currentMenu.DoTimeoutAction();
         }
         else
@@ -338,6 +358,10 @@ public class Launcher : MonoBehaviour
     public void GoToScene(string targetScene, float duration = 1f)
     {
         CurrentSceneChange ??= StartCoroutine(ScreenOutCo(targetScene, duration));
+        if (targetScene == "Menu")
+        {
+            GameStageStats.Clear();
+        }
     }
 
     public IEnumerator ScreenOutCo(string targetScene = "", float duration = 1f, bool shouldAdvance = false)
@@ -364,10 +388,24 @@ public class Launcher : MonoBehaviour
 
             fadeTransitionOverlay.color = Color.black;
 
+            if (targetScene.Contains("Gameplay"))
+            {
+                FindObjectsByType<PlayerInput>(0).ToList().ForEach(
+                    pi => {
+                        JoinedPlayers.Add(new(pi.playerIndex, pi.devices.FirstOrDefault()));
+                        Destroy(pi.gameObject);
+                    }
+                );
+
+            }
+            else
+            {
+                PIM.playerPrefab = uiPlayerPrefab;
+            }
             // Disable UI input in-game
-            GetComponent<PlayerInput>().enabled = !targetScene.Contains("Gameplay");
+            //GetComponent<PlayerInput>().enabled = !targetScene.Contains("Gameplay");
             //print(GetComponent<PlayerInput>().enabled);
-            
+
             if (string.IsNullOrEmpty(targetScene))
             {
                 // Next attract scene
@@ -461,15 +499,18 @@ public class Launcher : MonoBehaviour
         return GameStageStats.Sum(gss => gss.TotalScore);
     }
 
-    private void OnPlayerJoined(PlayerInput pi)
-    {
-        print(pi.currentControlScheme);
-    }
-
     public void CheckForPlayerJoining()
     {
         PlayerInputManager pim = GetComponent<PlayerInputManager>();
-        
+    }
+
+    public void EnableUIInput()
+    { 
+        PIM.playerPrefab = uiPlayerPrefab;
+        foreach (PlayerInfo pi in JoinedPlayers)
+        {
+            PIM.JoinPlayer(pi.playerIndex, pairWithDevice: pi.device);
+        }
     }
 
     /*

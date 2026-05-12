@@ -25,6 +25,7 @@ public class PlayerController : Damageable
     private bool fireState, altFireState;
 
     [SerializeField] private SpriteRenderer sr;
+    public SpriteRenderer SR { get => sr; }
     [SerializeField] private StudioEventEmitter damageEmitter, repairEmitter;
 
     [SerializeField] private float damageCameraShakeStrength = 4f;

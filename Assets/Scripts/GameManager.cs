@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
 
     public int OverRepairScore { get { return overRepairScore; } }
 
-    [Header("Stage Statistics")]
+    // [Header("Stage Statistics")]
     [SerializeField] private StageStats currentStageStats = new();
     public StageStats CurrentStageStats { get { return currentStageStats; } }
 
@@ -153,10 +153,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private StudioEventEmitter bgmEmitter;
     [SerializeField] private CinemachineCamera cmCamera;
     [SerializeField] private float cameraShakeDecayRate = 2f;
+    [SerializeField] private GameObject playerShipPrefab;
+    [SerializeField] private List<Sprite> shipSprites;
     private float currentShakeStrength;
 
     [Header("Stage Settings")]
     [SerializeField] private StageSettings stageSettings;
+    public List<Sprite> ShipSprites { get => shipSprites; }
+
     //[SerializeField] private List<Wave> waves;
     //[SerializeField] private float bossSpawnDelay;
     private float currentWaveTimer;
@@ -185,6 +189,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CurrentStagePhase = StagePhase.Regular;
+        GeneratePlayerShips();
         SetupStageStats();
         // StartCoroutine(WaveSpawnCo());
     }
@@ -197,6 +202,20 @@ public class GameManager : MonoBehaviour
         currentStageStats.ScoreBreakdown[ScoreType.Time] = 0;
         currentStageStats.MaxScore = GetMaxPossibleScore();
         currentStageStats.StageClearMeanTime = GetMeanClearTime();
+    }
+
+    private void GeneratePlayerShips()
+    {
+        int playerCount = Launcher.Instance.JoinedPlayers.Count;
+        Launcher.Instance.PIM.playerPrefab = playerShipPrefab;
+        foreach (PlayerInfo pi in Launcher.Instance.JoinedPlayers)
+        {
+            GameObject newShip = Launcher.Instance.PIM.JoinPlayer(pi.playerIndex, pairWithDevice: pi.device).gameObject;
+            newShip.transform.parent = cmCamera.transform;
+            newShip.transform.position = playerSpawnPoints[pi.playerIndex].position;
+            newShip.GetComponent<PlayerController>().SR.sprite = shipSprites[pi.playerIndex];
+        }
+        
     }
 
     // Update is called once per frame

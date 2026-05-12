@@ -49,9 +49,10 @@ public class ScoreBreakdownEntry : MonoBehaviour
             {
                 playingMusic = true;
                 Launcher.Instance.SetMusicStatus(true);
+                Launcher.Instance.EnableUIInput();
             }
 
-            Launcher.Instance.GetComponent<PlayerInput>().enabled = finishedCounting;
+            // Launcher.Instance.GetComponent<PlayerInput>().enabled = finishedCounting;
 
             if (tickEmitter) tickEmitter.gameObject.SetActive(!finishedCounting);
             if (bgmEmitter) bgmEmitter.gameObject.SetActive(finishedCounting);
