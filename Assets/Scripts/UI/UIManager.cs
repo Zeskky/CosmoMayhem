@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using FMODUnity;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,37 +13,51 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float charSpacing = 0.825f, scoreUpdateRate = 10f;
     private float displayedScore = 0;
 
+    [SerializeField] private float healthBarBufferRate = .1f;
+    /*
     [SerializeField] private Image healthBar, healthBarFill, healthBarBuffer;
     [SerializeField] private Image scChargeBar;
     [SerializeField] private Color scChargingColor, scReadyColor;
-    [SerializeField] private float healthBarBufferRate = .1f;
     [SerializeField] [Range(0f, 1f)] private float criticalHealthThreshold = .2f;
     [SerializeField] private float criticalHealthEffectSpeed = 1;
+    */
     [SerializeField] private Gradient criticalHealthEffectGradient;
-
+    public Gradient CriticalHealthGradient { get => criticalHealthEffectGradient; }
     [SerializeField] private Image criticalHealthBorder;
+
     [SerializeField] private float healthBorderFadeTime = 1f;
     private float healthBorderTimer = 0;
     [SerializeField] private Animator introAnimator;
+    [SerializeField] private GameObject playerStatusPrefab;
+    [SerializeField] private Transform playerStatusContainer;
 
     [Header("Boss UI Elements")]
-    [SerializeField] private GameObject bossAlertOverlay, bossHealthBar;
+    [SerializeField] private GameObject bossAlertOverlay;
+    [SerializeField] private GameObject bossHealthBar;
     [SerializeField] private Image bossHealthBarFill, bossHealthBarBuffer;
     [SerializeField] private Color bossNormalColor, bossAngryColor;
     [SerializeField] private TMP_Text bossDisplayNameLabel;
 
     private bool didBossAlert = false;
-    private PlayerController player;
-
+    // private PlayerController player;
+    private List<PlayerController> players;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         displayedScore = Launcher.Instance.GetCurrentGameScore();
+        players = FindObjectsByType<PlayerController>(0).ToList();
+        foreach (PlayerController pc in players)
+        {
+            GameObject pHUD = Instantiate(playerStatusPrefab, playerStatusContainer);
+            pHUD.GetComponent<PlayerStatusHUD>().Player = pc;
+        }
+        /*
         if (player = FindAnyObjectByType<PlayerController>())
         {
             healthBar.gameObject.SetActive(player.MaxHealth > 1);
         }
+        */
     }
 
     private void ProgressBarBufferUpdate(float targetFill, Image barFill, Image barBuffer, float rateScale = 1f)
@@ -68,11 +83,13 @@ public class UIManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        /*
         ProgressBarBufferUpdate(
             targetFill: player ? player.NormalizedHealth : 0,
             barFill: healthBarFill,
             barBuffer: healthBarBuffer
         );
+        */
 
         // Intro Overlay
         if (introAnimator && !GameManager.Instance.GameStarted)
@@ -81,51 +98,7 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.GameStarted = asi.IsTag("Out") && asi.normalizedTime >= 1f;
         }
 
-        if (!player)
-        {
-            // Obliterated
-            healthBar.color = Color.red;
-            healthBorderTimer = 1;
-        }
-        else if ((float)player.NormalizedHealth <= criticalHealthThreshold)
-        {
-            // Critical damage
-            healthBar.color = criticalHealthEffectGradient.Evaluate((Time.time * criticalHealthEffectSpeed) % 1);
-            healthBorderTimer = Mathf.Min(healthBorderTimer + Time.deltaTime, healthBorderFadeTime);
-        }
-        else
-        {
-            // Systems OK
-            healthBar.color = Color.black;
-            healthBorderTimer = Mathf.Max(healthBorderTimer - Time.deltaTime, 0);
-        }
-
-        // What I actually see
-        if (player)
-            // Supercore Charge Bar
-            scChargeBar.color =
-                (scChargeBar.fillAmount = player.CurrentSupercoreChargePercent) >= 1f
-                ? scReadyColor
-                : scChargingColor;
-
         criticalHealthBorder.color = new(1, 1, 1, healthBorderTimer / healthBorderFadeTime);
-
-        // What mortal programmers see
-        /*
-        if (player)
-        {
-            // Supercore Charge Bar
-            scChargeBar.fillAmount = player.CurrentSupercoreChargePercent;
-            if (player.CurrentSupercoreChargePercent >= 1f)
-            {
-                scChargeBar.color = scReadyColor;
-            }
-            else
-            {
-                scChargeBar.color = scChargingColor;
-            }
-        }
-        */
 
         string monospaceTag = $"<mspace={charSpacing.ToString().Replace(',', '.')}em>";
         displayedScore = Mathf.Min(

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8638b910bb050bc4da4442bedb6f5a55
+guid: 9c6a6b45497d78040b95479d01653294
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6853845040189734379
-    second: bar_round_gloss_small_0
+      213: -1567549482977029206
+    second: bar_light_shadow_square_large_square_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -52,7 +52,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 16, y: 0, z: 16, w: 0}
+  spriteBorder: {x: 8, y: 8, z: 8, w: 8}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bar_round_gloss_small_0
+      name: bar_light_shadow_square_large_square_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 192
-        height: 32
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5120be9cf3042e0a0800000000000000
-      internalID: -6853845040189734379
+      spriteID: aa39e4bec02fe3ae0800000000000000
+      internalID: -1567549482977029206
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      bar_round_gloss_small_0: -6853845040189734379
+      bar_light_shadow_square_large_square_0: -1567549482977029206
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

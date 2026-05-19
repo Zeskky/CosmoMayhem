@@ -334,6 +334,11 @@ public class PlayerController : Damageable
         }
     }
 
+    public void SetupPlayerUI()
+    {
+
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (!collision.CompareTag(gameObject.tag))
