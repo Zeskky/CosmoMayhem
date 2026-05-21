@@ -156,6 +156,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerShipPrefab;
     [SerializeField] private List<Sprite> shipSprites;
     private float currentShakeStrength;
+    public List<GameObject> CurrentPlayerShips { get; private set; } = new();
 
     [Header("Stage Settings")]
     [SerializeField] private StageSettings stageSettings;
@@ -182,6 +183,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        GeneratePlayerShips();
         gameOverMessage.SetActive(false);
     }
 
@@ -189,7 +191,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CurrentStagePhase = StagePhase.Regular;
-        GeneratePlayerShips();
         SetupStageStats();
         // StartCoroutine(WaveSpawnCo());
     }
@@ -214,6 +215,7 @@ public class GameManager : MonoBehaviour
             newShip.transform.parent = cmCamera.transform;
             newShip.transform.position = playerSpawnPoints[pi.playerIndex].position;
             newShip.GetComponent<PlayerController>().SR.sprite = shipSprites[pi.playerIndex];
+            CurrentPlayerShips.Add(newShip);
         }
         
     }
@@ -249,6 +251,14 @@ public class GameManager : MonoBehaviour
         {
             RuntimeManager.StudioSystem.setParameterByName("Music Pitch", Time.timeScale);
             bgmEmitter.SetParameter("Stage State", (int)CurrentStagePhase);
+        }
+    }
+
+    public void CheckForGameOver()
+    {
+        if (CurrentPlayerShips.Count == 0)
+        {
+            DoGameOverSequence();
         }
     }
 

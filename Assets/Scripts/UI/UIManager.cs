@@ -20,9 +20,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Color scChargingColor, scReadyColor;
     [SerializeField] [Range(0f, 1f)] private float criticalHealthThreshold = .2f;
     [SerializeField] private float criticalHealthEffectSpeed = 1;
-    */
     [SerializeField] private Gradient criticalHealthEffectGradient;
     public Gradient CriticalHealthGradient { get => criticalHealthEffectGradient; }
+    */
     [SerializeField] private Image criticalHealthBorder;
 
     [SerializeField] private float healthBorderFadeTime = 1f;
@@ -49,7 +49,8 @@ public class UIManager : MonoBehaviour
         players = FindObjectsByType<PlayerController>(0).ToList();
         foreach (PlayerController pc in players)
         {
-            GameObject pHUD = Instantiate(playerStatusPrefab, playerStatusContainer);
+            GameObject pHUD = Instantiate(playerStatusPrefab, playerStatusPrefab.transform.parent);
+            pHUD.SetActive(true);
             pHUD.GetComponent<PlayerStatusHUD>().Player = pc;
         }
         /*

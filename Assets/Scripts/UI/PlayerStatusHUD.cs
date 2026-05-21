@@ -10,9 +10,7 @@ public class PlayerStatusHUD : MonoBehaviour
     [SerializeField] private float healthBarBufferRate = .1f;
     [SerializeField][Range(0f, 1f)] private float criticalHealthThreshold = .2f;
     [SerializeField] private float criticalHealthEffectSpeed = 1;
-
-    [SerializeField] private float healthBorderFadeTime = 1f;
-    private float healthBorderTimer = 0;
+    [SerializeField] private Gradient criticalHealthEffectGradient;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,20 +33,16 @@ public class PlayerStatusHUD : MonoBehaviour
         {
             // Obliterated
             healthBar.color = Color.red;
-            healthBorderTimer = 1;
         }
         else if ((float)Player.NormalizedHealth <= criticalHealthThreshold)
         {
             // Critical damage
-            healthBar.color = FindAnyObjectByType<UIManager>()
-                .CriticalHealthGradient.Evaluate(Time.time * criticalHealthEffectSpeed % 1);
-            healthBorderTimer = Mathf.Min(healthBorderTimer + Time.deltaTime, healthBorderFadeTime);
+            healthBar.color = criticalHealthEffectGradient.Evaluate(Time.time * criticalHealthEffectSpeed % 1);
         }
         else
         {
             // Systems OK
             healthBar.color = Color.black;
-            healthBorderTimer = Mathf.Max(healthBorderTimer - Time.deltaTime, 0);
         }
 
         // What I actually see
@@ -61,9 +55,7 @@ public class PlayerStatusHUD : MonoBehaviour
                 : scChargingColor;
 
 
-            GetComponent<RectTransform>().sizeDelta = new(
-                (Player.CurrentSupercoreChargePercent - 1) * scChargeBar.rectTransform.rect.width
-                , scChargeBar.rectTransform.sizeDelta.y);
+            scChargeBar.fillAmount = Player.CurrentSupercoreChargePercent;
         }
 
 
@@ -95,7 +87,7 @@ public class PlayerStatusHUD : MonoBehaviour
             // Damage
             healthBarBuffer.color = Color.red;
             healthBarFill.fillAmount = Player.NormalizedHealth;
-            healthBarBuffer.fillAmount = Mathf.Max(currentFill - Time.fixedDeltaTime * healthBarBufferRate, targetFill);
+            healthBarBuffer.fillAmount = Mathf.Max(currentFill - Time.fixedUnscaledDeltaTime * healthBarBufferRate, targetFill);
         }
         else
         {
@@ -103,7 +95,7 @@ public class PlayerStatusHUD : MonoBehaviour
             currentFill = healthBarBuffer.fillAmount;
             healthBarBuffer.color = Color.green;
             healthBarBuffer.fillAmount = Player.NormalizedHealth;
-            healthBarFill.fillAmount = Mathf.Min(currentFill + Time.fixedDeltaTime * healthBarBufferRate, targetFill);
+            healthBarFill.fillAmount = Mathf.Min(currentFill + Time.fixedUnscaledDeltaTime * healthBarBufferRate, targetFill);
         }
     }
 }

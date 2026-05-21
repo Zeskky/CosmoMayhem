@@ -313,7 +313,9 @@ public class PlayerController : Damageable
     public override void Die()
     {
         // TODO: show explosion effect
-        GameManager.Instance.DoGameOverSequence();
+        GameManager.Instance.CurrentPlayerShips.Remove(gameObject);
+        GameManager.Instance.CheckForGameOver();
+        // GameManager.Instance.DoGameOverSequence();
         base.Die();
     }
 
