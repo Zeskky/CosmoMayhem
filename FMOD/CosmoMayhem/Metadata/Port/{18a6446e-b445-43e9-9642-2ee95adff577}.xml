@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="MixerPort" id="{18a6446e-b445-43e9-9642-2ee95adff577}">
 		<property name="volume">
-			<value>-2</value>
+			<value>-7</value>
 		</property>
 		<property name="name">
 			<value>Master SFX</value>

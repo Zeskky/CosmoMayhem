@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5522653160902612049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3402597925352215560}
+  - component: {fileID: 7056076521003844358}
+  m_Layer: 0
+  m_Name: Music Fade Out
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3402597925352215560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5522653160902612049}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9134505097061663953}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7056076521003844358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5522653160902612049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 827659545
+      Data2: 1098225430
+      Data3: -2052956533
+      Data4: -1500736087
+    Path: snapshot:/Stage Music Fade Out
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &6058677593997236051
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,6 +95,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2288270598786639468}
+  - {fileID: 3402597925352215560}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4919910698728765218
@@ -64,11 +128,12 @@ MonoBehaviour:
   randomOffset: {x: 0, y: 4}
   timeFreezeTransitionTime: 0.75
   bgmEmitter: {fileID: 7527896500293634473}
+  bgmFadeoutCommand: {fileID: 7056076521003844358}
   cmCamera: {fileID: 0}
-  cameraShakeDecayRate: 2
+  cameraShakeDecayRate: 3
   playerShipPrefab: {fileID: 3136842472751097304, guid: 688dacd8c71fb3744a7fc0799b31896c, type: 3}
   shipSprites: []
-  stageSettings: {fileID: 11400000, guid: 6528843179646c248acf344069100a0d, type: 2}
+  stages: []
   missionCompletePrefab: {fileID: 1809349698785315851, guid: 1379e33c27f0f54468d6c05f7faffbba, type: 3}
   missionFailedPrefab: {fileID: 1809349698785315851, guid: b51f707c2cb552241aae795b032a47c3, type: 3}
 --- !u!114 &7527896500293634473

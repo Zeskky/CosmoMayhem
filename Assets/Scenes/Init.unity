@@ -763,7 +763,7 @@ MonoBehaviour:
       Data2: 1278375344
       Data3: 1786031015
       Data4: 421541678
-    Path: snapshot:/Music Fade Out
+    Path: snapshot:/Menu Music Fade Out
   Event: 
   EventPlayTrigger: 12
   EventStopTrigger: 11
@@ -2184,7 +2184,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: -1
-  far clip plane: 10
+  far clip plane: 1
   field of view: 40
   orthographic: 1
   orthographic size: 5
@@ -2282,11 +2282,11 @@ MonoBehaviour:
     gradeSprite: {fileID: 754583513, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   - targetScoreRatio: 0.7
     gradeSprite: {fileID: -259938182, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.8
+  - targetScoreRatio: 0.85
     gradeSprite: {fileID: 1324400958, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.9
-    gradeSprite: {fileID: -1967250988, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   - targetScoreRatio: 1
+    gradeSprite: {fileID: -1967250988, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
+  - targetScoreRatio: 1.2
     gradeSprite: {fileID: -531459568, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   stageFailedGrade:
     targetScoreRatio: 0
@@ -2294,6 +2294,7 @@ MonoBehaviour:
   nameEntryCharacterSet: ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,!?
   nameEntryMaxLength: 10
   defaultHighScoreName: RAKUJIN
+  maximumStagesPerCredit: 2
   enableMenuTimer: 1
   menuTime: 20
   menuTimerGO: {fileID: 756369333}

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -41,13 +40,16 @@ public class Launcher : MonoBehaviour
     [SerializeField] private string nameEntryCharacterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890?!.,";
     [SerializeField] private int nameEntryMaxLength = 10;
     [SerializeField] private string defaultHighScoreName = "RAKUJIN";
+    [SerializeField] private int maximumStagesPerCredit = 3;
 
     public string NameEntryCharacterSet { get => nameEntryCharacterSet; }
     public int NameEntryMaxLength { get => nameEntryMaxLength; }
-    public string DefaultHighScoreName {  get => defaultHighScoreName; }
+    public string DefaultHighScoreName { get => defaultHighScoreName; }
+    public int MaximumStagesPerCredit { get => maximumStagesPerCredit; }
 
     public List<Grade> StageGrades { get => stageGrades; }
     public Grade StageFailedGrade { get => stageFailedGrade; }
+    public bool IsOnLastStage { get => GameStageStats.Count >= maximumStagesPerCredit; }
 
     [Header("Menu Timer Properties")]
     [SerializeField] private bool enableMenuTimer = true;
@@ -165,12 +167,23 @@ public class Launcher : MonoBehaviour
                     break;
                 case "Evaluation":
                     StageStats lastStageStats = GameStageStats.LastOrDefault();
-                    bool highScore = false;
-                    if (lastStageStats != null)
+                    if (lastStageStats.Result == StageResult.Cleared && !IsOnLastStage)
                     {
-                        highScore = LocalScoresManager.Instance.IsNewRecord(lastStageStats.TotalScore);//lastStageStats.Result == StageResult.Cleared;
+                        // Next stage
+                        // TODO: Jump back to Gameplay
+                        GoToScene("Gameplay");
                     }
-                    GoToScene(highScore ? "NameEntry" : "GameOver");
+                    else
+                    {
+                        // Game Over: check if player got a high-score
+                        bool highScore = false;
+                        if (lastStageStats != null)
+                        {
+                            highScore = LocalScoresManager.Instance.IsNewRecord(lastStageStats.TotalScore);//lastStageStats.Result == StageResult.Cleared;
+                        }
+
+                        GoToScene(highScore ? "NameEntry" : "GameOver");
+                    }
                     break;
                 default:
                     return;
@@ -390,6 +403,7 @@ public class Launcher : MonoBehaviour
 
             if (targetScene.Contains("Gameplay"))
             {
+                JoinedPlayers.Clear();
                 FindObjectsByType<PlayerInput>(0).ToList().ForEach(
                     pi => {
                         JoinedPlayers.Add(new(pi.playerIndex, pi.devices.FirstOrDefault()));
@@ -493,7 +507,9 @@ public class Launcher : MonoBehaviour
         if (anim) anim.SetTrigger("End");
     }
 
-
+    /// <summary>
+    /// Retrieves the summation of the player's scores across the whole game session.
+    /// </summary>
     public int GetCurrentGameScore()
     {
         return GameStageStats.Sum(gss => gss.TotalScore);

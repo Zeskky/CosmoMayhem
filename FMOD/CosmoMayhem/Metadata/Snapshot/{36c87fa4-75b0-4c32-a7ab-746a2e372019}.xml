@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Snapshot" id="{36c87fa4-75b0-4c32-a7ab-746a2e372019}">
 		<property name="name">
-			<value>Music Fade Out</value>
+			<value>Menu Music Fade Out</value>
 		</property>
 		<property name="behavior">
 			<value>1</value>
@@ -23,10 +23,10 @@
 			<destination>{e69cf57b-6e0d-4413-a653-ad5ddb8dcf50}</destination>
 		</relationship>
 		<relationship name="snapshotProperties">
-			<destination>{edc6b6e9-5f3c-41ae-be6e-13c1292929ee}</destination>
+			<destination>{977ac012-8b47-444a-be4f-8c2525c02e34}</destination>
 		</relationship>
 		<relationship name="snapshotTracks">
-			<destination>{3d395138-c6c2-4f06-a83a-9cf3fdb203d5}</destination>
+			<destination>{4588c3eb-d1ad-47d4-85f4-6d9d0ed0b0eb}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{2770bd71-88d9-4676-839d-fa5a0eef115b}">
@@ -37,7 +37,7 @@
 	<object class="MarkerTrack" id="{84ffadb3-a9c6-4ae4-950a-14b53dc2dc83}" />
 	<object class="Timeline" id="{adeee020-2939-47c4-946b-ca2d4823b6aa}" />
 	<object class="SnapshotMasterTrack" id="{e69cf57b-6e0d-4413-a653-ad5ddb8dcf50}" />
-	<object class="SnapshotProperty" id="{edc6b6e9-5f3c-41ae-be6e-13c1292929ee}">
+	<object class="SnapshotProperty" id="{977ac012-8b47-444a-be4f-8c2525c02e34}">
 		<property name="propertyName">
 			<value>volume</value>
 		</property>
@@ -48,7 +48,7 @@
 			<destination>{27b70bb7-f3bb-49ed-9df4-33375842cdd9}</destination>
 		</relationship>
 	</object>
-	<object class="SnapshotTrack" id="{3d395138-c6c2-4f06-a83a-9cf3fdb203d5}">
+	<object class="SnapshotTrack" id="{4588c3eb-d1ad-47d4-85f4-6d9d0ed0b0eb}">
 		<relationship name="mixerStrip">
 			<destination>{27b70bb7-f3bb-49ed-9df4-33375842cdd9}</destination>
 		</relationship>

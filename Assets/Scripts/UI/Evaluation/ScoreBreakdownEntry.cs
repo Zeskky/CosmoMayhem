@@ -23,11 +23,26 @@ public class ScoreBreakdownEntry : MonoBehaviour
         StageStats latestStageStats = Launcher.Instance.GameStageStats.LastOrDefault();
         if (latestStageStats != null)
         {
-            targetScore = scoreType != ScoreType.None
-                ? latestStageStats.ScoreBreakdown[scoreType]
-                : latestStageStats.TotalScore;
+            if (scoreType == ScoreType.GameTotal)
+            {
+                targetScore = Launcher.Instance.GetCurrentGameScore();
+                displayedScore = targetScore - latestStageStats.TotalScore;
+                Launcher.Instance.SetupMenuTimer(15, false);
+                /*
+                achievedNewRecord = LocalScoresManager.Instance.SubmitScoreEntry(
+                    new ScoreEntry() { Score = latestStageStats.TotalScore }
+                );
+                */
+                achievedNewRecord = LocalScoresManager.Instance.IsNewRecord(Launcher.Instance.GetCurrentGameScore());
+            }
+            else
+            {
+                targetScore = scoreType != ScoreType.None
+                    ? latestStageStats.ScoreBreakdown[scoreType]
+                    : latestStageStats.TotalScore;
+            }
 
-            if (scoreType == ScoreType.None)
+            if (scoreType == ScoreType.GameTotal)
             {
                 Launcher.Instance.SetupMenuTimer(15, false);
                 /*
@@ -35,7 +50,7 @@ public class ScoreBreakdownEntry : MonoBehaviour
                     new ScoreEntry() { Score = latestStageStats.TotalScore }
                 );
                 */
-                achievedNewRecord = LocalScoresManager.Instance.IsNewRecord(latestStageStats.TotalScore);
+                achievedNewRecord = LocalScoresManager.Instance.IsNewRecord(Launcher.Instance.GetCurrentGameScore());
             }
         }
     }
@@ -43,7 +58,7 @@ public class ScoreBreakdownEntry : MonoBehaviour
     private void FixedUpdate()
     {
         bool finishedCounting = displayedScore >= targetScore;
-        if (scoreType == ScoreType.None)
+        if (scoreType == ScoreType.GameTotal)
         {
             if (finishedCounting && !playingMusic)
             {

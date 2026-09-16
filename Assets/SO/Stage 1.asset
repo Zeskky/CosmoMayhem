@@ -22,15 +22,21 @@ MonoBehaviour:
   - maxDelay: 12
     wavePrefab: {fileID: 1876805798562724599, guid: db183a68caaa0cb4fae87de9e3e00c16, type: 3}
     hasBoss: 0
-  - maxDelay: 15
+  - maxDelay: 14
     wavePrefab: {fileID: 328773270039521185, guid: 2aedd99f9ea199147b4cb5e372347a52, type: 3}
     hasBoss: 0
   - maxDelay: 15
     wavePrefab: {fileID: 1876805798562724599, guid: 0d24750e34ea6c745aa3ade139a1e651, type: 3}
     hasBoss: 0
-  - maxDelay: 0
-    wavePrefab: {fileID: 4879657468511175911, guid: a4bb0b106f73f424f991aa0ac65bde09, type: 3}
-    hasBoss: 1
+  - maxDelay: 13
+    wavePrefab: {fileID: 1876805798562724599, guid: d199dd653e4709f4eb7926758952176b, type: 3}
+    hasBoss: 0
+  - maxDelay: 12
+    wavePrefab: {fileID: 8994949566842486008, guid: 6e422ebf264ee0c4383349fe2ef94048, type: 3}
+    hasBoss: 0
+  - maxDelay: 11
+    wavePrefab: {fileID: 1876805798562724599, guid: d199dd653e4709f4eb7926758952176b, type: 3}
+    hasBoss: 0
   shipMaxBonus: 1500
   timeMaxBonus: 6000
   timeBonusDecayRate: 2

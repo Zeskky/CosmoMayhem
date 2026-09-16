@@ -35,6 +35,7 @@ public enum ScoreType
     Pickup,
     Ship,
     Time,
+    GameTotal,
 }
 
 [System.Serializable]
@@ -150,7 +151,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Transform> playerSpawnPoints;
     [SerializeField] private Vector2 randomOffset;
     [SerializeField] private float /*spawnDelay = 1f,*/ timeFreezeTransitionTime = .75f;
-    [SerializeField] private StudioEventEmitter bgmEmitter;
+    [SerializeField] private StudioEventEmitter bgmEmitter, bgmFadeoutCommand;
     [SerializeField] private CinemachineCamera cmCamera;
     [SerializeField] private float cameraShakeDecayRate = 2f;
     [SerializeField] private GameObject playerShipPrefab;
@@ -159,7 +160,18 @@ public class GameManager : MonoBehaviour
     public List<GameObject> CurrentPlayerShips { get; private set; } = new();
 
     [Header("Stage Settings")]
-    [SerializeField] private StageSettings stageSettings;
+    [SerializeField] private List<StageSettings> stages;
+    public StageSettings CurrentStage 
+    { 
+        get
+        {
+            if (Launcher.Instance.GameStageStats.Count < stages.Count)
+            {
+                return stages[Launcher.Instance.GameStageStats.Count];
+            }
+            return null;
+        } 
+    }
     public List<Sprite> ShipSprites { get => shipSprites; }
 
     //[SerializeField] private List<Wave> waves;
@@ -171,7 +183,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> waveEnemies = new();
 
     public Boss CurrentBoss { get; private set; }
-    public bool BossDefeated { get; set; }
+    public bool LastEnemyDefeated { get; set; }
     public bool GameStarted { get; set; }
 
     public StagePhase CurrentStagePhase { get; private set; }
@@ -208,6 +220,7 @@ public class GameManager : MonoBehaviour
     private void GeneratePlayerShips()
     {
         int playerCount = Launcher.Instance.JoinedPlayers.Count;
+        print(playerCount);
         Launcher.Instance.PIM.playerPrefab = playerShipPrefab;
         foreach (PlayerInfo pi in Launcher.Instance.JoinedPlayers)
         {
@@ -240,8 +253,12 @@ public class GameManager : MonoBehaviour
         if (currentStageStats.Result != StageResult.Failed)
             Time.timeScale = Mathf.Clamp01(Time.timeScale + Time.fixedDeltaTime / (timeFreezeTransitionTime * 1.5f));
 
-        if (IsLastWave() && waveEnemies.Count == 0 && BossDefeated)
+        if (IsLastWave() && waveEnemies.Count == 0)
+        {
+            StopMusic(false);
+            Time.timeScale = .1f;
             StartCoroutine(EndMission(true));
+        }
         else if (GameStarted) 
             currentStageStats.StageTime += Time.fixedDeltaTime;
 
@@ -291,7 +308,7 @@ public class GameManager : MonoBehaviour
     
     public bool IsLastWave()
     {
-        return currentWave >= stageSettings.Waves.Count;
+        return CurrentStage ? currentWave >= CurrentStage.Waves.Count : false;
     }
 
     public void RemoveMissingWaveEnemies()
@@ -308,23 +325,26 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        Wave nextWave = stageSettings.Waves[currentWave];
+        Wave nextWave = CurrentStage ? CurrentStage.Waves[currentWave] : null;
         // print(nextWave.maxDelay - currentWaveTimer);
-        if ((currentWaveTimer >= nextWave.maxDelay && !nextWave.hasBoss) || (IsCurrentWaveCleared() && currentWave > 0))
+        if (nextWave != null)
         {
-            if (nextWave.hasBoss)
+            if ((currentWaveTimer >= nextWave.maxDelay && !nextWave.hasBoss) || (IsCurrentWaveCleared() && currentWave > 0))
             {
-                if (CurrentStagePhase != StagePhase.Boss)
+                if (nextWave.hasBoss)
                 {
-                    StartCoroutine(DoBossSequenceCo(nextWave));
+                    if (CurrentStagePhase != StagePhase.Boss)
+                    {
+                        StartCoroutine(DoBossSequenceCo(nextWave));
+                    }
                 }
-            }
-            else
-            {
-                SpawnWave(nextWave);
-            }
+                else
+                {
+                    SpawnWave(nextWave);
+                }
 
-            currentWave++;
+                currentWave++;
+            }
         }
     }
 
@@ -412,7 +432,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator DoBossSequenceCo(Wave wave)
     {
         CurrentStagePhase = StagePhase.Boss;
-        yield return new WaitForSecondsRealtime(stageSettings.BossSpawnDelay);
+        yield return new WaitForSecondsRealtime(CurrentStage.BossSpawnDelay);
         SpawnWave(wave);
     }
 
@@ -452,10 +472,9 @@ public class GameManager : MonoBehaviour
         // Camera shake logic
         CinemachineBasicMultiChannelPerlin perlin =
             cmCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
-        perlin.AmplitudeGain = currentShakeStrength;
 
         currentShakeStrength = Mathf.Max(currentShakeStrength - (cameraShakeDecayRate * Time.unscaledDeltaTime), 0);
-
+        perlin.AmplitudeGain = currentShakeStrength;
     }
 
     public Vector2 GetSpawnAreaPosition()
@@ -486,22 +505,32 @@ public class GameManager : MonoBehaviour
         }
     }
     */
-    public void StopMusic()
+    public void StopMusic(bool immediate = true)
     {
-        bgmEmitter.Stop();
+        if (immediate)
+        {
+            bgmEmitter.Stop();
+        }
+        else
+        {
+            bgmFadeoutCommand.Play();
+        }
     }
 
     public int GetMinPossibleScore()
     {
         int score = 0;
 
-        foreach (Wave wave in stageSettings.Waves)
+        if (CurrentStage)
         {
-            if (wave.wavePrefab)
+            foreach (Wave wave in CurrentStage.Waves)
             {
-                foreach (Enemy enemy in wave.wavePrefab.GetComponentsInChildren<Enemy>())
+                if (wave.wavePrefab)
                 {
-                    score += enemy.ScoreValue;
+                    foreach (Enemy enemy in wave.wavePrefab.GetComponentsInChildren<Enemy>())
+                    {
+                        score += enemy.ScoreValue;
+                    }
                 }
             }
         }
@@ -517,7 +546,8 @@ public class GameManager : MonoBehaviour
     public float GetMeanClearTime()
     {
         float clearTime = 0;
-        foreach (Wave wave in stageSettings.Waves) clearTime += wave.maxDelay;
+        if (CurrentStage)
+            foreach (Wave wave in CurrentStage.Waves) clearTime += wave.maxDelay;
         return clearTime * stageMeanTimeScale;
     }
 

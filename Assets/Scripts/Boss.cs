@@ -37,7 +37,7 @@ public class Boss : Enemy
     {
         GameManager.Instance.StopMusic();
         base.Die();
-        GameManager.Instance.BossDefeated = true;
+        GameManager.Instance.LastEnemyDefeated = true;
         Time.timeScale = .1f;
     }
 

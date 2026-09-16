@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54e52b2ba36284448686a0fb37c9e60, type: 3}
+  m_Name: Stage 2
+  m_EditorClassIdentifier: Assembly-CSharp::StageSettings
+  waves:
+  - maxDelay: 1
+    wavePrefab: {fileID: 1876805798562724599, guid: ae13aaa4d3966224095608afe105a6a7, type: 3}
+    hasBoss: 0
+  shipMaxBonus: 1500
+  timeMaxBonus: 6000
+  timeBonusDecayRate: 2
+  stageMeanTimeScale: 1.15
+  bossSpawnDelay: 4
