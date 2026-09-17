@@ -26,7 +26,6 @@ public class ScoreBreakdownEntry : MonoBehaviour
             if (scoreType == ScoreType.GameTotal)
             {
                 targetScore = Launcher.Instance.GetCurrentGameScore();
-                displayedScore = targetScore - latestStageStats.TotalScore;
                 Launcher.Instance.SetupMenuTimer(15, false);
                 /*
                 achievedNewRecord = LocalScoresManager.Instance.SubmitScoreEntry(

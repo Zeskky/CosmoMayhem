@@ -179,7 +179,7 @@ public class Launcher : MonoBehaviour
                         bool highScore = false;
                         if (lastStageStats != null)
                         {
-                            highScore = LocalScoresManager.Instance.IsNewRecord(lastStageStats.TotalScore);//lastStageStats.Result == StageResult.Cleared;
+                            highScore = LocalScoresManager.Instance.IsNewRecord(GetCurrentGameScore());//lastStageStats.Result == StageResult.Cleared;
                         }
 
                         GoToScene(highScore ? "NameEntry" : "GameOver");

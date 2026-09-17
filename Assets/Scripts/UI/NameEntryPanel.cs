@@ -9,19 +9,26 @@ using UnityEngine.UI;
 
 public class NameEntryPanel : MonoBehaviour
 {
-    [SerializeField] private TMP_Text nameInputLabel;
+    [SerializeField] private TMP_Text nameInputLabel, finalScoreLabel;
     [SerializeField] private GameObject characterGO;
     [SerializeField] private Transform characterSetContainer;
     [SerializeField] private List<Transform> lastCharacters;
     [SerializeField] private StudioEventEmitter selectEventEmitter, submitEventEmitter;
+    [SerializeField] private float charSpacing = 0.825f;
     private string enteredName = "";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        selectEventEmitter.enabled = false; // Avoiding the initial selection sound
+
+        string monospaceTag = $"<mspace={charSpacing.ToString().Replace(',', '.')}em>";
+        finalScoreLabel.text = $"{monospaceTag}{Launcher.Instance.GetCurrentGameScore()}";
         Launcher.Instance.SetupMenuTimer(30);
         SetupCharacterSet();
         print(EventSystem.current.currentSelectedGameObject);
+
+        selectEventEmitter.enabled = true;
     }
 
     public void OnSelectedCharacterChange()
@@ -60,6 +67,11 @@ public class NameEntryPanel : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Inserts the specified character on the current name input.
+    /// </summary>
+    /// <param name="c">The character to insert.</param>
+    /// <returns>Returns TRUE if the character has been entered successfully. <br></br>Otherwise (i.e. has reached the name character limit), returns FALSE.</returns>
     public bool TypeCharacter(string c)
     {
         // Pre-type check
@@ -100,12 +112,16 @@ public class NameEntryPanel : MonoBehaviour
 
         submitEventEmitter.Play();
 
-        StageStats latestStageStats = Launcher.Instance.GameStageStats.LastOrDefault();
+        // StageStats latestStageStats = Launcher.Instance.GameStageStats.LastOrDefault();
         LocalScoresManager.Instance.SubmitScoreEntry(new ScoreEntry()
         {
             PlayerName = enteredName,
-            Score = latestStageStats.TotalScore,
+            Score = Launcher.Instance.GetCurrentGameScore(),
         });
+
+        // Update current leaderboard
+        LeaderboardRenderer lr = FindAnyObjectByType<LeaderboardRenderer>();
+        if (lr) lr.RenderLeaderboard();
 
         StartCoroutine(PostInputCo());
     }

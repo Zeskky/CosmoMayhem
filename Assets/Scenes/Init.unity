@@ -2278,15 +2278,15 @@ MonoBehaviour:
   stageGrades:
   - targetScoreRatio: 0
     gradeSprite: {fileID: -801540558, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.6
+  - targetScoreRatio: 0.65
     gradeSprite: {fileID: 754583513, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.7
+  - targetScoreRatio: 0.75
     gradeSprite: {fileID: -259938182, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.85
+  - targetScoreRatio: 0.9
     gradeSprite: {fileID: 1324400958, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 1
+  - targetScoreRatio: 1.05
     gradeSprite: {fileID: -1967250988, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 1.2
+  - targetScoreRatio: 1.25
     gradeSprite: {fileID: -531459568, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   stageFailedGrade:
     targetScoreRatio: 0

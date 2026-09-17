@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LeaderboardRenderer : MonoBehaviour
@@ -13,6 +15,13 @@ public class LeaderboardRenderer : MonoBehaviour
 
     public void RenderLeaderboard()
     {
+        List<LeaderboardEntry> entries = GetComponentsInChildren<LeaderboardEntry>().ToList();
+        foreach (LeaderboardEntry entry in entries)
+        {
+            entry.transform.SetParent(null);
+            Destroy(entry.gameObject);
+        }
+
         foreach (ScoreEntry se in LocalScoresManager.Instance.LocalScores.soloScores)
         {
             GameObject newEntry = Instantiate(leaderboardEntryGO, leaderboardEntryGO.transform.parent);

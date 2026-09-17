@@ -54,7 +54,6 @@ public class PlayerStatusHUD : MonoBehaviour
                 ? scReadyColor
                 : scChargingColor;
 
-
             scChargeBar.fillAmount = Player.CurrentSupercoreChargePercent;
         }
 
