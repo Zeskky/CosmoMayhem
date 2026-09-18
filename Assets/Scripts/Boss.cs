@@ -35,10 +35,8 @@ public class Boss : Enemy
 
     public override void Die()
     {
-        GameManager.Instance.StopMusic();
+        GameManager.Instance.OnLastEnemyDefeated();
         base.Die();
-        GameManager.Instance.LastEnemyDefeated = true;
-        Time.timeScale = .1f;
     }
 
     public override bool TakeDamage(int damage = 1)

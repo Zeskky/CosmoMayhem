@@ -247,19 +247,24 @@ public class GameManager : MonoBehaviour
         SpawnNextWave();
     }
 
+    public void OnLastEnemyDefeated()
+    {
+        StopMusic(false);
+        Time.timeScale = .1f;
+        StartCoroutine(EndMission(true));
+    }
+
     private void FixedUpdate()
     {
         // print(currentStageStats.Result);
         if (currentStageStats.Result != StageResult.Failed)
             Time.timeScale = Mathf.Clamp01(Time.timeScale + Time.fixedDeltaTime / (timeFreezeTransitionTime * 1.5f));
 
-        if (IsLastWave() && waveEnemies.Count == 0)
+        if (IsLastWave() && CurrentStagePhase != StagePhase.Boss && waveEnemies.Count == 0)
         {
-            StopMusic(false);
-            Time.timeScale = .1f;
-            StartCoroutine(EndMission(true));
+            OnLastEnemyDefeated();
         }
-        else if (GameStarted) 
+        else if (GameStarted && currentStageStats.Result == StageResult.Unfinished)
             currentStageStats.StageTime += Time.fixedDeltaTime;
 
         // print(currentStageStats.StageTime);
@@ -287,6 +292,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameOverSequenceCo()
     {
         currentStageStats.Result = StageResult.Failed;
+        
         Launcher.Instance.SendEndStage(currentStageStats);
         while (Time.timeScale > 0.05f)
         {
@@ -309,6 +315,15 @@ public class GameManager : MonoBehaviour
     public bool IsLastWave()
     {
         return CurrentStage ? currentWave >= CurrentStage.Waves.Count : false;
+    }
+
+    public Wave GetCurrentWave()
+    {
+        if (IsLastWave())
+        {
+            return null;
+        }
+        return CurrentStage ? CurrentStage.Waves[currentWave] : null;
     }
 
     public void RemoveMissingWaveEnemies()

@@ -32,7 +32,11 @@ public class ScoreBreakdownEntry : MonoBehaviour
                     new ScoreEntry() { Score = latestStageStats.TotalScore }
                 );
                 */
-                achievedNewRecord = LocalScoresManager.Instance.IsNewRecord(Launcher.Instance.GetCurrentGameScore());
+                if (latestStageStats.Result == StageResult.Failed || Launcher.Instance.IsOnLastStage)
+                {
+                    // Only show the "New record" message if this was the last stage we play
+                    achievedNewRecord = LocalScoresManager.Instance.IsNewRecord(Launcher.Instance.GetCurrentGameScore());
+                }
             }
             else
             {

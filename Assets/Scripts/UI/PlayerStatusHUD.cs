@@ -91,7 +91,7 @@ public class PlayerStatusHUD : MonoBehaviour
         else
         {
             // Heal
-            currentFill = healthBarBuffer.fillAmount;
+            // currentFill = healthBarBuffer.fillAmount;
             healthBarBuffer.color = Color.green;
             healthBarBuffer.fillAmount = Player.NormalizedHealth;
             healthBarFill.fillAmount = Mathf.Min(currentFill + Time.fixedUnscaledDeltaTime * healthBarBufferRate, targetFill);

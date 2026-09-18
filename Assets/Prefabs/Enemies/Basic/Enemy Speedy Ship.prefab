@@ -59,8 +59,9 @@ MonoBehaviour:
   doHalt: 0
   inactiveUntilHalted: 0
   targetPosition: {x: 0.65, y: 0}
-  minSpeed: 4
-  maxSpeed: 5
+  relativeTP: 0
+  minSpeed: 3.5
+  maxSpeed: 4.5
   verticalSpeedModifier: 1
   baseDamage: 5
   enemyRenderer: {fileID: 6126950804869920852}

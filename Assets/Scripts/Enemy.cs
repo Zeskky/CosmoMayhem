@@ -154,7 +154,7 @@ public class Enemy : Damageable
                     break;
                 case MovementBehaviour.Wavy:
                     // Enemy will make a sine-like movement
-                    float s = 4 * transform.localScale.magnitude;
+                    float s = 4 * transform.localScale.magnitude * verticalSpeedModifier;
                     float t = s * movementTimer % s;
                     moveDir.y = (movementTimer % 2 >= 1
                         ? t - (s / 2) // Odd
