@@ -99,7 +99,7 @@
 	<object class="MixerBusPanner" id="{f022dada-783e-437c-a282-cb533aadc198}" />
 	<object class="TempoMarker" id="{dd179d68-2ce9-4555-b027-7b2b3c2fc38d}">
 		<property name="position">
-			<value>12.294395833333333</value>
+			<value>12.026791899288449</value>
 		</property>
 		<property name="tempo">
 			<value>180</value>
@@ -113,7 +113,7 @@
 	</object>
 	<object class="LoopRegion" id="{705ce4ad-54be-42f9-9b79-16199aa2b0ff}">
 		<property name="position">
-			<value>12.294395833333333</value>
+			<value>12.026791899288449</value>
 		</property>
 		<property name="length">
 			<value>98.666666666666671</value>
