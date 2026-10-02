@@ -28,21 +28,25 @@ public class PlayerStatusHUD : MonoBehaviour
     private void FixedUpdate()
     {
         ProgressBarBufferUpdate();
-        
+        UIManager ui = FindAnyObjectByType<UIManager>();
+
         if (!Player)
         {
             // Obliterated
             healthBar.color = Color.red;
+            if (ui) ui.OnPinch = false;
         }
         else if ((float)Player.NormalizedHealth <= criticalHealthThreshold)
         {
             // Critical damage
             healthBar.color = criticalHealthEffectGradient.Evaluate(Time.time * criticalHealthEffectSpeed % 1);
+            if (ui) ui.OnPinch = true;
         }
         else
         {
             // Systems OK
             healthBar.color = Color.black;
+            if (ui) ui.OnPinch = false;
         }
 
         // What I actually see

@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
     private void GeneratePlayerShips()
     {
         int playerCount = Launcher.Instance.JoinedPlayers.Count;
-        print(playerCount);
+        //print(playerCount);
         Launcher.Instance.PIM.playerPrefab = playerShipPrefab;
         foreach (PlayerInfo pi in Launcher.Instance.JoinedPlayers)
         {

@@ -1572,19 +1572,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LocalScoresManager
   initialScores:
   - PlayerName: CHRIS
-    Score: 8000
+    Score: 20000
     SubmitTimestamp: 20252227062247828
   - PlayerName: MAX
-    Score: 7000
+    Score: 15000
     SubmitTimestamp: 20252227062247828
   - PlayerName: CAROL
-    Score: 6000
+    Score: 12000
     SubmitTimestamp: 20252227062247828
   - PlayerName: LIAM
-    Score: 5000
+    Score: 9000
     SubmitTimestamp: 20252227062247828
   - PlayerName: JUDY
-    Score: 4000
+    Score: 7500
     SubmitTimestamp: 20252227062247828
   maxHighScores: 5
   localScoresKey: LocalScores
@@ -2278,15 +2278,15 @@ MonoBehaviour:
   stageGrades:
   - targetScoreRatio: 0
     gradeSprite: {fileID: -801540558, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.65
+  - targetScoreRatio: 0.7
     gradeSprite: {fileID: 754583513, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.75
+  - targetScoreRatio: 0.8
     gradeSprite: {fileID: -259938182, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 0.9
+  - targetScoreRatio: 0.95
     gradeSprite: {fileID: 1324400958, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 1.05
+  - targetScoreRatio: 1.1
     gradeSprite: {fileID: -1967250988, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
-  - targetScoreRatio: 1.25
+  - targetScoreRatio: 1.3
     gradeSprite: {fileID: -531459568, guid: b154592cde662a344a9c96e7e74e8113, type: 3}
   stageFailedGrade:
     targetScoreRatio: 0

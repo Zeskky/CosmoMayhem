@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private float healthBorderFadeTime = 1f;
     private float healthBorderTimer = 0;
+    public bool OnPinch { get; set; }
+    [SerializeField] private StudioEventEmitter pinchSound;
     [SerializeField] private Animator introAnimator;
     [SerializeField] private GameObject playerStatusPrefab;
     [SerializeField] private Transform playerStatusContainer;
@@ -98,6 +100,23 @@ public class UIManager : MonoBehaviour
             AnimatorStateInfo asi = introAnimator.GetCurrentAnimatorStateInfo(0);
             GameManager.Instance.GameStarted = asi.IsTag("Out") && asi.normalizedTime >= 1f;
         }
+
+        // Pinch danger border
+        if (OnPinch)
+        {
+            healthBorderTimer += Time.fixedDeltaTime;
+            if (!pinchSound.IsPlaying())
+            {
+                pinchSound.Play();
+            }
+        }
+        else
+        {
+            healthBorderTimer -= Time.fixedDeltaTime;
+            pinchSound.Stop();
+        }
+
+        healthBorderTimer = Mathf.Clamp(healthBorderTimer, 0, healthBorderFadeTime);
 
         criticalHealthBorder.color = new(1, 1, 1, healthBorderTimer / healthBorderFadeTime);
 

@@ -246,7 +246,7 @@
                     "id": "ab5359f4-6f69-4a57-b26f-9df92ad00272",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=1)",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {

@@ -26,7 +26,7 @@ public class NameEntryPanel : MonoBehaviour
         finalScoreLabel.text = $"{monospaceTag}{Launcher.Instance.GetCurrentGameScore()}";
         Launcher.Instance.SetupMenuTimer(30);
         SetupCharacterSet();
-        print(EventSystem.current.currentSelectedGameObject);
+        //print(EventSystem.current.currentSelectedGameObject);
 
         selectEventEmitter.enabled = true;
     }

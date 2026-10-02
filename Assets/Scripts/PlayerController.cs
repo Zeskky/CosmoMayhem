@@ -57,7 +57,7 @@ public class PlayerController : Damageable
             currentSupercoreCharge = Mathf.Clamp(value, 0, minSupercoreCharge);
             if (currentSupercoreCharge == minSupercoreCharge && oldPercent < 1f)
             {
-                print("Supercore Ready! Primary Fire + Alt Fire to activate!");
+                //print("Supercore Ready! Primary Fire + Alt Fire to activate!");
                 supercoreReadyEmitter.Play();
             }
 

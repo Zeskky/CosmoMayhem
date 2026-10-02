@@ -302,11 +302,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1259767897
-      Data2: 1189178734
-      Data3: -1465603964
-      Data4: -807620886
-    Path: event:/BGM/Non-Gameplay Themes/Hall of Fame Screen
+      Data1: 303789605
+      Data2: 1179736793
+      Data3: -1441053563
+      Data4: 1733041479
+    Path: event:/BGM/Non-Gameplay Themes/Leaderboard Screen
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 2

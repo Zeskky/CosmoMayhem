@@ -54,7 +54,7 @@ public class LocalScoresManager : MonoBehaviour
     public void WriteScoresToDisk()
     {
         string jsonDump = JsonUtility.ToJson(LocalScores);
-        print(jsonDump);
+        //print(jsonDump);
         PlayerPrefs.SetString(localScoresKey, jsonDump);
         PlayerPrefs.Save();
     }

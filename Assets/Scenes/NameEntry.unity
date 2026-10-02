@@ -1919,6 +1919,7 @@ MonoBehaviour:
   - {fileID: 984774283}
   selectEventEmitter: {fileID: 1970467085}
   submitEventEmitter: {fileID: 2053966739}
+  charSpacing: 0.825
 --- !u!1 &1206408617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2197,11 +2198,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -194529864
-      Data2: 1192509188
-      Data3: -1228220768
-      Data4: -1382008568
-    Path: event:/BGM/Non-Gameplay Themes/Logout Screen
+      Data1: 303789605
+      Data2: 1179736793
+      Data3: -1441053563
+      Data4: 1733041479
+    Path: event:/BGM/Non-Gameplay Themes/Leaderboard Screen
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 2

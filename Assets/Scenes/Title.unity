@@ -2005,10 +2005,10 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -1871015894
-      Data2: 1105237707
-      Data3: -249183838
-      Data4: 301991112
+      Data1: 1302835303
+      Data2: 1086936766
+      Data3: 735767726
+      Data4: 365510535
     Path: event:/BGM/Non-Gameplay Themes/Main Menu Screen
   Event: 
   EventPlayTrigger: 11
