@@ -549,8 +549,7 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks:
-  - Master
+  MasterBanks: []
   Banks: []
   BanksToLoad: []
   LiveUpdatePort: 9264
@@ -561,9 +560,9 @@ MonoBehaviour:
   StopEventsOutsideMaxDistance: 0
   BoltUnitOptionsBuildPending: 0
   EnableErrorCallback: 0
-  SharedLibraryUpdateStage: 0
-  SharedLibraryTimeSinceStart: 0
-  CurrentVersion: 131856
+  SharedLibraryUpdateStage: 3
+  SharedLibraryTimeSinceStart: 493.1698847
+  CurrentVersion: 131861
   HideSetupWizard: 1
   LastEventReferenceScanVersion: 131856
   Platforms:
